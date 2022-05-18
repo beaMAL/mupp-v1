@@ -10,8 +10,8 @@ class Productos extends Model
     use HasFactory;
 
     public $timestamps = true;
-    protected $table = "productos";
-    protected $primaryKey = "id_producto";
+    // protected $table = "productos";
+    // protected $primaryKey = "id_producto";
     protected $fillable = [
             'nombre',
             'marca',
