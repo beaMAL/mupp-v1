@@ -14,9 +14,10 @@ class CreateSolicitudAltaProductosTable extends Migration
     public function up(){
         Schema::create('solicitud_alta_productos', function(Blueprint $table)
         {
-            $table->unsignedInteger('id_solicitud')->autoIncrement();
-            $table->unsignedInteger('id_usu')->nullable();
-            
+            $table->id('id_solicitud');
+            //$table->unsignedBigInteger('id_usu')->nullable()->foreign()->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreignId('user_id')
+                ->constrained();
             $table->string('nombre');
             $table->string('marca');
             $table->string('categoria');
@@ -25,10 +26,12 @@ class CreateSolicitudAltaProductosTable extends Migration
             $table->string('color')->nullable();
             $table->string('web')->nullable();
             $table->dateTime('fecha_modificacion')->nullable();
-            $table->unsignedInteger('id_ultima_modificacion')->nullable();
-            $table->dateTime('fecha_solicitud');
+            $table->unsignedBigInteger('id_ultima_modificacion')->nullable();
+            $table->timestamps();
 
-            $table->foreign('id_usu')->references('id_usu')->on('usuario')->onDelete('SET NULL');
+
+            //$table->foreign('id_usu')->references('id_usu')->on('usuario')->onDelete('SET NULL');
+
          });
 
      }

@@ -17,10 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('tipo_usuario')->default(0); // 0 = USER && 1 = ADMIN
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            //añadir la relacion que va a tener Usuario en esta migracion
         });
     }
 

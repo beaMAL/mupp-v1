@@ -14,15 +14,19 @@ class CreateUsuariosPublicanRegistrosDeProductosTable extends Migration
     public function up()
     {
         Schema::create('publican_reg_productos', function (Blueprint $table) {
-            $table->unsignedInteger('id_usu');
-            $table->unsignedInteger('id_producto');
-            $table->unsignedInteger('id_registro');
-            $table->dateTime('fecha_registro');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreignId('producto_id')->constrained()->onDelete('cascade');
+            $table->foreignId('registro_id')->constrained()->onDelete('cascade');
 
-            $table->primary(['id_usu', 'id_producto', 'id_registro']);
-            $table->foreign('id_usu')->references('id_usu')->on('usuario');
-            $table->foreign('id_producto')->references('id_producto')->on('productos')->onDelete('cascade');
-            $table->foreign('id_registro')->references('id_registro')->on('registros')->onDelete('cascade');
+            //$table->unsignedBigInteger('id_usu')->foreign()->references('id')->on('users');
+            //$table->unsignedBigInteger('id_producto')->foreign()->references('id_producto')->on('productos')->onDelete('cascade');
+            //$table->unsignedBigInteger('id_registro')->foreign()->references('id_registro')->on('registros')->onDelete('cascade');
+            $table->timestamps();
+
+            $table->primary(['user_id', 'registro_id']);
+            // $table->foreign('id_usu')->references('id')->on('users');
+            // $table->foreign('id_producto')->references('id_producto')->on('productos')->onDelete('cascade');
+            // $table->foreign('id_registro')->references('id_registro')->on('registros')->onDelete('cascade');
 
 
         });

@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class UsuariosPublicanRegistrosDeProductos extends Model
 {
     use HasFactory;
+     /**
+     * Tabla pivot: Relaciona id de dos tablas  distinas (M : N)
+     */
 
-
+    public $timestamps = true;
     protected $table = "publican_reg_productos";
-    protected $primaryKey = ['id_usu', 'id_producto', 'id_registro'];
+    protected $primaryKey = ['id_usu', 'id_registro'];
     protected $fillable = [
-            'fecha_favorito'
+
             ];
 
      public function usuario(){
@@ -22,7 +25,5 @@ class UsuariosPublicanRegistrosDeProductos extends Model
      public function registro(){
         return $this->belongsTo(Registro::class);
     }
-    public function productos(){
-        return $this->belongsToMany(Productos::class);
-    }
+
 }
