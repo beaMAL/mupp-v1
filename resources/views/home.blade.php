@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     //aqui deberia ir página de inicio con menu
-    <productos class=""></productos>
+
+    <admin-productos/>
 </div>
 @endsection

@@ -25,7 +25,7 @@ class ProductoControl extends Controller
      */
     public function store(Request $request)
     {
-        $producto = new Productos();
+        $producto = new Productos;
         $producto->create($request->all());
     }
 
@@ -60,8 +60,8 @@ class ProductoControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Productos $producto)
     {
-        //
+        $producto->delete();
     }
 }

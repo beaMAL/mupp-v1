@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+import Vuetify from '../plugins/vuetify';
 
 window.Vue = require('vue').default;
 
@@ -20,8 +21,13 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example', require('./components/ExampleComponent.vue').default);
+Vue.component('app-container', require('./components/appContainer.vue').default);
 
-Vue.component('productos', require('./components/Productos.vue').default);
+
+//Vue.component('productos', require('./components/Productos.vue').default);
+
+Vue.component('admin-productos', require('./components/AdminProductos.vue').default);
+Vue.component('profile', require('./components/Modal.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,5 +36,7 @@ Vue.component('productos', require('./components/Productos.vue').default);
  */
 
 const app = new Vue({
+    vuetify: Vuetify,
     el: '#app',
+
 });
