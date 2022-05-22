@@ -22,6 +22,8 @@ window.Vue = require('vue').default;
 
 Vue.component('example', require('./components/ExampleComponent.vue').default);
 Vue.component('app-container', require('./components/appContainer.vue').default);
+Vue.component('gestion-productos', require('./components/AdminProductos copy.vue').default);
+Vue.component('gestion-solicitudes', require('./components/AdminSolicitudes').default);
 
 
 //Vue.component('productos', require('./components/Productos.vue').default);

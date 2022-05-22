@@ -54,8 +54,11 @@
       <v-toolbar-title>MUPP</v-toolbar-title>
     </v-app-bar>
 
-    <v-main>
-      <!--  -->
+    <!-- <v-main v-if="catalogo">
+      <gestion-productos></gestion-productos>
+    </v-main> -->
+    <v-main >
+        <gestion-solicitudes></gestion-solicitudes>
     </v-main>
 
   </v-app>
@@ -63,13 +66,20 @@
 
 <script>
 import axios from "axios";
+import panel from "./AdminProductos copy";
+import solicitudes from "./AdminSolicitudes";
   export default {
+    name: 'AdminApp',
+        components: {
+            panel,
+            solicitudes,
+    },
     data: () => ({
       drawer: null,
       selectedItem: 1,
       items: [
-        { text: 'Admin Catálogo', icon: 'mdi-tools', cerrar: false },
-        { text: 'Admin Solicitudes', icon: 'mdi-inbox-arrow-down-outline', cerrar: false },
+        { text: 'Admin Catálogo', icon: 'mdi-tools', cerrar: false, catalogo: true },
+        { text: 'Admin Solicitudes', icon: 'mdi-inbox-arrow-down-outline', cerrar: false, catalogo: false },
         { text: 'Cerrar Sesion', icon: 'mdi-power', cerrar: true},
       ],
     }),

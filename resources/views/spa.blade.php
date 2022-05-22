@@ -26,7 +26,9 @@
     {{-- div contenedor codigo vue --}}
     <div id="app">
 
-       <app-container></app-container>
+       <app-container>
+           
+       </app-container>
     </div>
 
 
