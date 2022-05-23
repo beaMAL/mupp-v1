@@ -65,7 +65,7 @@
 
 <script>
 import axios from "axios";
-import panel from "./AdminProductos copy";
+import panel from "./AdminProductosCat";
 import solicitudes from "./AdminSolicitudes";
   export default {
     name: 'AdminApp',
