@@ -327,12 +327,12 @@ export default {
                             .delete("/productos/" + item.id)
                             .then(response => {
                                 if (response.status != 200){
-                                    throw new Error("Something went wrong");
+                                    throw new Error("Algo fue mal");
                                 }
                                 return response.data;
                             })
                             .catch(error => {
-                                this.$swal.showValidationMessage(`Request failed: ${error}`);
+                                this.$swal.showValidationMessage(`Peticion fallida: ${error}`);
                             });
                     }
                 })
@@ -340,8 +340,8 @@ export default {
                     if (result.isConfirmed) {
                         this.listProductos();
                         swalWithBootstrapButtons.fire(
-                            "Deleted!",
-                            "Your file has been deleted.",
+                            "Eliminado!",
+                            "El producto ha sido eliminado.",
                             "success"
                         );
 
@@ -350,8 +350,8 @@ export default {
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
                         swalWithBootstrapButtons.fire(
-                            "Cancelled",
-                            "Your imaginary file is safe :)",
+                            "Cancelado",
+                            "No se ha borrado ningún producto",
                             "error"
                         );
                     }

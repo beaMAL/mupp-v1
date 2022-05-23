@@ -1,13 +1,10 @@
 <template>
   <v-app id="inspire">
 
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" app class="deep-purple lighten-5">
         <v-list disabled>
         <v-list-item>
-          <v-list-item-avatar rounded color="deep-purple lighter-3">
+          <v-list-item-avatar rounded color="deep-purple lighten-3">
                 <v-icon dark>
                     mdi-account-circle
                 </v-icon>
@@ -47,11 +44,13 @@
     </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app
-        class="deep-purple darken-1 text-white">
+    <v-app-bar flat app
+        class="deep-purple lighter-1 text-white">
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>MUPP</v-toolbar-title>
+      <v-toolbar-title class="font-weight-medium">
+          <span class="font-weight-thin">M</span>UPP
+          </v-toolbar-title>
     </v-app-bar>
 
     <v-main >
@@ -75,11 +74,12 @@ import solicitudes from "./AdminSolicitudes";
             solicitudes,
     },
     data: () => ({
+    catalogo:1,
       drawer: null,
       selectedItem: 1,
       items: [
-        { text: 'Admin Catálogo', icon: 'mdi-tools', cerrar: false, catalogo: true },
-        { text: 'Admin Solicitudes', icon: 'mdi-inbox-arrow-down-outline', cerrar: false, catalogo: false },
+        { text: 'Admin Catálogo', icon: 'mdi-tools', cerrar: false },
+        { text: 'Admin Solicitudes', icon: 'mdi-inbox-arrow-down-outline', cerrar: false },
         { text: 'Cerrar Sesion', icon: 'mdi-power', cerrar: true},
       ],
     }),

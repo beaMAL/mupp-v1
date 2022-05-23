@@ -65,6 +65,6 @@ class GestionSolicitudesController extends Controller
      */
     public function destroy(SolicitudAltaProducto $solicitud)
     {
-        $producto->delete();
+        $solicitud->delete();
     }
 }
