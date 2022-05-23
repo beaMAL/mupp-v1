@@ -54,12 +54,12 @@
       <v-toolbar-title>MUPP</v-toolbar-title>
     </v-app-bar>
 
-    <!-- <v-main v-if="catalogo">
-      <gestion-productos></gestion-productos>
-    </v-main> -->
     <v-main >
-        <gestion-solicitudes></gestion-solicitudes>
+      <gestion-productos></gestion-productos>
     </v-main>
+    <!-- <v-main >
+        <gestion-solicitudes></gestion-solicitudes>
+    </v-main> -->
 
   </v-app>
 </template>#5D4582

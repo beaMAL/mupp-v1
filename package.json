@@ -27,8 +27,9 @@
         "vuetify-loader": "^1.7.3"
     },
     "dependencies": {
+        "@sweetalert2/themes": "^5.0.11",
         "autoprefixer": "10.4.5",
+        "vue-sweetalert2": "^5.0.5",
         "vuetify": "^2.6.6"
-
     }
 }

@@ -6,8 +6,18 @@
 
 require('./bootstrap');
 import Vuetify from '../plugins/vuetify';
+import Vue from 'vue'
+import VueSweetalert2 from 'vue-sweetalert2';
+
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+
+
+
 
 window.Vue = require('vue').default;
+Vue.use(VueSweetalert2);
 
 /**
  * The following block of code may be used to automatically register your
@@ -39,6 +49,7 @@ Vue.component('profile', require('./components/Modal.vue').default);
 
 const app = new Vue({
     vuetify: Vuetify,
+    vueSweetalert2: VueSweetalert2,
     el: '#app',
 
 });

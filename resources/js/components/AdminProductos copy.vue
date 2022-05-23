@@ -3,7 +3,7 @@
         <v-card>
             <v-card-title>
                 <v-text-field
-                     outlined
+                    outlined
                     dense
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -13,17 +13,13 @@
                 ></v-text-field>
             </v-card-title>
             <v-data-table
-
                 :headers="headers"
                 :items="productos"
                 :search="search"
                 sort-by="nombre"
-
             >
                 <template v-slot:[`item.tono`]="{ item }">
-                    <v-chip
-                        :color='item.tono'
-                    >
+                    <v-chip :color="item.tono">
                         {{ item.tono }}
                     </v-chip>
                 </template>
@@ -32,7 +28,7 @@
                         <v-toolbar-title>CATÁLOGO</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
-                        <v-dialog  persistent v-model="dialog" max-width="500px">
+                        <v-dialog persistent v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn
                                     color="purple"
@@ -53,7 +49,7 @@
                                 <v-card-text>
                                     <v-container>
                                         <v-row>
-                                            <v-col cols="12" sm="6" >
+                                            <v-col cols="12" sm="6">
                                                 <v-text-field
                                                     v-model="editedItem.nombre"
                                                     label="Nombre producto"
@@ -61,7 +57,7 @@
                                                     required
                                                 ></v-text-field>
                                             </v-col>
-                                            <v-col cols="12" sm="6" >
+                                            <v-col cols="12" sm="6">
                                                 <v-text-field
                                                     :rules="marcaRules"
                                                     v-model="editedItem.marca"
@@ -88,14 +84,12 @@
                                                     :items="tipos"
                                                     dense
                                                     outlined
-                                                    v-model="
-                                                        editedItem.tipo
-                                                    "
+                                                    v-model="editedItem.tipo"
                                                     label="Tipo"
                                                     required
                                                 ></v-select>
                                             </v-col>
-                                            <v-col cols="12" >
+                                            <v-col cols="12">
                                                 <v-textarea
                                                     :rules="descripcionRules"
                                                     outlined
@@ -106,7 +100,7 @@
                                                     required
                                                 ></v-textarea>
                                             </v-col>
-                                             <v-col cols="12" sm="6" >
+                                            <v-col cols="12" sm="6">
                                                 <v-text-field
                                                     :rules="precioRules"
                                                     type="number"
@@ -118,13 +112,13 @@
                                                     required
                                                 ></v-text-field>
                                             </v-col>
-                                            <v-col cols="12" sm="6" >
+                                            <v-col cols="12" sm="6">
                                                 <v-text-field
                                                     v-model="editedItem.ean"
                                                     label="EAN"
                                                 ></v-text-field>
                                             </v-col>
-                                             <v-col cols="12" >
+                                            <v-col cols="12">
                                                 <v-text-field
                                                     v-model="editedItem.web"
                                                     label="Web"
@@ -142,8 +136,6 @@
                                                     label="Tono"
                                                 ></v-color-picker>
                                             </v-col>
-
-
                                         </v-row>
                                     </v-container>
                                 </v-card-text>
@@ -163,37 +155,19 @@
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
-                        <v-dialog persistent v-model="dialogDelete" max-width="500px">
-                            <v-card>
-                                <v-card-title class="text-h5"
-                                    >¿Quieres eliminar este
-                                    producto?</v-card-title
-                                >
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        color="red darken-1"
-                                        text
-                                        @click="closeDelete"
-                                        >Cancelar</v-btn
-                                    >
-                                    <v-btn
-                                        color="green"
-                                        text
-                                        @click="deleteItemConfirm"
-                                        >OK</v-btn
-                                    >
-                                    <v-spacer></v-spacer>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
                     </v-toolbar>
                 </template>
+
+
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-icon small class="mr-2" @click="editItem(item)">
                         mdi-pencil
                     </v-icon>
-                    <v-icon small @click="deleteItem(item)" color="red lighten-1">
+                    <v-icon
+                        small
+                        @click="deleteItemSweet(item)"
+                        color="red lighten-1"
+                    >
                         mdi-delete
                     </v-icon>
                 </template>
@@ -207,35 +181,29 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default {
     name: "panel",
     data() {
         return {
-
-            nombreRules:[
-                v=> !!v || "Introduzca un nombre",
-            ],
-            marcaRules:[
-                 v=> !!v || "Introduzca una marca",
-            ],
-            catRules: [
-                 v=> !!v || "Requerido",
-            ],
+            nombreRules: [(v) => !!v || "Introduzca un nombre"],
+            marcaRules: [(v) => !!v || "Introduzca una marca"],
+            catRules: [(v) => !!v || "Requerido"],
             descripcionRules: [
-                 v=> !!v || "Requerido",
-                v=>(v || '').length <= 500 || 'Max 500 caracteres',
+                (v) => !!v || "Requerido",
+                (v) => (v || "").length <= 500 || "Max 500 caracteres",
             ],
             precioRules: [
-                v=> v>0 || "Requerido",
-                v=> !!v || "Requerido",
-                v=>(v)<= 4000 || 'Max 4000€ precio',
+                (v) => v > 0 || "Requerido",
+                (v) => !!v || "Requerido",
+                (v) => v <= 4000 || "Max 4000€ precio",
             ],
-            tiposRules: [
-                v=> !!v || "Requerido",
-            ],
+            tiposRules: [(v) => !!v || "Requerido"],
             dialog: false,
             dialogDelete: false,
+            modalSucces: false,
+            modalError: false,
             search: "",
             update: true,
             modal: 0,
@@ -279,34 +247,32 @@ export default {
                 ean: "",
             },
             categorias: [
-                {text: "Pegamento"},
-                {text: "Utensilios"},
-                {text: "Ojos"},
-                {text: "Labios"},
-                {text: "Rostro"},
-                {text: "Uñas"},
-                {text: "Cabello"},
-                {text: "Skincare"},
-                {text: "Sangre"},
-                {text: "Productos químicos"},
-                {text: "Mantenimiento"}
-
+                { text: "Pegamento" },
+                { text: "Utensilios" },
+                { text: "Ojos" },
+                { text: "Labios" },
+                { text: "Rostro" },
+                { text: "Uñas" },
+                { text: "Cabello" },
+                { text: "Skincare" },
+                { text: "Sangre" },
+                { text: "Productos químicos" },
+                { text: "Mantenimiento" },
             ],
-             tipos: [
-                {text: "Pegamento"},
-                {text: "Utensilios"},
-                {text: "Ojos"},
-                {text: "Labios"},
-                {text: "Rostro"},
-                {text: "Uñas"},
-                {text: "Cabello"},
-                {text: "Skincare"},
-                {text: "Sangre"},
-                {text: "Productos químicos"},
-                {text: "Mantenimiento"},
-                 {text: "Efectos especiales"}
-
-            ]
+            tipos: [
+                { text: "Pegamento" },
+                { text: "Utensilios" },
+                { text: "Ojos" },
+                { text: "Labios" },
+                { text: "Rostro" },
+                { text: "Uñas" },
+                { text: "Cabello" },
+                { text: "Skincare" },
+                { text: "Sangre" },
+                { text: "Productos químicos" },
+                { text: "Mantenimiento" },
+                { text: "Efectos especiales" },
+            ],
         };
     },
     computed: {
@@ -332,23 +298,64 @@ export default {
             const respuesta = await axios.get("productos");
             this.productos = respuesta.data;
         },
-        async eliminar(id) {
-            const respuesta = await axios.delete("/productos/" + id);
-            this.listProductos();
-        },
         editItem(item) {
             this.editedIndex = this.productos.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
-        deleteItem(item) {
-            this.editedIndex = this.productos.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialogDelete = true;
-        },
-        deleteItemConfirm() {
-            this.productos.splice(this.editedIndex, 1);
-            this.closeDelete();
+         deleteItemSweet(item) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger",
+                },
+                buttonsStyling: true,
+            });
+
+            swalWithBootstrapButtons
+                .fire({
+                    title: "¿Quieres eliminar este producto?",
+                    text: "No será posible volver atrás",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Eliminar!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: true,
+                    showLoaderOnConfirm: true,
+                     preConfirm: async () => {
+                        return await axios
+                            .delete("/productos/" + item.id)
+                            .then(response => {
+                                if (response.status != 200){
+                                    throw new Error("Something went wrong");
+                                }
+                                return response.data;
+                            })
+                            .catch(error => {
+                                this.$swal.showValidationMessage(`Request failed: ${error}`);
+                            });
+                    }
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.listProductos();
+                        swalWithBootstrapButtons.fire(
+                            "Deleted!",
+                            "Your file has been deleted.",
+                            "success"
+                        );
+
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            "Cancelled",
+                            "Your imaginary file is safe :)",
+                            "error"
+                        );
+                    }
+                });
         },
         close() {
             this.dialog = false;
@@ -366,7 +373,10 @@ export default {
         },
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.productos[this.editedIndex], this.editedItem);
+                Object.assign(
+                    this.productos[this.editedIndex],
+                    this.editedItem
+                );
             } else {
                 this.productos.push(this.editedItem);
             }

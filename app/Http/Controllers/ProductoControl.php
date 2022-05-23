@@ -63,5 +63,6 @@ class ProductoControl extends Controller
     public function destroy(Productos $producto)
     {
         $producto->delete();
+       // return response()->json('mensaje', 'ok');
     }
 }
