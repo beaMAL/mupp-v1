@@ -9,11 +9,11 @@ class SolicitudAltaProducto extends Model
 {
     use HasFactory;
 
-
-    protected $table = "solicitud_alta_productos";
-    protected $primaryKey = "id_solicitud";
+    public $timestamps = true;
+    // protected $table = "solicitud_alta_productos";
+    // protected $primaryKey = "id_solicitud";
     protected $fillable = [
-            'id_usu_alta',
+            'user_id',
             'nombre',
              'marca',
              'categoria',
@@ -22,12 +22,10 @@ class SolicitudAltaProducto extends Model
             'tipo',
             'tono',
             'web',
-            'created_at',
-            'fecha_modificacion',
             'id_ultima_modificacion',
             'fecha_solicitud'];
 
     public function usuario(){
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(User::class);
     }
 }

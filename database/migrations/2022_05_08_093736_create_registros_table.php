@@ -14,7 +14,9 @@ class CreateRegistrosTable extends Migration
     public function up(){
         Schema::create('registros', function(Blueprint $table)
         {
-            $table->unsignedInteger('id_registro')->autoIncrement();
+            $table->id();
+            $table->foreignId('producto_id')->constrained()->onDelete('cascade');
+
             $table->string('imagen')->nullable();
             $table->string('formato');
             $table->string('web')->nullable();
@@ -30,6 +32,7 @@ class CreateRegistrosTable extends Migration
             $table->dateTime('fecha_compra')->nullable();
             $table->dateTime('fecha_apertura')->nullable();
             $table->dateTime('fecha_agotado')->nullable();
+            $table->timestamps();
 
          });
         }

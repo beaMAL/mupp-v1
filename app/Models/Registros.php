@@ -9,10 +9,13 @@ class Registros extends Model
 {
     use HasFactory;
 
-    protected $table = "registros";
-    protected $primaryKey = "id_registro";
+
+    public $timestamps = true;
+    // protected $table = "registros";
+    // protected $primaryKey = "registro_id";
     protected $fillable = [
             'nombre',
+            'producto_id',
              'imagen',
              'formato',
              'descripcion',
@@ -30,4 +33,10 @@ class Registros extends Model
             'fecha_compra'
             ];
 
+    public function producto(){
+        return $this->belongsToMany(Producto::class);
+    }
+    public function porUsuario(){
+         return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }
