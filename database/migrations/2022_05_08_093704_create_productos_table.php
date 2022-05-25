@@ -23,7 +23,7 @@ class CreateProductosTable extends Migration
             $table->float('precio');
             $table->string('tipo');
             $table->string('tono');
-            $table->string('web');
+            $table->string('web')->nullable();;
             $table->string('ean')->nullable();
 
             $table->unsignedBigInteger('id_ultima_modificacion')->nullable();

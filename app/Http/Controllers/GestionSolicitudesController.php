@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SolicitudAltaProducto;
 
-
 class GestionSolicitudesController extends Controller
 {
     /**
@@ -67,8 +66,15 @@ class GestionSolicitudesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SolicitudAltaProducto $solicitud)
+    public function destroy(Request $request,  $id)
     {
-        $solicitud->delete();
+        try{
+            $solicitud = SolicitudAltaProducto::find($id);
+            $solicitud->delete();
+            return response()->json('Solicitud deleted!');
+        }catch(Exception $e){
+            console.log($e->getMessage());
+        }
+
     }
 }

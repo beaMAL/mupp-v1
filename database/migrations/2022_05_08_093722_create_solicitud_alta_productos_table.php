@@ -14,7 +14,7 @@ class CreateSolicitudAltaProductosTable extends Migration
     public function up(){
         Schema::create('solicitud_alta_productos', function(Blueprint $table)
         {
-            $table->id('id_solicitud');
+            $table->id();
             //$table->unsignedBigInteger('id_usu')->nullable()->foreign()->references('id')->on('users')->onDelete('SET NULL');
             $table->foreignId('user_id')
                 ->constrained();

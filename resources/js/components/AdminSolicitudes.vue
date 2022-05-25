@@ -280,7 +280,7 @@ export default {
             this.solicitudes = respuesta.data;
         },
          editItem(item) {
-             this.id = item.id_solicitud;
+             this.id = item.id;
              console.log(this.id);
             // this.editedIndex = this.solicitudes.indexOf(item);
             this.editedItem = {
@@ -305,8 +305,9 @@ export default {
                 buttonsStyling: true,
             });
             console.log(item);
-            console.log(item.id_solicitud);
-             let id = (item.id_solicitud).toString();
+            console.log(item.id);
+            let id = item.id.toString();
+            console.log(id);
             swalWithBootstrapButtons
                 .fire({
                     title: "¿Quieres eliminar este solicitud?",
@@ -319,13 +320,19 @@ export default {
                     showLoaderOnConfirm: true,
                     preConfirm: async () => {
                         try {
+                             console.log('voy a enviar delete');
                             let response = await axios.delete(
                                 "http://127.0.0.1:8000/solicitudes/" + id
                             );
+
                              this.listSolicitudes();
+                              console.log('enviado...');
                             if (response.status != 200) {
+                                 console.log('estatus es distinto de 200');
                                 throw new Error("Algo fue mal");
+
                             }
+                             console.log('estatus deberia ser de 200');
                             return response.data;
                         } catch (e) {
                             this.$swal.showValidationMessage(
@@ -406,7 +413,7 @@ export default {
                                     console.log(response.data);
                                     throw new Error("Algo fue mal");
                                 }else{
-                                    this.elimitarDespuesDePost();
+                                    this.eliminarDespuesDePost();
                                 }
                                 this.close();
                                 return response.data;
@@ -437,7 +444,7 @@ export default {
                         }
                     });
         },
-        async elimitarDespuesDePost(){
+        async eliminarDespuesDePost(){
               try{
                     console.log('voy a intentar borrar');
                     console.log(this.id);
