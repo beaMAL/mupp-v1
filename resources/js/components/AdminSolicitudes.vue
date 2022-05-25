@@ -20,30 +20,19 @@
                 sort-by="nombre"
 
             >
-                <template v-slot:[`item.tono`]="{ item }">
+                <!-- <template v-slot:[`item.tono`]="{ item }">
                     <v-chip
                         :color='item.tono'
                     >
                         {{ item.tono }}
                     </v-chip>
-                </template>
+                </template> -->
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-toolbar-title>Solicitudes de Alta Producto</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
                         <v-dialog  persistent v-model="dialog" max-width="500px">
-                            <!-- <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    color="purple"
-                                    dark
-                                    class="mb-2"
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >
-                                    Añadir producto
-                                </v-btn>
-                            </template> -->
                             <v-card>
                                 <v-card-title>
                                     <span class="text-h5">Solicitud</span>
@@ -137,6 +126,7 @@
                                                     hide-mode-switch
                                                     hide-sliders
                                                     show-swatches
+                                                     mode="hexa"
                                                     swatches-max-height="110"
                                                     v-model="editedItem.tono"
                                                     label="Tono"
@@ -170,12 +160,12 @@
                     <v-icon small class="mr-2" @click="editItem(item)">
                         mdi-eye
                     </v-icon>
-                    <v-icon small @click="deleteItem(item)" color="red lighten-1">
+                    <v-icon small @click="deleteItemSweet(item)" color="red lighten-1">
                         mdi-email-remove
                     </v-icon>
                 </template>
                 <template v-slot:no-data>
-                    <v-btn color="primary" @click="initialize()"> Reset </v-btn>
+                    <v-btn color="primary" @click="listSolicitudes()"> Reset </v-btn>
                 </template>
             </v-data-table>
         </v-card>
@@ -184,11 +174,11 @@
 </template>
 <script>
 import axios from "axios";
+import NoWorkResult from "postcss/lib/no-work-result";
+import Swal from "sweetalert2";
+
 export default {
     name: "solicitudes",
-    created() {
-        this.initialize();
-    },
     data() {
         return {
              nombreRules:[
@@ -269,6 +259,7 @@ export default {
                 tono: "",
                 web: "",
                 ean: "",
+                id_ultima_modificacion: "",
             },
             editedItem: {
                 nombre: "",
@@ -280,21 +271,34 @@ export default {
                 tono: "",
                 web: "",
                 ean: "",
+                id_ultima_modificacion: "",
             },
         }
 
     },
     methods: {
         async listSolicitudes() {
-            const respuesta = await axios.get("solicitudes");
+            const respuesta = await axios.get("http://127.0.0.1:8000/solicitudes");
             this.solicitudes = respuesta.data;
         },
          editItem(item) {
+             console.log(item);
             this.editedIndex = this.solicitudes.indexOf(item);
-            this.editedItem = Object.assign({}, item);
+            this.editedItem = {
+                nombre: item.nombre,
+                marca: item.marca,
+                categoria: item.marca,
+                descripcion: item.descripcion,
+                precio: item.precio,
+                tipo: item.tipo,
+                tono: item.color,
+                web: item.web,
+                ean: item.ean,
+
+            }
             this.dialog = true;
         },
-          deleteItemSweet(item) {
+         deleteItemSweet(item) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
@@ -305,7 +309,7 @@ export default {
 
             swalWithBootstrapButtons
                 .fire({
-                    title: "¿Quieres eliminar esta solicitud?",
+                    title: "¿Quieres eliminar este solicitud?",
                     text: "No será posible volver atrás",
                     icon: "warning",
                     showCancelButton: true,
@@ -313,30 +317,31 @@ export default {
                     cancelButtonText: "No, cancelar!",
                     reverseButtons: true,
                     showLoaderOnConfirm: true,
-                     preConfirm: async () => {
-                        return await axios
-                            .delete("/solicitudes/" + item.id)
-                            .then(response => {
-                                if (response.status != 200){
-                                    throw new Error("Algo fue mal");
-                                }
-                                return response.data;
-                            })
-                            .catch(error => {
-                                this.$swal.showValidationMessage(`Peticion fallida: ${error}`);
-                                console.log(error);
-                            });
-                    }
+                    preConfirm: async () => {
+                        try {
+                            let response = await axios.delete(
+                                "http://127.0.0.1:8000/solicitudes/" + item.id
+                            );
+                             this.listSolicitudes();
+                            if (response.status != 200) {
+                                throw new Error("Algo fue mal");
+                            }
+                            return response.data;
+                        } catch (e) {
+                            this.$swal.showValidationMessage(
+                                `Peticion fallida: ${e}`
+                            );
+                        }
+                    },
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
                         this.listProductos();
                         swalWithBootstrapButtons.fire(
                             "Eliminado!",
-                            "La solicitud de alta de producto ha sido eliminada.",
+                            "El solicitud ha sido eliminado.",
                             "success"
                         );
-
                     } else if (
                         /* Read more about handling dismissals below */
                         result.dismiss === Swal.DismissReason.cancel
@@ -348,6 +353,13 @@ export default {
                         );
                     }
                 });
+        },
+        getNow() {
+                const today = new Date();
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                const dateTime = date +' '+ time;
+                return dateTime;
         },
         close() {
             this.dialog = false;
@@ -363,14 +375,74 @@ export default {
 
             });
         },
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.solicitudes[this.editedIndex], this.editedItem);
-            } else {
-                this.solicitudes.push(this.editedItem);
-            }
-            this.close();
-        },
+        async save(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                buttonsStyling: true,
+            });
+            console.log(this.editedItem);
+            swalWithBootstrapButtons
+                    .fire({
+                        title: "¿Quieres añadir este producto al catálogo?",
+                        text: "No será posible volver atrás",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Añadir!",
+                        cancelButtonText: "No, cancelar!",
+                        reverseButtons: true,
+                        showLoaderOnConfirm: true,
+                        preConfirm: async () => {
+                            try {
+                                if(exists(this.editedItem.tono.hex)){
+
+                                }
+                                let response = await axios.post(
+                                    "http://127.0.0.1:8000/solicitudes",
+                                    this.editedItem
+                                );
+                                this.listProductos();
+                                if (response.status != 200) {
+                                    console.log(response.data);
+                                    throw new Error("Algo fue mal");
+                                } else {
+                                    console.log(response.data);
+                                }
+                                this.close();
+                                return response.data;
+                            } catch (e) {
+                                this.$swal.showValidationMessage(
+                                    `Peticion fallida: ${e}`
+                                );
+                            }
+                        },
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed & (result.status == 200)) {
+
+                            swalWithBootstrapButtons.fire(
+                                "Guardado!",
+                                "El producto ha sido añadido al catálogo",
+                                "success"
+                            );
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            swalWithBootstrapButtons.fire(
+                                "Cancelado",
+                                "No se ha añadido ningún producto al catálogo",
+                                "error"
+                            );
+                        }
+                    });
+        }
+        // save() {
+        //     if (this.editedIndex > -1) {
+        //         Object.assign(this.solicitudes[this.editedIndex], this.editedItem);
+        //     } else {
+        //         this.solicitudes.push(this.editedItem);
+        //     }
+        //     this.close();
+        // },
     },
     created() {
         this.listSolicitudes();
@@ -385,4 +457,9 @@ export default {
     },
 }
 </script>
+<style>
+div.container{
+    background-color:#e3ddec;
+}
+</style>
 

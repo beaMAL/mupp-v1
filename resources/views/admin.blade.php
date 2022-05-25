@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -24,8 +24,7 @@
 </head>
 <body>
     {{-- div contenedor codigo vue --}}
-    <div id="app">
-
+    <div id="app" >
        <app-container></app-container>
     </div>
 

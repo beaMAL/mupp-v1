@@ -45,13 +45,19 @@ class ProductoControl extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * //@param  int  $id
+     * @param  int  $id
      * @param \App\Models\Productos $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $producto)
+    public function update(Request $request, $id)
     {
-        //
+        try{
+            Productos::find($id)->update($request->all());
+            return response()->json('Product updated!');
+        }catch(Exception $e){
+            console.log($e->getMessage());
+        }
+
     }
 
     /**
@@ -63,6 +69,6 @@ class ProductoControl extends Controller
     public function destroy(Productos $producto)
     {
         $producto->delete();
-       // return response()->json('mensaje', 'ok');
+    //    return response()->json('mensaje', 'ok');
     }
 }

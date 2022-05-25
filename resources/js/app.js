@@ -32,15 +32,11 @@ const router = new VueRouter({
     mode: 'history',
     routes:[
         {
-            path : '/panel',
-            component: appContainer
-        },
-        {
-            path : '/adminproductos',
+            path : '/admin/adminproductos',
             component: AdminProductosCat
         },
         {
-            path : '/adminsolicitudes',
+            path : '/admin/adminsolicitudes',
             component: AdminSolicitudes,
         }
     ]

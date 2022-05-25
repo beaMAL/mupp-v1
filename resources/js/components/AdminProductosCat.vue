@@ -31,6 +31,7 @@
                         <v-dialog persistent v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn
+                                    @click="update = false"
                                     color="purple"
                                     dark
                                     class="mb-2"
@@ -131,6 +132,7 @@
                                                     hide-mode-switch
                                                     hide-sliders
                                                     show-swatches
+                                                     mode="hexa"
                                                     swatches-max-height="110"
                                                     v-model="editedItem.tono"
                                                     label="Tono"
@@ -158,9 +160,15 @@
                     </v-toolbar>
                 </template>
 
-
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon small class="mr-2" @click="editItem(item)">
+                    <v-icon
+                        small
+                        class="mr-2"
+                        @click="
+                            editItem(item);
+                            update = true;
+                        "
+                    >
                         mdi-pencil
                     </v-icon>
                     <v-icon
@@ -172,7 +180,9 @@
                     </v-icon>
                 </template>
                 <template v-slot:no-data>
-                    <v-btn color="primary" @click="initialize()"> Reset </v-btn>
+                    <v-btn color="primary" @click="listProductos()">
+                        Reset
+                    </v-btn>
                 </template>
             </v-data-table>
         </v-card>
@@ -180,8 +190,9 @@
 </template>
 
 <script>
+import { thisExpression } from "@babel/types";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default {
     name: "panel",
@@ -202,14 +213,14 @@ export default {
             tiposRules: [(v) => !!v || "Requerido"],
             dialog: false,
             dialogDelete: false,
-            modalSucces: false,
-            modalError: false,
             search: "",
             update: true,
             modal: 0,
             titleModal: "",
+            id: 0,
             productos: [],
             editedIndex: -1,
+            result: null,
             headers: [
                 {
                     text: "Nombre ",
@@ -234,6 +245,7 @@ export default {
                 tono: "",
                 web: "",
                 ean: "",
+                id_ultima_modificacion: "",
             },
             editedItem: {
                 nombre: "",
@@ -245,6 +257,7 @@ export default {
                 tono: "",
                 web: "",
                 ean: "",
+                id_ultima_modificacion: "",
             },
             categorias: [
                 { text: "Pegamento" },
@@ -286,30 +299,29 @@ export default {
         dialog(val) {
             val || this.close();
         },
-        dialogDelete(val) {
-            val || this.closeDelete();
-        },
-    },
-    created() {
-        this.initialize();
     },
     methods: {
         async listProductos() {
-            const respuesta = await axios.get("productos");
+            const respuesta = await axios.get(
+                "http://127.0.0.1:8000/productos"
+            );
             this.productos = respuesta.data;
         },
         editItem(item) {
+            console.log(item);
+            this.id = item.id;
             this.editedIndex = this.productos.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
-         deleteItemSweet(item) {
+        deleteItemSweet(item) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
                     cancelButton: "btn btn-danger",
                 },
                 buttonsStyling: true,
+
             });
 
             swalWithBootstrapButtons
@@ -322,19 +334,22 @@ export default {
                     cancelButtonText: "No, cancelar!",
                     reverseButtons: true,
                     showLoaderOnConfirm: true,
-                     preConfirm: async () => {
-                        return await axios
-                            .delete("/productos/" + item.id)
-                            .then(response => {
-                                if (response.status != 200){
-                                    throw new Error("Algo fue mal");
-                                }
-                                return response.data;
-                            })
-                            .catch(error => {
-                                this.$swal.showValidationMessage(`Peticion fallida: ${error}`);
-                            });
-                    }
+                    preConfirm: async () => {
+                        try {
+                            let response = await axios.delete(
+                                "http://127.0.0.1:8000/productos/" + item.id
+                            );
+                             this.listProductos();
+                            if (response.status != 200) {
+                                throw new Error("Algo fue mal");
+                            }
+                            return response.data;
+                        } catch (e) {
+                            this.$swal.showValidationMessage(
+                                `Peticion fallida: ${e}`
+                            );
+                        }
+                    },
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
@@ -344,7 +359,6 @@ export default {
                             "El producto ha sido eliminado.",
                             "success"
                         );
-
                     } else if (
                         /* Read more about handling dismissals below */
                         result.dismiss === Swal.DismissReason.cancel
@@ -357,31 +371,106 @@ export default {
                     }
                 });
         },
+        async save() {
+            console.log(this.update);
+            const swalWithBootstrapButtons = Swal.mixin({
+                buttonsStyling: true,
+            });
+            console.log(this.editedItem);
+
+            if (this.update) {
+                this.update = false;
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "¿Quieres guardar cambios en este producto?",
+                        text: "No será posible volver atrás",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Guardar!",
+                        cancelButtonText: "No, cancelar!",
+                        reverseButtons: true,
+                        showLoaderOnConfirm: true,
+                        preConfirm: async () => {
+                            try {
+                                let response = await axios.put(
+                                    "http://127.0.0.1:8000/productos/" +
+                                        this.id,
+                                    this.editedItem
+                                );
+                                this.listProductos();
+                                if (response.status != 200) {
+                                    console.log(response.data);
+                                    throw new Error("Algo fue mal");
+                                } else {
+                                    console.log(response.data);
+                                }
+                                this.close();
+                                return response.data;
+                            } catch (e) {
+                                this.$swal.showValidationMessage(
+                                    `Peticion fallida: ${e}`
+                                );
+                            }
+                        },
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed & (result.status == 200)) {
+                            swalWithBootstrapButtons.fire(
+                                "Guardado!",
+                                "El producto ha sido añadido.",
+                                "success"
+                            );
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            swalWithBootstrapButtons.fire(
+                                "Cancelado",
+                                "No se ha añadido ningún producto",
+                                "error"
+                            );
+                        }
+                    });
+            } else {
+                try {
+                    let result = await axios.post(
+                        "http://127.0.0.1:8000/productos",this.editedItem
+
+                    );
+                    this.listProductos();
+                    if (result.status != 200) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                        });
+                    } else {
+                        Swal.fire(
+                            "Añadido!",
+                            "Your file has been added.",
+                            "success"
+                        );
+                    }
+                    this.close();
+                    return result.data;
+                } catch (e) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: `Peticion fallida: ${e}`,
+                    });
+                }
+            }
+        },
         close() {
             this.dialog = false;
+            this.id = 0;
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.editedIndex = -1;
             });
         },
-        closeDelete() {
-            this.dialogDelete = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
-        },
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.productos[this.editedIndex],
-                    this.editedItem
-                );
-            } else {
-                this.productos.push(this.editedItem);
-            }
-            this.close();
-        },
+
     },
     created() {
         this.listProductos();
@@ -389,11 +478,7 @@ export default {
 };
 </script>
 <style>
-.show {
-    display: list-item;
-}
-.bgpurple {
-    opacity: 1;
-    background-color: rgba(44, 38, 75, 0.849);
+div.container {
+    background-color: #eeeeee;
 }
 </style>

@@ -3,10 +3,10 @@ const mix = require('laravel-mix');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin.js');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-import Swal from 'sweetalert2'
+//import Swal from 'sweetalert2
 
 // CommonJS
-const Swal = require('sweetalert2')
+// const Swal = require('sweetalert2')
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -22,7 +22,8 @@ var webpackConfig ={
         // new VueLoaderPlugin(),
          new VuetifyLoaderPlugin(),
          new CaseSensitivePathsPlugin(),
-         new Swal(),
+
+
 
 
      ]

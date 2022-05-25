@@ -104,7 +104,7 @@
                                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Elige un color">
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div class="row">
@@ -192,11 +192,11 @@ export default {
     },
     methods: {
         async listProductos() {
-            const respuesta = await axios.get("productos");
+            const respuesta = await axios.get("http://127.0.0.1:8000/productos");
             this.productos = respuesta.data;
         },
         async eliminar(id) {
-            const respuesta = await axios.delete("/productos/" + id);
+            const respuesta = await axios.delete("http://127.0.0.1:8000/productos/" + id);
             this.listProductos();
         },
         openModal(id = 0) {

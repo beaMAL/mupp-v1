@@ -48,13 +48,17 @@ class GestionSolicitudesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * //@param  int  $id
      * @param \App\Models\SolicitudAltaProducto $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $solicitud)
+    public function update(Request $request, $id)
     {
-        //
+        try{
+            SolicitudAltaProducto::find($id)->update($request->all());
+            return response()->json('Solicitud updated!');
+        }catch(Exception $e){
+            console.log($e->getMessage());
+        }
     }
 
     /**
