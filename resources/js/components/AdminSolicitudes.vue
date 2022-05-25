@@ -215,7 +215,6 @@ export default {
                 },
                 { text: "Marca", value: "marca" },
                 { text: "Categoría", value: "categoria" },
-                 { text: "Tono", value: "tono" },
                 { text: "Actions", value: "actions", sortable: false },
             ],
              categorias: [
