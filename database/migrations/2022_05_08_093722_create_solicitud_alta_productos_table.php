@@ -23,7 +23,7 @@ class CreateSolicitudAltaProductosTable extends Migration
             $table->string('categoria');
             $table->float('precio')->nullable();
             $table->multiLineString('descripcion', 300)->nullable();
-            $table->string('color')->nullable();
+            $table->string('tono')->nullable();
             $table->string('web')->nullable();
             $table->dateTime('fecha_modificacion')->nullable();
             $table->unsignedBigInteger('id_ultima_modificacion')->nullable();

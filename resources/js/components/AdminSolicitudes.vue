@@ -20,13 +20,13 @@
                 sort-by="nombre"
 
             >
-                <!-- <template v-slot:[`item.tono`]="{ item }">
+                <template v-slot:[`item.tono`]="{ item }">
                     <v-chip
                         :color='item.tono'
                     >
                         {{ item.tono }}
                     </v-chip>
-                </template> -->
+                </template>
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-toolbar-title>Solicitudes de Alta Producto</v-toolbar-title>
@@ -132,8 +132,6 @@
                                                     label="Tono"
                                                 ></v-color-picker>
                                             </v-col>
-
-
                                         </v-row>
                                     </v-container>
                                 </v-card-text>
@@ -153,7 +151,6 @@
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
-
                     </v-toolbar>
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
@@ -174,7 +171,6 @@
 </template>
 <script>
 import axios from "axios";
-import NoWorkResult from "postcss/lib/no-work-result";
 import Swal from "sweetalert2";
 
 export default {
@@ -207,6 +203,7 @@ export default {
             search: "",
             update: true,
             modal: 0,
+            id: 0,
             titleModal: "",
             solicitudes: [],
             headers: [
@@ -218,6 +215,7 @@ export default {
                 },
                 { text: "Marca", value: "marca" },
                 { text: "Categoría", value: "categoria" },
+                 { text: "Tono", value: "tono" },
                 { text: "Actions", value: "actions", sortable: false },
             ],
              categorias: [
@@ -282,19 +280,19 @@ export default {
             this.solicitudes = respuesta.data;
         },
          editItem(item) {
-             console.log(item);
-            this.editedIndex = this.solicitudes.indexOf(item);
+             this.id = item.id_solicitud;
+             console.log(this.id);
+            // this.editedIndex = this.solicitudes.indexOf(item);
             this.editedItem = {
                 nombre: item.nombre,
                 marca: item.marca,
-                categoria: item.marca,
+                categoria: item.categoria,
                 descripcion: item.descripcion,
                 precio: item.precio,
                 tipo: item.tipo,
-                tono: item.color,
+                tono: item.tono,
                 web: item.web,
                 ean: item.ean,
-
             }
             this.dialog = true;
         },
@@ -306,7 +304,9 @@ export default {
                 },
                 buttonsStyling: true,
             });
-
+            console.log(item);
+            console.log(item.id_solicitud);
+             let id = (item.id_solicitud).toString();
             swalWithBootstrapButtons
                 .fire({
                     title: "¿Quieres eliminar este solicitud?",
@@ -320,7 +320,7 @@ export default {
                     preConfirm: async () => {
                         try {
                             let response = await axios.delete(
-                                "http://127.0.0.1:8000/solicitudes/" + item.id
+                                "http://127.0.0.1:8000/solicitudes/" + id
                             );
                              this.listSolicitudes();
                             if (response.status != 200) {
@@ -336,7 +336,7 @@ export default {
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        this.listProductos();
+                        this.listSolicitudes();
                         swalWithBootstrapButtons.fire(
                             "Eliminado!",
                             "El solicitud ha sido eliminado.",
@@ -363,6 +363,7 @@ export default {
         },
         close() {
             this.dialog = false;
+            this.id =0;
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem);
 
@@ -379,7 +380,11 @@ export default {
             const swalWithBootstrapButtons = Swal.mixin({
                 buttonsStyling: true,
             });
+
+            let color = this.editedItem.tono;
+            this.editedItem.tono= color.hex;
             console.log(this.editedItem);
+
             swalWithBootstrapButtons
                     .fire({
                         title: "¿Quieres añadir este producto al catálogo?",
@@ -392,19 +397,16 @@ export default {
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
-                                if(exists(this.editedItem.tono.hex)){
-
-                                }
                                 let response = await axios.post(
-                                    "http://127.0.0.1:8000/solicitudes",
+                                    "http://127.0.0.1:8000/productos",
                                     this.editedItem
                                 );
-                                this.listProductos();
+
                                 if (response.status != 200) {
                                     console.log(response.data);
                                     throw new Error("Algo fue mal");
-                                } else {
-                                    console.log(response.data);
+                                }else{
+                                    this.elimitarDespuesDePost();
                                 }
                                 this.close();
                                 return response.data;
@@ -434,7 +436,28 @@ export default {
                             );
                         }
                     });
+        },
+        async elimitarDespuesDePost(){
+              try{
+                    console.log('voy a intentar borrar');
+                    console.log(this.id);
+                    let id = this.id.toString();
+                     console.log(id);
+                    let result = await axios.delete(
+                        "http://127.0.0.1:8000/solicitudes/"+ id
+                     )
+                     this.listSolicitudes();
+                    if (result.status != 200) {
+                            throw new Error("Algo fue mal al borrar la solicitud");
+                    }
+                    return result.data;
+                }catch (e) {
+                    this.$swal.showValidationMessage(
+                        `Peticion fallida: ${e}`
+                    );
+                }
         }
+
         // save() {
         //     if (this.editedIndex > -1) {
         //         Object.assign(this.solicitudes[this.editedIndex], this.editedItem);

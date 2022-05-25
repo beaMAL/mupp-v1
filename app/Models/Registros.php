@@ -11,8 +11,8 @@ class Registros extends Model
 
 
     public $timestamps = true;
-    protected $table = "registros";
-    protected $primaryKey = "registro_id";
+    // protected $table = "registros";
+    // protected $primaryKey = "registro_id";
     protected $fillable = [
             'nombre',
             'producto_id',

@@ -10,8 +10,8 @@ class SolicitudAltaProducto extends Model
     use HasFactory;
 
     public $timestamps = true;
-    protected $table = "solicitud_alta_productos";
-    protected $primaryKey = "id_solicitud";
+    // protected $table = "solicitud_alta_productos";
+    // protected $primaryKey = "id_solicitud";
     protected $fillable = [
             'user_id',
             'nombre',
