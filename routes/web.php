@@ -19,10 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('{any}', function(){
+//     return view('home');
+// });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+// Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin')
+//     ->middleware('auth');
 
 Route::apiResource('/productos', ProductoControl::class);
 Route::apiResource('/solicitudes', GestionSolicitudesController::class);
+
+
+// Route::get('prueba')

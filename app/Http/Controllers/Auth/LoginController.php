@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    
+
 
     /**
      * Create a new controller instance.
@@ -43,7 +43,7 @@ class LoginController extends Controller
     //Control del tipo de usuario que se registra, si es tipo ADMIN se muestra panel de ADMIN
     public function redirectPath(){
 
-        if(Auth::user()->tipo_usuario){
+        if(Auth::user()->tipo_usuario == 1){
             return '/admin';
         }else{
             return '/home';

@@ -29,6 +29,9 @@ class GestionSolicitudesController extends Controller
     {
         $producto = new SolicitudAltaProducto;
         $producto->create($request->all());
+        return response()->json([
+            'solicitud'=>$producto
+        ]);
     }
 
     /**
@@ -40,7 +43,9 @@ class GestionSolicitudesController extends Controller
      */
     public function show(SolicitudAltaProducto $solicitud)
     {
-       return $solicitud;
+        return response()->json(['mensaje' => 'ok']);
+
+        return $solicitud;
     }
 
     /**
@@ -54,10 +59,12 @@ class GestionSolicitudesController extends Controller
     {
         try{
             SolicitudAltaProducto::find($id)->update($request->all());
-            return response()->json('Solicitud updated!');
+            return response()->json(['mensaje' => 'ok']);
+
         }catch(Exception $e){
             console.log($e->getMessage());
         }
+
     }
 
     /**

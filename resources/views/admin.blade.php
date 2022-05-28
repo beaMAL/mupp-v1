@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,14 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet">
 </head>
 <body>
     {{-- div contenedor codigo vue --}}
     <div id="app" >
-       <app-container></app-container>
+        <app-container></app-container>
     </div>
 
-
+    <script src="{{ mix('js/app.js') }}" type="text/javascript" defer></script>
 </body>
 </html>

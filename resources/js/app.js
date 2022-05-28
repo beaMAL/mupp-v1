@@ -9,37 +9,29 @@ import Vuetify from '../plugins/vuetify';
 import Vue from 'vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueRouter from 'vue-router'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
+import AdminappContainer from './components/admin/AdminappContainer.vue'
+import Mupp from './components/Mupp.vue'
+/**
+ * Importamos vue router con las rutas definidas en routes.js
+*/
 
-
-
+import { routes } from './routes';
 
 
 window.Vue = require('vue').default;
 Vue.use(VueSweetalert2);
 Vue.use(VueRouter);
+Vue.use( VueAxios, axios);
 
-/**
- * Aqui crearemos las rutas del frontend para el paner ADMINISTR
- * Usaremos el plugin router
-*/
-import appContainer from './components/appContainer.vue'
-import AdminProductosCat from './components/AdminProductosCat.vue'
-import AdminSolicitudes from './components/AdminSolicitudes.vue'
+
 
 const router = new VueRouter({
     mode: 'history',
-    routes:[
-        {
-            path : '/admin/adminproductos',
-            component: AdminProductosCat
-        },
-        {
-            path : '/admin/adminsolicitudes',
-            component: AdminSolicitudes,
-        }
-    ]
+    routes: routes
 })
 
 /**
@@ -56,7 +48,7 @@ const router = new VueRouter({
 /**
  * Metodo de agregar componenetes en vue sin router
  */
-// Vue.component('app-container', require('./components/appContainer.vue').default);
+Vue.component('app-container', require('./components/admin/AdminappContainer.vue').default);
 // Vue.component('gestion-productos', require('./components/AdminProductosCat.vue').default);
 // Vue.component('gestion-solicitudes', require('./components/AdminSolicitudes').default);
 
@@ -75,7 +67,8 @@ const app = new Vue({
     vueRouter: VueRouter,
     el: '#app',
     components:{
-        appContainer
+        AdminappContainer
     },
-    router
+    router : router,
+    // render: h => h(Mupp)
 });

@@ -15,6 +15,8 @@ class ProductoControl extends Controller
     public function index()
     {
         return Productos::get();
+        return response()->json(['mensaje' => 'ok']);
+
     }
 
     /**
@@ -27,6 +29,8 @@ class ProductoControl extends Controller
     {
         $producto = new Productos;
         $producto->create($request->all());
+        return response()->json(['mensaje' => 'ok']);
+
     }
 
     /**
@@ -39,6 +43,8 @@ class ProductoControl extends Controller
     public function show(Productos $producto)
     {
        return $producto;
+       return response()->json(['mensaje' => 'ok']);
+
     }
 
     /**
@@ -49,14 +55,18 @@ class ProductoControl extends Controller
      * @param \App\Models\Productos $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+   // public function update(Request $request, $id)
+    public function update(Request $request, Productos $producto)
     {
-        try{
-            Productos::find($id)->update($request->all());
-            return response()->json('Product updated!');
-        }catch(Exception $e){
-            console.log($e->getMessage());
-        }
+        $producto->fill($request->post())->save();
+        return response()->json(['producto'=> $producto]);
+        
+        // try{
+        //     Productos::find($id)->update($request->all());
+        //     return response()->json('Product updated!');
+        // }catch(Exception $e){
+        //     console.log($e->getMessage());
+        // }
 
     }
 
@@ -69,6 +79,6 @@ class ProductoControl extends Controller
     public function destroy(Productos $producto)
     {
         $producto->delete();
-    //    return response()->json('mensaje', 'ok');
+       return response()->json(['mensaje' => 'ok']);
     }
 }
