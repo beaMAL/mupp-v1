@@ -478,7 +478,7 @@ export default {
 };
 </script>
 <style>
-div.container {
+.bg-admin{
     background-color: #eeeeee;
 }
 </style>

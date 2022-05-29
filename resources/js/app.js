@@ -49,6 +49,7 @@ const router = new VueRouter({
  * Metodo de agregar componenetes en vue sin router
  */
 Vue.component('app-container', require('./components/admin/AdminappContainer.vue').default);
+Vue.component('mupp-container', require('./components/Mupp.vue').default);
 // Vue.component('gestion-productos', require('./components/AdminProductosCat.vue').default);
 // Vue.component('gestion-solicitudes', require('./components/AdminSolicitudes').default);
 
@@ -67,7 +68,8 @@ const app = new Vue({
     vueRouter: VueRouter,
     el: '#app',
     components:{
-        AdminappContainer
+        AdminappContainer,
+        Mupp
     },
     router : router,
     // render: h => h(Mupp)

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container bg-admin">
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -386,7 +386,7 @@ export default {
             const swalWithBootstrapButtons = Swal.mixin({
                 buttonsStyling: true,
             });
-            
+
              console.log(this.editedItem);
 
             let color = this.editedItem.tono;
@@ -489,7 +489,7 @@ export default {
 }
 </script>
 <style>
-div.container{
+.bg-admin{
     background-color:#e3ddec;
 }
 </style>
