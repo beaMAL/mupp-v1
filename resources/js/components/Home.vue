@@ -6,7 +6,6 @@
                 id="home"
                 class="section-wave bg-home home-half"
                 style="
-
                     background-size: cover;
                     background-position: center center;
                 "
@@ -19,9 +18,12 @@
                                 <div
                                     data-v-8e45d7f4=""
                                     class="col-lg-8 offset-lg-2 text-white text-center"
+                                    style="position: relative"
                                 >
                                     <h1 data-v-8e45d7f4="" class="home-title">
-                                        We help startups launch their products
+                                        BIENVENIDO A
+                                        <span class="font-weight-thin">M</span
+                                        >UPP
                                     </h1>
                                     <p
                                         data-v-8e45d7f4=""
@@ -30,7 +32,6 @@
                                         Etiam sed.Interdum consequat proin
                                         vestibulum class at.
                                     </p>
-
                                 </div>
                             </div>
                         </div>
@@ -66,11 +67,138 @@
                     </div>
                 </div>
             </section>
+            <section data-v-8e45d7f4="" id="services" class="section-wave pt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <h1 class="section-title text-center">
+                                Our Services
+                            </h1>
+                            <div class="section-title-border margin-t-20"></div>
+                            <p
+                                class="section-subtitle text-muted text-center padding-t-30 font-secondary"
+                            >
+                                We craft digital, graphic and dimensional
+                                thinking, to create category leading brand
+                                experiences that have meaning and add a value
+                                for our clients.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row margin-t-30">
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-diamond text-custom"></i>
+                                <h4 class="padding-t-15">Digital Design</h4>
+                                <p class="padding-t-15 text-muted">
+                                    Some quick example text to build on the card
+                                    title and make up the bulk of the card's
+                                    content. Moltin gives you the platform.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-display2 text-custom"></i>
+                                <h4 class="padding-t-15">Unlimited Colors</h4>
+                                <p class="padding-t-15 text-muted">
+                                    Credibly brand standards compliant users
+                                    without extensible services. Anibh euismod
+                                    tincidunt ut laoreet.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-piggy text-custom"></i>
+                                <h4 class="padding-t-15">Strategy Solutions</h4>
+                                <p class="padding-t-15 text-muted">
+                                    Separated they live in Bookmarksgrove right
+                                    at the coast of the Semantics, a large
+                                    language ocean necessary regelialia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-t-30">
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-science text-custom"></i>
+                                <h4 class="padding-t-15">Awesome Support</h4>
+                                <p class="padding-t-15 text-muted">
+                                    It is a paradisematic country, in which
+                                    roasted parts of sentences fly into your
+                                    mouth leave for the far World.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-news-paper text-custom"></i>
+                                <h4 class="padding-t-15">Truly Multipurpose</h4>
+                                <p class="padding-t-15 text-muted">
+                                    Even the all-powerful Pointing has no
+                                    control about the blind texts it is an
+                                    almost unorthographic.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 margin-t-20">
+                            <div class="services-box text-center hover-effect">
+                                <i class="pe-7s-plane text-custom"></i>
+                                <h4 class="padding-t-15">Easy to customize</h4>
+                                <p class="padding-t-15 text-muted">
+                                    Question Marks and devious Semikoli, but the
+                                    Little Blind Text didn’t listen. She packed
+                                    her seven versalia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-
     </v-app>
 </template>
 <style>
+
+.text-muted {
+    color: #a8aeb4 !important;
+}
+.services-box i {
+    font-size: 32px;
+    height: 68px;
+    width: 68px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 1.25rem rgba(108,118,134,.1)!important;
+    line-height: 68px;
+    margin-bottom: 15px;
+}
+.hover-effect {
+    transition: all .3s ease-in-out;
+}
+.services-box {
+    padding: 15px 10px;
+}
+.section-title-border {
+    width: 50px;
+    height: 2px;
+    margin-right: auto;
+    margin-left: auto;
+}
+    .section-title-border, .services-box:hover i, .bg-custom, .btn-custom, .features-item-list li:before, .process-left-icon-1 i, .process-left-icon-2 i {
+    background-color: #f09105 !important;
+}
+  .section-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0px;
+    padding-bottom: 1rem;
+    line-height: 1;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
 @media (max-width: 768px) {
     .wave-one,
     .wave-three {
@@ -132,10 +260,10 @@
 }
 
 .wave-anim .wave-one {
-  animation: move-wave 3s;
-   -webkit-animation: move-wave 3s;
-   -webkit-animation-delay: 1s;
-   animation-delay: 1s;
+    animation: move-wave 3s;
+    -webkit-animation: move-wave 3s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
 }
 .wave-two {
     background-size: 50% 120px;
@@ -150,16 +278,15 @@
     animation: move_wave 15s linear infinite;
 }
 
-
 @keyframes move_wave {
     0% {
-        transform: translateX(0) translateZ(0) scaleY(1)
+        transform: translateX(0) translateZ(0) scaleY(1);
     }
     50% {
-        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+        transform: translateX(-25%) translateZ(0) scaleY(0.55);
     }
     100% {
-        transform: translateX(-50%) translateZ(0) scaleY(1)
+        transform: translateX(-50%) translateZ(0) scaleY(1);
     }
 }
 
@@ -174,7 +301,7 @@
 }
 .bg-overlay {
     background: linear-gradient(to right, #512da8, #711e72);
-    opacity: .75;
+    opacity: 0.75;
     position: absolute;
     height: 100%;
     width: 100%;

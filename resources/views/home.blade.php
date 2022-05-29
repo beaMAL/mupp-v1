@@ -26,6 +26,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> --}}
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="path/to/pe-icon-7-stroke/css/pe-icon-7-stroke.css"> --}}
+
+    <!-- Optional - Adds useful class to manipulate icon font display -->
+    {{-- <link rel="stylesheet" href="path/to/pe-icon-7-stroke/css/helper.css"> --}}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href=’https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel=”stylesheet”>
@@ -34,6 +38,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pe-icon-7-stroke-copy.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dorsin-copy.css') }}" rel="stylesheet">
     <style>
 
     </style>
