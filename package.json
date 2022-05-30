@@ -30,6 +30,7 @@
     "dependencies": {
         "@sweetalert2/themes": "^5.0.11",
         "autoprefixer": "10.4.5",
+        "vue-axios": "^3.4.1",
         "vue-router": "^3.5.4",
         "vue-sweetalert2": "^5.0.5",
         "vuetify": "^2.6.6"
