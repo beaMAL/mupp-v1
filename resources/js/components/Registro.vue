@@ -59,48 +59,51 @@
                                                 >
                                                     Para poder acceder a algunas funcionalidades tienes que registrarte primero.
                                                 </div>
-                                                <form>
+                                                <form action @submit.prevent="register">
                                                     <div class="form-group">
-                                                        <label for="firstname"
-                                                            >First Name</label
+                                                        <label for="#nombre" class="form-label"
+                                                            >Nombre</label
                                                         ><input
+                                                            v-model="nombre"
                                                             type="text"
-                                                            id="firstname"
-                                                            placeholder="First Name"
-                                                            class="form-control"
+                                                            id="nombre"
+                                                            required
+                                                            placeholder="Nombre"
+                                                            class="form-control form-input"
                                                         />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="email"
+                                                        <label for="#email" class="form-label"
                                                             >Email</label
                                                         ><input
-                                                            type="password"
+                                                            required
+                                                            type="email"
                                                             id="email"
                                                             placeholder="Enter Email"
-                                                            class="form-control"
+                                                            class="form-control form-input"
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label
-                                                            for="userpassword"
+                                                            for="#password" class="form-label"
                                                             >Password</label
                                                         ><input
                                                             type="password"
                                                             id="userpassword"
                                                             placeholder="Enter password"
-                                                            class="form-control"
+                                                            class="form-control form-input"
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label
-                                                            for="userpassword2"
+                                                            for="#password2" class="form-label"
                                                             >Repite
                                                             Password</label
                                                         ><input
                                                             type="password"
-                                                            id="userpassword2"
+                                                            id="password2"
                                                             placeholder="Repite password"
-                                                            class="form-control"
+                                                            class="form-control form-input"
                                                         />
                                                     </div>
                                                     <div
@@ -119,25 +122,24 @@
                                                     <div class="mt-3">
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-custom btn-block"
+                                                            class="btn form-submit btn-block"
                                                         >
-                                                            Sign in
+                                                            Registrar
                                                         </button>
                                                     </div>
                                                     <div
                                                         class="mt-4 mb-0 text-center"
                                                     >
                                                         <p class="mb-0">
-                                                            Don't have an
-                                                            account ?
-                                                            <a
-                                                                href="/login"
-                                                                class="text-dark"
-                                                                ><i
+                                                            ¿Ya tienes una cuenta?
+                                                            <router-link router to="/login" class="text-dark">
+                                                                <i
                                                                     class="mdi mdi-lock"
                                                                 ></i
                                                                 >Sign in
-                                                            </a>
+                                                            </router-link>
+
+
                                                         </p>
                                                     </div>
                                                 </form>
@@ -155,7 +157,34 @@
 </template>
 
 <script></script>
-<style>
+<style lang="scss" scoped>
+.form-submit {
+  background: #c2a1e2;
+  border: none;
+
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #1cdaba;
+  }
+}
+.form-input {
+
+
+  border: 1px solid white;
+
+  &:focus {
+    outline: 0;
+    border-color: #c2a1e2;
+  }
+}
+.form-label {
+
+  &:first-of-type {
+    margin-top: 0rem;
+  }
+}
+
 .bg-account-pages {
     background: linear-gradient(to right, #512da8, #711e72);
     opacity: 0.9;

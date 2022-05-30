@@ -53,31 +53,33 @@
                                                 <p class="text-muted">Login</p>
                                             </div>
                                             <div class="p-3">
-                                                <form>
+                                                <form action class="form">
                                                     <div class="form-group">
-                                                        <label for="email"
+                                                        <label for="#email" class="form-label"
                                                             >Email</label
                                                         ><input
                                                             type="email"
                                                             id="email"
+                                                            required
                                                             placeholder="Enter Email"
-                                                            class="form-control"
+                                                            class="form-control form-input"
                                                         />
-                                                        <label for="password"
+                                                        <label for="#password" class="form-label"
                                                             >Password</label
                                                         ><input
                                                             type="password"
                                                             id="password"
                                                             placeholder="Enter Password"
-                                                            class="form-control"
+                                                            class="form-control form-input"
                                                         />
                                                     </div>
                                                     <div class="mt-3">
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-custom btn-block"
+                                                            class="form-submit btn  btn-block"
+                                                            value="Login"
                                                         >
-                                                            Reset your Password
+                                                            Login
                                                         </button>
                                                     </div>
                                                 </form>
@@ -95,7 +97,34 @@
 </template>
 
 <script></script>
-<style>
+<style lang="scss" scoped>
+.form-submit {
+  background: #c2a1e2;
+  border: none;
+
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #1cdaba;
+  }
+}
+.form-input {
+
+
+  border: 1px solid white;
+
+  &:focus {
+    outline: 0;
+    border-color: #c2a1e2;
+  }
+}
+.form-label {
+
+  &:first-of-type {
+    margin-top: 0rem;
+  }
+}
+
 .bg-account-pages {
     background: linear-gradient(to right, #512da8, #711e72);
     opacity: 0.9;

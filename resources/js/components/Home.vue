@@ -20,10 +20,23 @@
                                     class="col-lg-8 offset-lg-2 text-white text-center"
                                     style="position: relative"
                                 >
-                                    <h1 data-v-8e45d7f4="" class="home-title">
-                                        BIENVENIDO A
-                                        <span class="font-weight-thin">M</span
-                                        >UPP
+                                    <h1 data-v-8e45d7f4="" class="">
+                                        <span class="home-title">BIENVENIDO A </span><br/>
+                                         <p
+                                            style="
+                                                font-family: Roboto,
+                                                    Helvetica,
+                                                    Arial,
+                                                    sans-serif;
+                                                font-size: 62px;
+                                            "
+                                            class="font-weight-large"
+                                        >
+                                            <span
+                                                class="font-weight-thin"
+                                                >M</span
+                                            >UPP
+                                        </p>
                                     </h1>
                                     <p
                                         data-v-8e45d7f4=""
