@@ -9,15 +9,15 @@
                 flat
 
             >
-                <v-avatar
+                <!-- <v-avatar
                     :color="
                         $vuetify.breakpoint.smAndDown
                             ? 'grey darken-1'
                             : 'transparent'
                     "
                     size="32"
-                ></v-avatar>
-                <v-app-bar-nav-icon>
+                ></v-avatar> -->
+                <v-app-bar-nav-icon  style="margin-left:15px" >
                     <img
                         style="margin-left: 15px; padding-left: 5px"
                         :src="logo_src"
@@ -42,11 +42,18 @@
                     </v-tab>
                 </v-tabs>
 
-                <v-avatar
+                <div>
+                    <nav class="enlaces-login">
+                        <router-link class="mr-3 texto-lavanda" to="/login"> Login </router-link> |
+                        <router-link class="ml-3 texto-lavanda" to="/registro"> Registro </router-link>
+                    </nav>
+
+                </div>
+                <!-- <v-avatar
                     class="hidden-sm-and-down"
                     color="grey darken-1 shrink"
                     size="32"
-                ></v-avatar>
+                ></v-avatar> -->
             </v-app-bar>
             <v-sheet
                 id="scrolling-techniques-7"
@@ -92,7 +99,7 @@ export default {
         links: [
             { name: "Home", ruta: "/", active: true },
             { name: "Catálogo", ruta: "/catalogo", active: false },
-            { name: "Perfil", ruta: "/perfil", active: false },
+            { name: "About", ruta: "/perfil", active: false },
         ],
         icons: ["mdi-home", "mdi-email", "mdi-calendar"],
     }),
@@ -101,4 +108,13 @@ export default {
 <style scoped>
 @import "http://127.0.0.1:8887/css/pe-icon-7-stroke-copy.css";
 @import "http://127.0.0.1:8887/css/dorsin-copy.css";
+
+.texto-lavanda{
+   color: #6618af;
+}
+.enlaces-login{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
 </style>

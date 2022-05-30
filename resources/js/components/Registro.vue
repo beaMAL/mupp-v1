@@ -18,9 +18,35 @@
                                                 <h3 class="font-weight-bold">
                                                     <a
                                                         href="/"
-                                                        class="text-dark text-uppercase account-pages-logo"
-                                                        >Dorsin</a
+                                                        class="text-dark text-uppercase account-pages-logo justify-center"
                                                     >
+                                                        <div
+                                                            class="w-100 justify-content-center"
+                                                        >
+                                                            <img
+                                                                alt="logo"
+                                                                width="200"
+                                                                height="200"
+                                                                position="center center"
+                                                                src="http://127.0.0.1:8887/images/mupp-psd-estilizado4-sintexto.png"
+                                                            />
+                                                        </div>
+                                                        <p
+                                                            style="
+                                                                font-family: Roboto,
+                                                                    Helvetica,
+                                                                    Arial,
+                                                                    sans-serif;
+                                                                font-size: 32px;
+                                                            "
+                                                            class="font-weight-medium"
+                                                        >
+                                                            <span
+                                                                class="font-weight-thin"
+                                                                >M</span
+                                                            >UPP
+                                                        </p>
+                                                    </a>
                                                 </h3>
                                                 <p class="text-muted">
                                                     Reset Password
@@ -31,10 +57,7 @@
                                                     role="alert"
                                                     class="alert alert-warning text-center"
                                                 >
-                                                    Enter your email address and
-                                                    we'll send you an email with
-                                                    instructions to reset your
-                                                    password.
+                                                    Para poder acceder a algunas funcionalidades tienes que registrarte primero.
                                                 </div>
                                                 <form>
                                                     <div class="form-group">
@@ -68,10 +91,11 @@
                                                             class="form-control"
                                                         />
                                                     </div>
-                                                     <div class="form-group">
+                                                    <div class="form-group">
                                                         <label
                                                             for="userpassword2"
-                                                            >Repite Password</label
+                                                            >Repite
+                                                            Password</label
                                                         ><input
                                                             type="password"
                                                             id="userpassword2"
