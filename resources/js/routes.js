@@ -8,9 +8,12 @@ import AdminProductosCat from './components/admin/AdminProductosCat.vue'
 import AdminSolicitudes from './components/admin/AdminSolicitudes.vue'
 import Home from './components/Home.vue'
 
-//Falta crear
+
 import Catalogo from './components/Catalogo.vue'
+
+//Falta crear
 import Perfil from './components/Perfil.vue'
+import Producto from './components/VistaProducto.vue'
 
 export const routes =[
 
@@ -22,6 +25,10 @@ export const routes =[
             name: 'catalogo',
             path : '/catalogo',
             component: Catalogo
+        }, {
+            name: 'producto',
+            path : '/producto/{id}',
+            component: Producto
         }, {
             name: 'perfil',
             path : '/perfil',

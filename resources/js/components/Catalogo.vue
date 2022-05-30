@@ -59,9 +59,7 @@
                                                     <v-btn
                                                         large
                                                         depressed
-                                                        color="amber darken-1
-
-"
+                                                        color="amber darken-1"
                                                         :value="false"
                                                     >
                                                         <v-icon
@@ -71,9 +69,7 @@
                                                     <v-btn
                                                         large
                                                         depressed
-                                                        color="amber darken-1
-
-"
+                                                        color="amber darken-1"
                                                         :value="true"
                                                     >
                                                         <v-icon
@@ -88,18 +84,57 @@
                                     <template v-slot:default="props">
                                         <v-row>
                                             <v-col
-                                                v-for="item in props.items"
-                                                :key="item.name"
+                                                v-for="(
+                                                    item, index
+                                                ) in props.items"
+                                                :item="item"
+                                                :index="index"
+                                                :key="item.id"
                                                 cols="12"
                                                 sm="6"
                                                 md="4"
                                                 lg="3"
                                             >
                                                 <v-card
+                                                    color="f7b3fd"
                                                     :loading="loading"
                                                     class="mx-auto my-12"
                                                     max-width="374"
                                                 >
+                                                    <v-img
+                                                        height="200px"
+                                                        src="http://127.0.0.1:8887/images/lowpoly-purple1.png"
+                                                    >
+                                                        <v-toolbar-title
+                                                            class="ml-3 white--text"
+                                                        >
+                                                            <v-spacer></v-spacer>
+                                                            Cat.:
+                                                            {{
+                                                                item.categoria
+                                                            }}</v-toolbar-title
+                                                        >
+                                                        <v-spacer></v-spacer>
+                                                        <v-card-title
+                                                            class="white--text mt-8"
+                                                        >
+                                                            <v-avatar
+                                                                size="56"
+                                                                :color="
+                                                                    item.tono
+                                                                "
+                                                            >
+                                                            </v-avatar>
+                                                            <p
+                                                                class="text-h6 ml-3 mt-3 pl-0"
+                                                            >
+                                                                {{
+                                                                    item.nombre
+                                                                }}
+                                                            </p>
+                                                        </v-card-title>
+                                                    </v-img>
+
                                                     <template slot="progress">
                                                         <v-progress-linear
                                                             color="deep-purple"
@@ -107,14 +142,23 @@
                                                             indeterminate
                                                         ></v-progress-linear>
                                                     </template>
-                                                    <v-card-title
+
+                                                    <!-- <v-card-title
                                                         class="subheading font-weight-bold"
                                                     >
                                                         {{ item.nombre }}
-                                                    </v-card-title>
+                                                    </v-card-title>-->
                                                     <v-card-subtitle>
                                                         {{ item.tipo }}
                                                     </v-card-subtitle>
+                                                    <!-- <template>
+                                                        <v-chip
+                                                            :color=" item.tono"
+                                                            :text-color="item.tono"
+                                                        >
+                                                           ***********
+                                                        </v-chip>
+                                                    </template> -->
 
                                                     <v-divider></v-divider>
                                                     <v-row
@@ -136,38 +180,58 @@
                                                             4.5 (413)
                                                         </div>
                                                     </v-row>
-                                                    <v-card-actions>
-                                                        <v-btn
-                                                            color="deep-purple lighten-2"
-                                                            text
-                                                            @click="reserve"
-                                                        >
-                                                            Reserve
-                                                        </v-btn>
+
+                                                    <v-card-actions
+                                                        class="pt-3 pl-3"
+                                                    >
+                                                        <div class="my-2">
+                                                            <v-btn
+                                                                color="warning"
+                                                                fab
+                                                                @click="
+                                                                    inspeccionarProducto(
+                                                                        item
+                                                                    )
+                                                                "
+                                                                dark
+                                                            >
+                                                                <v-icon
+                                                                    >mdi-plus</v-icon
+                                                                >
+                                                            </v-btn>
+                                                        </div>
                                                         <v-spacer></v-spacer>
 
                                                         <v-btn
                                                             icon
                                                             @click="
-                                                                show = !show
+                                                                shows[
+                                                                    index
+                                                                ].show =
+                                                                    !shows[
+                                                                        index
+                                                                    ].show
                                                             "
                                                         >
-                                                            <v-icon>{{
-                                                                show
-                                                                    ? "mdi-chevron-up"
-                                                                    : "mdi-chevron-down"
-                                                            }}</v-icon>
+                                                            <v-icon
+                                                                >{{
+                                                                    shows[index]
+                                                                        .show
+                                                                        ? "mdi-chevron-up"
+                                                                        : "mdi-chevron-down"
+                                                                }}
+                                                            </v-icon>
                                                         </v-btn>
                                                     </v-card-actions>
-                                                    <v-divider
-                                                        class="mx-4"
-                                                    ></v-divider>
-
                                                     <v-expand-transition>
-                                                        <div v-show="show">
-                                                            <v-divider></v-divider>
-
+                                                        <div
+                                                            v-show="
+                                                                shows[index]
+                                                                    .show
+                                                            "
+                                                        >
                                                             <v-list dense>
+                                                                <v-divider></v-divider>
                                                                 <v-list-item
                                                                     v-for="(
                                                                         key,
@@ -177,28 +241,52 @@
                                                                 >
                                                                     <v-list-item-content
                                                                         :class="{
-                                                                            'blue--text':
+                                                                            'purple--text':
                                                                                 sortBy ===
                                                                                 key.text,
                                                                         }"
                                                                     >
-                                                                        {{
-                                                                            key.text
-                                                                        }}:
+                                                                        <p>
+                                                                            {{
+                                                                                key.text
+                                                                            }}:
+                                                                        </p>
                                                                     </v-list-item-content>
+
                                                                     <v-list-item-content
                                                                         class="align-end"
                                                                         :class="{
-                                                                            'blue--text':
+                                                                            'purple--text':
                                                                                 sortBy ===
                                                                                 key.value,
                                                                         }"
                                                                     >
-                                                                        {{
-                                                                            item[
-                                                                                key.value.toLowerCase()
-                                                                            ]
-                                                                        }}
+                                                                        <template
+                                                                            v-if="
+                                                                                key.text ===
+                                                                                'Tono'
+                                                                            "
+                                                                        >
+                                                                            <v-chip
+                                                                                :color=" item[key.value],"
+                                                                            >
+                                                                                {{
+                                                                                    item[
+                                                                                        key
+                                                                                            .value
+                                                                                    ]
+                                                                                }}
+                                                                            </v-chip>
+                                                                        </template>
+                                                                        <p
+                                                                            v-else
+                                                                        >
+                                                                            {{
+                                                                                item[
+                                                                                    key.value.toLowerCase()
+                                                                                ]
+                                                                            }}
+                                                                        </p>
                                                                     </v-list-item-content>
                                                                 </v-list-item>
                                                             </v-list>
@@ -215,7 +303,7 @@
 
                                     <template v-slot:footer>
                                         <v-row
-                                            class="mt-2"
+                                            class="mt-2 mb-4"
                                             align="center"
                                             justify="center"
                                         >
@@ -265,7 +353,7 @@
                                             <v-spacer></v-spacer>
 
                                             <span class="mr-4 grey--text">
-                                                Page {{ page }} of
+                                                Pag {{ page }} de
                                                 {{ numberOfPages }}
                                             </span>
                                             <v-btn
@@ -312,7 +400,6 @@
 export default {
     data() {
         return {
-             show: false,
             loading: false,
             selection: 1,
             itemsPerPageArray: [4, 8, 12],
@@ -321,7 +408,8 @@ export default {
             sortDesc: false,
             page: 1,
             itemsPerPage: 4,
-            sortBy: "name",
+            sortBy: "nombre",
+            shows: [],
             keys: [
                 {
                     text: "Nombre ",
@@ -338,40 +426,78 @@ export default {
             items: [],
         };
     },
+    watch: {},
 
     computed: {
         numberOfPages() {
             return Math.ceil(this.items.length / this.itemsPerPage);
         },
         filteredKeys() {
-            return this.keys.filter((key) => key !== "Name");
+            return this.keys.filter((key) => key !== "nombre");
         },
     },
     methods: {
+        showcard(item) {
+            console.log(item);
+        },
         async listProductos() {
             const respuesta = await axios.get(
                 "http://127.0.0.1:8000/productos"
             );
             this.items = respuesta.data;
-        },
-        reserve() {
-            this.loading = true;
+            // for (let i = 0; i < this.items.length; i++) {
+            //     // let newshow = {index: i, show:false};
+            //     let newshow = { show: false };
+            //     let load = (loading) => false;
+            //     this.shows.push(newshow);
 
-            setTimeout(() => (this.loading = false), 2000);
+            //     // this.shows[i] = Object.assign(this.shows[i], newshow);
+            //     // this.items[i] = Object.assign(this.items[i], load);
+            //     console.log(this.items[i]);
+            //     console.log(this.shows[i]);
+            // }
+        },
+        resetshows() {
+            let max = this.shows.length;
+            this.shows.splice(0, max);
+            for (let i = 0; i < max; i++) {
+                let newshow = { show: false };
+                this.shows.push(newshow);
+            }
+        },
+        inspeccionarProducto(item) {
+            console.log(item);
+            // this.loading = true;
         },
         nextPage() {
             if (this.page + 1 <= this.numberOfPages) this.page += 1;
+            this.resetshows();
         },
         formerPage() {
             if (this.page - 1 >= 1) this.page -= 1;
+            this.resetshows();
+            console.log(this.shows);
         },
-        updateItemsPerPage(number) {
+        updateItemsPerPage(number = 4) {
             this.itemsPerPage = number;
+            for (let i = 0; i < number; i++) {
+                // let newshow = {index: i, show:false};
+                let newshow = { show: false };
+
+                this.shows.push(newshow);
+
+                // this.shows[i] = Object.assign(this.shows[i], newshow);
+                // this.items[i] = Object.assign(this.items[i], load);
+                // console.log(this.items[i]);
+                console.log(this.shows[i]);
+            }
         },
     },
-    mounted() {
+    created() {
         this.listProductos();
+        this.updateItemsPerPage();
     },
+    mounted() {},
 };
 </script>
 

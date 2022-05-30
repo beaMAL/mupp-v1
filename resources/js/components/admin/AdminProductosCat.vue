@@ -190,7 +190,6 @@
 </template>
 
 <script>
-import { thisExpression } from "@babel/types";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -258,6 +257,7 @@ export default {
                 web: "",
                 ean: "",
                 id_ultima_modificacion: "",
+                f: false
             },
             categorias: [
                 { text: "Pegamento" },

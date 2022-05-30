@@ -6,8 +6,8 @@
                 app
                 absolute
                 color="white"
-                elevate-on-scroll
-                scroll-target="#scrolling-techniques-7"
+                flat
+
             >
                 <v-avatar
                     :color="
@@ -51,7 +51,7 @@
             <v-sheet
                 id="scrolling-techniques-7"
                 class="overflow-y-auto"
-                max-height="2700"
+
             >
                 <v-main width="100" class="">
                     <router-view></router-view>
