@@ -2,9 +2,7 @@
     <v-app id="inspire">
         <div>
             <div class="account-home-btn d-none d-sm-block">
-                <a href="/" class="text-white"
-                    ><i class="mdi mdi-home h1"></i
-                ></a>
+
             </div>
             <section class="bg-account-pages height-100vh">
                 <div class="display-table">
@@ -64,7 +62,7 @@
                                                         <label for="#nombre" class="form-label"
                                                             >Nombre</label
                                                         ><input
-                                                            v-model="nombre"
+
                                                             type="text"
                                                             id="nombre"
                                                             required
