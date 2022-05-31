@@ -48,14 +48,14 @@ class User extends Authenticatable
     public function solicitudes(){
         return $this->hasMany(SolicitudAltaProducto::class);
     }
-    public function favproductos(){
-        return $this->belongsToMany(Productos::class)->withTimestamps();
+    public function productos(){
+        return $this->belongsToMany(Producto::class, 'favoritos')->withTimestamps();
    }
-    public function publicanRegistros(){
-        return $this->belongsToMany(Registros::class)->withTimestamps();
+    public function registros(){
+        return $this->belongsToMany(Registro::class, 'publican_reg_productos')->withTimestamps();
     }
     // public function productosModificados(){
-    //     return $this->hasMany(Productos::class, 'id_ultima_modificacion', 'id' );
+    //     return $this->hasMany(Producto::class, 'id_ultima_modificacion', 'id' );
     // }
 
     public function tipoUsuario(){

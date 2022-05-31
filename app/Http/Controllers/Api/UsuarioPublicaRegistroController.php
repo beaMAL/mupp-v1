@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\UsuariosPublicanRegistrosDeProductos;
-use App\Models\Registros;
+use App\Models\UsuariosPublicanRegistrosDeProducto;
+use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioPublicaRegistroController extends Controller
@@ -30,7 +30,7 @@ class UsuarioPublicaRegistroController extends Controller
             'fecha_agotado' => 'nullable|date',
         ]);
         //Crear un objeto registro  para
-        $registro = new Registros();
+        $registro = new Registro();
         $registro->producto_id = $request->producto_id;
         $registro->imagen = $request->imagen;
         $registro->formato = $request->formato;
@@ -73,7 +73,7 @@ class UsuarioPublicaRegistroController extends Controller
     }
 
     public function modificarRegistro(Request $request) {
-        
+
 
     }
 }

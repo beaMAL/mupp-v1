@@ -22,7 +22,7 @@ class Favoritos extends Model
 
             ];
 
-    public function usuarios(){
+    public function users(){
         return $this->belongsToMany(Usuario::class);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
-class Registros extends Model
+class Registro extends Model
 {
     use HasFactory, HasApiTokens;
 
@@ -34,10 +34,10 @@ class Registros extends Model
             'fecha_compra'
             ];
 
-    public function producto(){
+    public function productos(){
         return $this->belongsToMany(Producto::class);
     }
-    public function porUsuario(){
+    public function users(){
          return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

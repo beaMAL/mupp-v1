@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Productos extends Model
+class Producto extends Model
 {
     use HasFactory;
 
@@ -25,9 +25,9 @@ class Productos extends Model
             'id_ultima_modificacion'];
 
     public function registros(){
-        return $this->hasMany(Registros::class);
+        return $this->hasMany(Registro::class);
     }
-    public function favusuarios(){
+    public function users(){
         return $this->belongsToMany(User::class)->withTimestamps();
    }
 

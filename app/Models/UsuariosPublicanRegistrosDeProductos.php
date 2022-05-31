@@ -21,10 +21,10 @@ class UsuariosPublicanRegistrosDeProductos extends Model
 
             ];
 
-     public function usuario(){
+     public function users(){
          return $this->belongsTo(Usuario::class);
      }
-     public function registro(){
+     public function registros(){
         return $this->belongsTo(Registro::class);
     }
 

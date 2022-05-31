@@ -25,7 +25,7 @@ class SolicitudAltaProducto extends Model
             'id_ultima_modificacion',
             'fecha_solicitud'];
 
-    public function usuario(){
+    public function users(){
         return $this->belongsTo(User::class);
     }
 }
