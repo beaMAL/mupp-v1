@@ -17,19 +17,22 @@
                     "
                     size="32"
                 ></v-avatar> -->
-                <v-app-bar-nav-icon  style="margin-left:15px" >
+                <router-link route to="/">
+                     <v-app-bar-nav-icon   style="margin-left:15px" >
                     <img
                         style="margin-left: 15px; padding-left: 5px"
                         :src="logo_src"
                         width="50"
                         height="50"
                         alt="logo"
-                        loading="lazy"
+
                     />
                     <v-app-bar-title class="font-weight-medium">
                         <span class="font-weight-thin">M</span>UPP
                     </v-app-bar-title>
                 </v-app-bar-nav-icon>
+                </router-link>
+
 
                 <v-tabs centered class="ml-n9" color="grey darken-1">
                     <v-tab
@@ -44,8 +47,8 @@
 
                 <div>
                     <nav class="enlaces-login">
-                        <router-link class="mr-3 texto-lavanda" to="/login"> Login </router-link> |
-                        <router-link class="ml-3 texto-lavanda" to="/registro"> Registro </router-link>
+                        <router-link class="mr-3 texto-lavanda" to="/login"> LOGIN </router-link> |
+                        <router-link class="ml-3 texto-lavanda" to="/registro"> REGISTRO </router-link>
                     </nav>
 
                 </div>

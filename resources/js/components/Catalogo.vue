@@ -185,7 +185,8 @@
                                                         class="pt-3 pl-3"
                                                     >
                                                         <div class="my-2">
-                                                            <v-btn
+                                                            <router-link :to="'/producto/'+ item.id">
+                                                                <v-btn
                                                                 color="warning"
                                                                 fab
                                                                 @click="
@@ -199,6 +200,7 @@
                                                                     >mdi-plus</v-icon
                                                                 >
                                                             </v-btn>
+                                                            </router-link>
                                                         </div>
                                                         <v-spacer></v-spacer>
 

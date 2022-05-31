@@ -10,8 +10,6 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import Registro from './components/Registro.vue'
 import ForgotPasswd from './components/Forgot-password.vue'
-
-
 import Catalogo from './components/Catalogo.vue'
 
 //Falta crear
@@ -42,7 +40,7 @@ export const routes =[
             component: Catalogo
         }, {
             name: 'producto',
-            path : '/producto/{id}',
+            path : '/producto/:id',
             component: Producto
         }, {
             name: 'perfil',

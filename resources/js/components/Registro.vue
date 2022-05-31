@@ -1,9 +1,7 @@
 <template>
     <v-app id="inspire">
         <div>
-            <div class="account-home-btn d-none d-sm-block">
-
-            </div>
+            <div class="account-home-btn d-none d-sm-block"></div>
             <section class="bg-account-pages height-100vh">
                 <div class="display-table">
                     <div class="display-table-cell">
@@ -55,14 +53,21 @@
                                                     role="alert"
                                                     class="alert alert-warning text-center"
                                                 >
-                                                    Para poder acceder a algunas funcionalidades tienes que registrarte primero.
+                                                    Para poder acceder a algunas
+                                                    funcionalidades tienes que
+                                                    registrarte primero.
                                                 </div>
-                                                <form action @submit.prevent="register">
+                                                <form
+                                                    action
+                                                    @submit.prevent="register"
+                                                >
                                                     <div class="form-group">
-                                                        <label for="#nombre" class="form-label"
+                                                        <label
+                                                            for="#nombre"
+                                                            class="form-label"
                                                             >Nombre</label
                                                         ><input
-
+                                                            v-model="nombre"
                                                             type="text"
                                                             id="nombre"
                                                             required
@@ -71,9 +76,12 @@
                                                         />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="#email" class="form-label"
+                                                        <label
+                                                            for="#email"
+                                                            class="form-label"
                                                             >Email</label
                                                         ><input
+                                                            v-model="email"
                                                             required
                                                             type="email"
                                                             id="email"
@@ -83,9 +91,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label
-                                                            for="#password" class="form-label"
+                                                            for="#password"
+                                                            class="form-label"
                                                             >Password</label
                                                         ><input
+                                                            v-model="password"
                                                             type="password"
                                                             id="userpassword"
                                                             placeholder="Enter password"
@@ -94,10 +104,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label
-                                                            for="#password2" class="form-label"
+                                                            for="#password2"
+                                                            class="form-label"
                                                             >Repite
                                                             Password</label
                                                         ><input
+                                                            v-model="password2"
                                                             type="password"
                                                             id="password2"
                                                             placeholder="Repite password"
@@ -129,15 +141,18 @@
                                                         class="mt-4 mb-0 text-center"
                                                     >
                                                         <p class="mb-0">
-                                                            ¿Ya tienes una cuenta?
-                                                            <router-link router to="/login" class="text-dark">
+                                                            ¿Ya tienes una
+                                                            cuenta?
+                                                            <router-link
+                                                                router
+                                                                to="/login"
+                                                                class="text-dark"
+                                                            >
                                                                 <i
                                                                     class="mdi mdi-lock"
                                                                 ></i
                                                                 >Sign in
                                                             </router-link>
-
-
                                                         </p>
                                                     </div>
                                                 </form>
@@ -154,33 +169,49 @@
     </v-app>
 </template>
 
-<script></script>
+<script>
+export default {
+    data: () => ({
+        email: "",
+        password: "",
+        passwordRepeat: "",
+    }),
+    methods: {
+        register() {
+            console.log(this.email);
+            console.log(this.password);
+            console.log(this.passwordRepeat);
+        },
+    },
+};
+</script>
 <style lang="scss" scoped>
+.error {
+  margin: 1rem 0 0;
+  color: #ff4a96;
+}
 .form-submit {
-  background: #c2a1e2;
-  border: none;
+    background: #c2a1e2;
+    border: none;
 
-  cursor: pointer;
-  transition: background 0.2s;
-  &:hover {
-    background: #1cdaba;
-  }
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+        background: #1cdaba;
+    }
 }
 .form-input {
+    border: 1px solid white;
 
-
-  border: 1px solid white;
-
-  &:focus {
-    outline: 0;
-    border-color: #c2a1e2;
-  }
+    &:focus {
+        outline: 0;
+        border-color: #c2a1e2;
+    }
 }
 .form-label {
-
-  &:first-of-type {
-    margin-top: 0rem;
-  }
+    &:first-of-type {
+        margin-top: 0rem;
+    }
 }
 
 .bg-account-pages {

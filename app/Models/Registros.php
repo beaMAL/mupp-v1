@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class Registros extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
 
     public $timestamps = true;
-    // protected $table = "registros";
+    protected $table = "registros";
     // protected $primaryKey = "registro_id";
     protected $fillable = [
             'nombre',

@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class Favoritos extends Model
 {
     /**
      * Tabla pivot: Relaciona id de dos tablas  distinas (M : N)
      */
-    use HasFactory;
+    use HasFactory, HasApiTokens;
+
+
     public $timestamps = true;
     protected $table = "favoritos";
-    protected $primaryKey = ['id_usu', 'id_producto'];
+    protected $primaryKey = ['user_id', 'producto_id'];
     protected $fillable = [
 
             ];

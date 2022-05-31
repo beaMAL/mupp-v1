@@ -22,7 +22,7 @@ class CreateProductosTable extends Migration
             $table->text('descripcion', 300);
             $table->float('precio');
             $table->string('tipo');
-            $table->string('tono');
+            $table->string('tono')->default('#fbfbf9');
             $table->string('web')->nullable();;
             $table->string('ean')->nullable();
 
