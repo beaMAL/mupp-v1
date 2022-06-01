@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FavoritosController;
 use App\Http\Controllers\Api\UsuarioPublicaRegistroController;
 use App\Http\Controllers\Api\RaitingController;
+use App\Http\Controllers\Api\SolicitudAltaProductoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Estas rutas son las que en teoria vamos a usar desde vue con axios, pero entonces no se por que narices a mi me funciona como lo tengo en web.php
 Route::resource('producto', App\Http\Controllers\ProductoControl::class)->only('index', 'store', 'show', 'update', 'destroy');
+
+//estaria bien que solo se viese esto si estas logueado a ver si se haserlo
 Route::get('lista-registros-producto/{producto_id}', [RegistrosController::class, 'listarRegistrosDeProducto']);
 Route::get('calcular-media/{producto_id}', [RaitingController::class, 'medaRaiting']);
 
@@ -47,6 +50,8 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::delete('eliminar-registro/{registro_id}', [UsuarioPublicaRegistroController::class, 'eliminarRegistro']);
     Route::put('modificar-registro/{registro_id}',[ UsuarioPublicaRegistroController::class, 'modificarRegistro']);
     Route::get('lista-registros-usuario', [UsuarioPublicaRegistroController::class, 'listarRegistrosDeUsuario']);
+
+    Route::post('nueva-solicitud-producto', [SolicitudAltaProductoController::class, 'listarRegistrosDeUsuario']);
 });
 
 

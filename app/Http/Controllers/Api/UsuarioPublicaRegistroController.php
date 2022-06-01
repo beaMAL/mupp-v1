@@ -54,7 +54,7 @@ class UsuarioPublicaRegistroController extends Controller
         if (auth()->user()) {
             $user = auth()->user();
 
-            // $publicacion = new UsuariosPublicanRegistrosDeProductos();
+            
             try{
                 //transaction
                 $resultado = DB::transaction(function () use ( $registro, $user){

@@ -11,7 +11,8 @@ class RaitingController extends Controller
 {
     public function medaRaiting(Request $request, $producto_id){
         //hay que comprobar si ese producto tiene registros
-        if(Producto::find($producto_id)->exists){
+        if(Producto::find($producto_id)->exists() && (Registro::where('producto_id', $producto_id)
+        ->count()>0)){
              //si los tiene hay que hacer  una media y devolverla
             ///contar el numero de valoraciones
             $num_caliificaciones = Registro::where('producto_id', $producto_id)
