@@ -51,7 +51,8 @@ class UserController extends Controller
                 return response()->json([
                     "status"=> 1,
                     "mensaje"=>"¡El usuario ha sido logueado con éxito!",
-                    "acces_token"=>$token
+                    "acces_token"=>$token,
+                    'token_type'=>'Bearer',
                 ]);
 
             }else{

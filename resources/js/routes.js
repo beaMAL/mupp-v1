@@ -18,6 +18,8 @@ import Producto from './components/VistaProducto.vue'
 
 export const routes =[
 
+    //revisar rutas, hacer padres e hijas
+
         {
             name: 'home',
             path : '/',
@@ -47,18 +49,21 @@ export const routes =[
             path : '/perfil',
             component: Perfil
         },{
-            name: 'adminproductos',
-            path : '/admin/adminproductos',
-            component: AdminProductosCat
-        },
-        {
-            name: 'adminsolicitudes',
-            path : '/admin/adminsolicitudes',
-            component: AdminSolicitudes,
-        },{
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+            children: [
+                {
+                    name: 'adminproductos',
+                    path : '/adminproductos',
+                    component: AdminProductosCat
+                },
+                {
+                    name: 'adminsolicitudes',
+                    path : '/adminsolicitudes',
+                    component: AdminSolicitudes,
+                }
+            ],
         },{
 
             path: '/404',

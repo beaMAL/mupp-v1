@@ -17,7 +17,7 @@
                     "
                     size="32"
                 ></v-avatar> -->
-                <router-link route to="/">
+                <router-link route to="{ name: 'home' }">
                      <v-app-bar-nav-icon   style="margin-left:15px" >
                     <img
                         style="margin-left: 15px; padding-left: 5px"
@@ -39,7 +39,7 @@
                         v-for="(link, i) in links"
                         :key="i"
                         router
-                        :to="link.ruta"
+                        :to="link.name"
                     >
                         {{ link.name }}
                     </v-tab>
@@ -100,9 +100,9 @@ export default {
         logo_src:
             "http://127.0.0.1:8887/images/mupp-psd-estilizado4-sintexto.png",
         links: [
-            { name: "Home", ruta: "/", active: true },
-            { name: "Catálogo", ruta: "/catalogo", active: false },
-            { name: "About", ruta: "/perfil", active: false },
+            { name: "home", ruta: "/", active: true },
+            { name: "catalogo", ruta: "/catalogo", active: false },
+            { name: "about", ruta: "/perfil", active: false },
         ],
         icons: ["mdi-home", "mdi-email", "mdi-calendar"],
     }),

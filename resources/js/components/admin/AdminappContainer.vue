@@ -58,7 +58,7 @@
 
         <v-main >
             <v-container fluid>
-                <router-view></router-view>
+                <router-view append></router-view>
             </v-container>
         </v-main>
     </v-app>
@@ -84,13 +84,13 @@ export default {
                 text: "Admin Catálogo",
                 icon: "mdi-tools",
                 cerrar: false,
-                route: "/admin/adminproductos",
+                route: "/adminproductos",
             },
             {
                 text: "Admin Solicitudes",
                 icon: "mdi-inbox-arrow-down-outline",
                 cerrar: false,
-                route: "/admin/adminsolicitudes",
+                route: "/adminsolicitudes",
             },
             { text: "Cerrar Sesion", icon: "mdi-power", cerrar: true },
         ],
