@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\FavoritosController;
 use App\Http\Controllers\Api\UsuarioPublicaRegistroController;
 use App\Http\Controllers\Api\RaitingController;
 use App\Http\Controllers\Api\SolicitudAltaProductoController;
+use App\Http\Controllers\Api\RegistrosController;
 /*
 |--------------------------------------------------------------------------
 | API Routes

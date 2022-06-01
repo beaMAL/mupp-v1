@@ -59,6 +59,15 @@ export const routes =[
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+        },{
+
+            path: '/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
+            path: '*',
+            redirect: '/404',
         },
     ]
 
