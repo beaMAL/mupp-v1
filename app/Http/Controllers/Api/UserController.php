@@ -60,13 +60,13 @@ class UserController extends Controller
                 return response()->json([
                     "status"=> 0,
                     "mensaje"=>"La password es incorrecta"
-                ], 404);
+                ], 422);
             }
         }else{
             return response()->json([
                 "status"=> 0,
                 "mensaje"=>"Usuario no registrado"
-            ], 404);
+            ], 422);
         }
     }
     public function perfilUsuario(){

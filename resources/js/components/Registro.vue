@@ -45,17 +45,39 @@
                                                     </a>
                                                 </h3>
                                                 <p class="text-muted">
-                                                    Reset Password
+                                                    Registro
                                                 </p>
                                             </div>
                                             <div class="p-3">
-                                                <div
+                                                <v-alert
+                                                v-model="alert"
+
+                                                close-text="Close Alert"
+                                                  color="purple"
+                                                  dismissible
+                                                  text
+                                                  type="info"
+                                                   role="alert"
+                                                >
+                                                    Para poder acceder a algunas
+                                                    funcionalidades tienes que
+                                                    registrarte primero.
+                                                </v-alert>
+                                                <!-- <div
                                                     role="alert"
                                                     class="alert alert-warning text-center"
                                                 >
                                                     Para poder acceder a algunas
                                                     funcionalidades tienes que
                                                     registrarte primero.
+                                                </div> -->
+
+                                                 <div
+                                                    role="alert"
+                                                    class="alert alert-warning text-center"
+                                                    v-if="errors && errors.message"
+                                                >
+                                                    {{ errors.message }}
                                                 </div>
                                                 <form
                                                     action
@@ -104,14 +126,14 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label
-                                                            for="#password2"
+                                                            for="#password_confirmation"
                                                             class="form-label"
                                                             >Repite
                                                             Password</label
                                                         ><input
-                                                            v-model="password2"
+                                                            v-model="password_confirmation"
                                                             type="password"
-                                                            id="password2"
+                                                            id="password_confirmation"
                                                             placeholder="Repite password"
                                                             class="form-control form-input"
                                                         />
@@ -130,12 +152,16 @@
                                                         >
                                                     </div> -->
                                                     <div class="mt-3">
-                                                        <button
+                                                         <v-btn
+                                                            elevation="2"
                                                             type="submit"
-                                                            class="btn form-submit btn-block"
-                                                        >
+                                                            class="form-submit btn  btn-block"
+                                                            value="Login"
+                                                            :disabled="submitting"
+                                                            :loading="submitting"
+                                                            >
                                                             Registrar
-                                                        </button>
+                                                        </v-btn>
                                                     </div>
                                                     <div
                                                         class="mt-4 mb-0 text-center"
@@ -170,19 +196,61 @@
 </template>
 
 <script>
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 export default {
     data: () => ({
-        email: "",
-        password: "",
-        passwordRepeat: "",
+
+          fields: {
+               'nombre': '',
+               'email': '',
+            'password': '',
+            'password_confirmation': '',
+          },
+        errors: {},
+        submitting: false,
+        alert: true,
+
     }),
     methods: {
         register() {
-            console.log(this.email);
-            console.log(this.password);
-            console.log(this.passwordRepeat);
+             this.submitting = true;
+
+          //Deberia estar envuelto por un sweet alert
+          axios.post(ENDPOINT_PATH+"register", this.fields)
+            .then(response => {
+              this.$router.push('/')
+              this.submitting =false
+            }).catch(error => {
+                if(error.response.status !== 200){
+                    console.log('estoy entrando en el if')
+                    this.errors = error.response.data;
+                    console.log(this.errors)
+                    console.log(error.response.data.message)
+                    this.submitting =false
+
+                }else{
+                   console.log(error);
+                    Swal.fire({
+
+                        icon: "error",
+                        title: "Oops...",
+                        text: ` Algo fue mal... Petición fallida`,
+                    });
+                    this.submitting =false
+                }
+            });
         },
+        info(){
+            this.alert=true;
+        }
     },
+    created() {
+        this.info();
+
+    }
 };
 </script>
 <style lang="scss" scoped>
