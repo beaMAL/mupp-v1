@@ -11,10 +11,44 @@ class RaitingController extends Controller
 {
     public function medaRaiting(Request $request, $producto_id){
         //hay que comprobar si ese producto tiene registros
+        if(Producto::find($producto_id)->exists){
+             //si los tiene hay que hacer  una media y devolverla
+            ///contar el numero de valoraciones
+            $num_caliificaciones = Registro::where('producto_id', $producto_id)
+                                                ->whereNotNull('caliificacion')
+                                                ->count();
+            if($num_caliificaciones > 0){
+                //calcular medaRaiting
 
-            //si los tiene hay que hacer  una media y devolverla
+                $promedio =  App\Models\Registro::where('producto_id', $producto_id)
+                                                    ->whereNotNull('calificacion')
+                                                    ->avg('calificacion');
 
-            //si no los tiene hay que devolver un 0 con 0 reviews
-            
+                //devolver media y numero de calificaciones
+                return response()->json([
+                    "status"=> 1,
+                    "mensaje"=>"¡El producto tiene al menos una calificacion!",
+                    "data"=> [
+                        'numero-calificaciones'=>$num_caliificaciones,
+                        'promedio' => $promedio
+                    ]
+                ]);
+            }else{
+                //si no los tiene hay que devolver un 0 con 0 reviews
+                return response()->json([
+                    "status"=> 1,
+                    "mensaje"=>"¡El producto tiene 0 calificaciones!",
+                    "data"=> [
+                        'numero-calificaciones'=>$num_caliificaciones,
+                        'promedio' => 0
+                    ]
+                ]);
+            }
+        }else{
+            return response()->json([
+                "status"=> 0,
+                "mensaje"=>"¡El registro no se ha encontrado!"
+            ], 404);
+        }
     }
 }

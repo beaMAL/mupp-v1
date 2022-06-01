@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FavoritosController;
 use App\Http\Controllers\Api\UsuarioPublicaRegistroController;
+use App\Http\Controllers\Api\RaitingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Estas rutas son las que en teoria vamos a usar desde vue con axios, pero entonces no se por que narices a mi me funciona como lo tengo en web.php
 Route::resource('producto', App\Http\Controllers\ProductoControl::class)->only('index', 'store', 'show', 'update', 'destroy');
 Route::get('lista-registros-producto/{producto_id}', [RegistrosController::class, 'listarRegistrosDeProducto']);
+Route::get('calcular-media/{producto_id}', [RaitingController::class, 'medaRaiting']);
 
 
 
