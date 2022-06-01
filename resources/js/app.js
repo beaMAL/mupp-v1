@@ -16,7 +16,7 @@ import VueAxios from 'vue-axios';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import AdminappContainer from './components/admin/AdminappContainer.vue'
 import Mupp from './components/Mupp.vue'
-import Mupp from './components/NotFound.vue'
+
 /**
  * Importamos vue router con las rutas definidas en routes.js
 */

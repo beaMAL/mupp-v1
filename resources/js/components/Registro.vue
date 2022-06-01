@@ -116,7 +116,7 @@
                                                             class="form-control form-input"
                                                         />
                                                     </div>
-                                                    <div
+                                                    <!-- <div
                                                         class="custom-control custom-checkbox"
                                                     >
                                                         <input
@@ -128,7 +128,7 @@
                                                             class="custom-control-label"
                                                             >Remember me</label
                                                         >
-                                                    </div>
+                                                    </div> -->
                                                     <div class="mt-3">
                                                         <button
                                                             type="submit"

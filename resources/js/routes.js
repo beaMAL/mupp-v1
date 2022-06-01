@@ -11,6 +11,8 @@ import Login from './components/Login.vue'
 import Registro from './components/Registro.vue'
 import ForgotPasswd from './components/Forgot-password.vue'
 import Catalogo from './components/Catalogo.vue'
+import NotFound from './components/NotFound.vue'
+import About from './components/About.vue'
 
 //Falta crear
 import Perfil from './components/Perfil.vue'
@@ -48,6 +50,10 @@ export const routes =[
             name: 'perfil',
             path : '/perfil',
             component: Perfil
+        } ,{
+            name: 'about',
+            path : '/about',
+            component: About
         },{
             name: 'admin',
             path : '/admin',

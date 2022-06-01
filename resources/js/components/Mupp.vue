@@ -34,21 +34,23 @@
                 </router-link>
 
 
-                <v-tabs centered class="ml-n9" color="grey darken-1">
+                <v-tabs centered class="ml-n9" color="deep-purple accent-4" slider-size="5" active-class="" >
                     <v-tab
                         v-for="(link, i) in links"
                         :key="i"
-                        router
-                        :to="link.name"
+                        :to="{ name: link.name }"
+                        exact
+                        v-ripple="{ class: 'deep-purple--text' }"
+
                     >
-                        {{ link.name }}
+                        {{ link.tabname }}
                     </v-tab>
                 </v-tabs>
 
                 <div>
                     <nav class="enlaces-login">
-                        <router-link class="mr-3 texto-lavanda" to="/login"> LOGIN </router-link> |
-                        <router-link class="ml-3 texto-lavanda" to="/registro"> REGISTRO </router-link>
+                        <router-link class="mr-3 texto-lavanda" to="/login"  v-ripple="{ class: 'deep-purple--text' }"> LOGIN </router-link> |
+                        <router-link class="ml-3 texto-lavanda" to="/registro"  v-ripple="{ class: 'deep-purple--text' }"> REGISTRO </router-link>
                     </nav>
 
                 </div>
@@ -100,9 +102,9 @@ export default {
         logo_src:
             "http://127.0.0.1:8887/images/mupp-psd-estilizado4-sintexto.png",
         links: [
-            { name: "home", ruta: "/", active: true },
-            { name: "catalogo", ruta: "/catalogo", active: false },
-            { name: "about", ruta: "/perfil", active: false },
+            { tabname: "Home", name: "home", ruta: "/", active: true },
+            { tabname: "Catálogo", name:"catalogo", ruta: "/catalogo", active: false },
+            { tabname: "About", name: "about", ruta: "/perfil", active: false },
         ],
         icons: ["mdi-home", "mdi-email", "mdi-calendar"],
     }),
