@@ -11,14 +11,12 @@ use App\Models\Favoritos;
 class FavoritosController extends Controller
 {
     public function addFavorito(Request $request){
+        // $user_id = auth()->user();
         $request->validate([
-            'user_id' => 'unique:users',
-            'producto_id' => 'unique:productos'
+            'producto_id' => 'required'
         ]);
-        $favorito = new Favoritos();
-        $favorito->user_id = $request->user->id;
-        $favorito->producto_id = $request->producto->id;
-        $favorito->save();
+        $user_logueado = User::find($user->id);
+        $user_logueado->productos()->attach($request->producto_id);
         //inserta una nueva linea en la tabla
 
         return response()->json([
@@ -27,11 +25,32 @@ class FavoritosController extends Controller
         ]);
 
     }
-    public function listFavoritos(){
+    public function listFavoritos(Request $request){
+        $user_id = auth()->user()->id;
+        $consulta = DB::table('productos')
+            ->join('favoritos', 'productos.id', '=', 'favoritos.producto_id')
+            ->where('favoritos.user_id', $user_id)->get();
+
+            return response()->json([
+                "status"=> 1,
+                "mensaje"=>"¡El producto ha sido registrado con éxito!",
+                "data"=> $consulta
+            ]);
 
     }
 
-    public function eliminarFavorito(Request $request, $id){
+    public function eliminarFavorito(Request $request){
+        $user_id = auth()->user()->id;
+        $request->validate([
+            'producto_id' => 'required'
+        ]);
+        $user_logueado = User::find($user->id);
+        $user_logueado->productos()->detach($request->producto_id);
 
+            return response()->json([
+                "status"=> 1,
+                "mensaje"=>"¡El producto ha sido registrado con éxito!",
+                "data"=> $consulta
+            ]);
     }
 }

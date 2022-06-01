@@ -22,13 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Estas rutas son las que en teoria vamos a usar desde vue con axios, pero entonces no se por que narices a mi me funciona como lo tengo en web.php
 Route::resource('producto', App\Http\Controllers\ProductoControl::class)->only('index', 'store', 'show', 'update', 'destroy');
-
-
 Route::get('lista-registros-producto/{producto_id}', [RegistrosController::class, 'listarRegistrosDeProducto']);
 
 
 
-// Rutas auth
+// Rutas para auth
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
@@ -40,10 +38,11 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
 
 
     Route::post('add-favorito', [FavoritosController::class, 'addFavorito']);
-    Route::get('listar-favoritos/{user_id}', [FavoritosController::class, 'listFavoritos']);
+    Route::get('listar-favoritos', [FavoritosController::class, 'listFavoritos']);
     Route::delete('listar-favoritos/{user_id}/{producto_id}', [FavoritosController::class, 'eliminarFavorito']);
 
     Route::post('registrar-producto', [UsuarioPublicaRegistroController::class, 'registrarProducto']);
+    Route::delete('eliminar-registro/{registro_id}', [UsuarioPublicaRegistroController::class, 'eliminarRegistro']);
     Route::put('modificar-registro/{registro_id}',[ UsuarioPublicaRegistroController::class, 'modificarRegistro']);
     Route::get('lista-registros-usuario', [UsuarioPublicaRegistroController::class, 'listarRegistrosDeUsuario']);
 });
