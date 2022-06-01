@@ -51,7 +51,12 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::put('modificar-registro/{registro_id}',[ UsuarioPublicaRegistroController::class, 'modificarRegistro']);
     Route::get('lista-registros-usuario', [UsuarioPublicaRegistroController::class, 'listarRegistrosDeUsuario']);
 
+
     Route::post('nueva-solicitud-producto', [SolicitudAltaProductoController::class, 'listarRegistrosDeUsuario']);
+
+    Route::get('lista-calificaciones-usuario', [UsuarioPublicaRegistroController::class, 'listarCalificacionesDeUsuario']);
+
+
 });
 
 

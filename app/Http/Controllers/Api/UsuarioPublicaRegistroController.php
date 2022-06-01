@@ -54,7 +54,7 @@ class UsuarioPublicaRegistroController extends Controller
         if (auth()->user()) {
             $user = auth()->user();
 
-            
+
             try{
                 //transaction
                 $resultado = DB::transaction(function () use ( $registro, $user){
@@ -100,6 +100,42 @@ class UsuarioPublicaRegistroController extends Controller
                 "mensaje"=>"¡El producto ha sido registrado con éxito!",
                 "data"=> $consulta
             ]);
+    }
+    public function listarCalificacionesDeUsuario(Request $request){
+        $user_id = auth()->user()->id;
+
+        $num_caliificaciones = DB::table('registros')
+            ->selectRaw('COUNT(registros.id) as num_caliificaciones ')
+            ->groupBy('publican_reg_productos.user_id')
+            ->join('publican_reg_productos', 'registros.id', '=', 'publican_reg_productos.registro_id')
+            ->where('publican_reg_productos.user_id', $user_id)
+            ->get();
+
+        if($num_caliificaciones > 0){
+            $consulta =  DB::table('registros')
+            ->selectRaw('calificacion, COUNT(registros.id) as numero_registros')
+            ->groupBy('registros.calificacion')
+            ->join('publican_reg_productos', 'registros.id', '=', 'publican_reg_productos.registro_id')
+            ->where('publican_reg_productos.user_id', 11)
+            ->get();
+
+                return response()->json([
+                    "status"=> 1,
+                    "mensaje"=>"¡El producto ha sido registrado con éxito!",
+                    "data"=> $consulta
+                ]);
+        }else{
+            return response()->json([
+                "status"=> 1,
+                "mensaje"=>"¡El producto tiene 0 calificaciones!",
+                "data"=> [
+                    'numero-calificaciones'=>$num_caliificaciones,
+                    'promedio' => 0
+                ]
+            ]);
+        }
+
+
     }
 
     public function modificarRegistro(Request $request, $registro_id) {
