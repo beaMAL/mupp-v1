@@ -444,7 +444,7 @@ export default {
         },
         async listProductos() {
             const respuesta = await axios.get(
-                "http://127.0.0.1:8000/productos"
+                "http://127.0.0.1:8000/api/producto"
             );
             this.items = respuesta.data;
             // for (let i = 0; i < this.items.length; i++) {

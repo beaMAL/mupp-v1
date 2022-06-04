@@ -9,7 +9,7 @@ use App\Models\Producto;
 
 class RaitingController extends Controller
 {
-    public function medaRaiting(Request $request, $producto_id){
+    public function mediaRaiting(Request $request, $producto_id){
         //hay que comprobar si ese producto tiene registros
         if(Producto::find($producto_id)->exists() && (Registro::where('producto_id', $producto_id)
         ->count()>0)){

@@ -37,4 +37,5 @@ class SolicitudAltaProductoController extends Controller
         ]);
 
    }
+
 }
