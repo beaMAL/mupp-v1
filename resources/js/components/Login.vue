@@ -143,13 +143,14 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
           //Deberia estar envuelto por un sweet alert
           axios.post(ENDPOINT_PATH+"login", this.fields)
             .then(response => {
-                Swal.fire({
+                Swal.fire(
+                         "Añadido!",
+                            "Your file has been added.",
+                            "success",
 
-                        icon: "error",
-                        title: "Oops...",
-                        text: ` Algo fue mal... Petición fallida`,
-                })
-              this.$router.push('/')
+
+                )
+             this.$router.push('/')
               this.submitting =false
             }).catch(error => {
                 if(error.response.status === 422){
@@ -161,11 +162,11 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
                 }else{
                    console.log(error);
-                     Swal.fire(
-                            "Añadido!",
-                            "Your file has been added.",
-                            "success"
-                        );
+                     Swal.fire({
+                            icon: "error",
+                        title: "Oops...",
+                        text: ` Algo fue mal... Petición fallida`,
+                 } );
                     this.submitting =false
                 }
             });
