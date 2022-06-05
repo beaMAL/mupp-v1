@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Productos;
+use App\Models\Producto;
 
 class ProductoControl extends Controller
 {
@@ -14,7 +14,7 @@ class ProductoControl extends Controller
      */
     public function index()
     {
-        return Productos::get();
+        return Producto::get();
         return response()->json(['mensaje' => 'ok']);
 
     }
@@ -27,7 +27,7 @@ class ProductoControl extends Controller
      */
     public function store(Request $request)
     {
-        $producto = new Productos;
+        $producto = new Producto;
         $producto->create($request->all());
         return response()->json(['mensaje' => 'ok']);
 
@@ -37,10 +37,10 @@ class ProductoControl extends Controller
      * Display the specified resource.
      *
      * //@param  int  $id
-     * @param \App\Models\Productos $producto
+     * @param \App\Models\Producto $producto
      * @return \Illuminate\Http\Response
      */
-    public function show(Productos $producto)
+    public function show(Producto $producto)
     {
        return $producto;
        return response()->json(['mensaje' => 'ok']);
@@ -52,17 +52,17 @@ class ProductoControl extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @param \App\Models\Productos $producto
+     * @param \App\Models\Producto $producto
      * @return \Illuminate\Http\Response
      */
    // public function update(Request $request, $id)
-    public function update(Request $request, Productos $producto)
+    public function update(Request $request, Producto $producto)
     {
         $producto->fill($request->post())->save();
         return response()->json(['producto'=> $producto]);
-        
+
         // try{
-        //     Productos::find($id)->update($request->all());
+        //     Producto::find($id)->update($request->all());
         //     return response()->json('Product updated!');
         // }catch(Exception $e){
         //     console.log($e->getMessage());
@@ -76,7 +76,7 @@ class ProductoControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productos $producto)
+    public function destroy(Producto $producto)
     {
         $producto->delete();
        return response()->json(['mensaje' => 'ok']);

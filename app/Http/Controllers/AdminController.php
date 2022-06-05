@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
+
+   ///Hay que cambiar este controlador por completo a tipo Api, es decir que compruebe el tipo de user al hacer el login para
+
+
+   //investigar esto para una spa
 {
     /**
      * Create a new controller instance.

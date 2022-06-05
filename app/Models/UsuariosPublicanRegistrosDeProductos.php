@@ -4,25 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class UsuariosPublicanRegistrosDeProductos extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
      /**
      * Tabla pivot: Relaciona id de dos tablas  distinas (M : N)
      */
 
     public $timestamps = true;
     protected $table = "publican_reg_productos";
-    protected $primaryKey = ['id_usu', 'id_registro'];
+    protected $primaryKey = ['user_id', 'registro_id'];
     protected $fillable = [
 
             ];
 
-     public function usuario(){
+     public function users(){
          return $this->belongsTo(Usuario::class);
      }
-     public function registro(){
+     public function registros(){
         return $this->belongsTo(Registro::class);
     }
 

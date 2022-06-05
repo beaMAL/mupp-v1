@@ -41,14 +41,16 @@
     <link href="{{ asset('css/pe-icon-7-stroke-copy.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dorsin-copy.css') }}" rel="stylesheet">
     <style>
-
+        .active-menu{
+            font-weight: bold;
+            background-color: #a05bd875;
+            color: white !important;
+        }
+        .v-tabs-slider {
+            background-color: #5d1b8c !important;
+        }
     </style>
 
-    {{-- <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style> --}}
 </head>
 
 <body class="antialiased">

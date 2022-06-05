@@ -2,7 +2,7 @@
     <v-app id="inspire">
         <div>
             <div class="account-home-btn d-none d-sm-block">
-               
+
             </div>
             <section class="bg-account-pages height-100vh">
                 <div class="display-table">
@@ -51,11 +51,20 @@
                                                 <p class="text-muted">Login</p>
                                             </div>
                                             <div class="p-3">
-                                                <form action class="form">
+                                                 <div
+                                                    role="alert"
+                                                    class="alert alert-warning text-center"
+                                                    v-if="errors && errors.mensaje"
+                                                >
+                                                    {{ errors.mensaje }}
+                                                </div>
+                                                <form action class="form"  @submit.prevent="submit">
                                                     <div class="form-group">
+
                                                         <label for="#email" class="form-label"
                                                             >Email</label
                                                         ><input
+                                                            v-model="fields.email"
                                                             type="email"
                                                             id="email"
                                                             required
@@ -65,6 +74,7 @@
                                                         <label for="#password" class="form-label"
                                                             >Password</label
                                                         ><input
+                                                            v-model="fields.password"
                                                             type="password"
                                                             id="password"
                                                             placeholder="Enter Password"
@@ -72,13 +82,28 @@
                                                         />
                                                     </div>
                                                     <div class="mt-3">
-                                                        <button
+                                                        <v-btn
+                                                        elevation="2"
                                                             type="submit"
                                                             class="form-submit btn  btn-block"
                                                             value="Login"
+                                                            :disabled="submitting"
+                                                            :loading="submitting"
+
                                                         >
                                                             Login
-                                                        </button>
+                                                        </v-btn>
+                                                         <div
+                                                        class="mt-4 mb-0 text-center"
+                                                    >
+                                                         <p class="msg">¿No tienes cuenta?
+                                                          <router-link to="/registro" class="text-dark">Regístrate  <i
+                                                                    class="mdi mdi-lock"
+                                                                ></i
+                                                                ></router-link>
+                                                        </p>
+
+                                                    </div>
                                                     </div>
                                                 </form>
                                             </div>
@@ -94,23 +119,121 @@
     </v-app>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+    export default {
+  data: () => ({
+
+          fields: {
+               'email': '',
+            'password': '',
+          },
+          errors: {},
+          submitting: false,
+
+
+  }),
+  methods: {
+      submit(){
+          this.submitting = true;
+
+          //Deberia estar envuelto por un sweet alert
+          axios.post(ENDPOINT_PATH+"login", this.fields)
+            .then(response => {
+                Swal.fire({
+
+                        icon: "error",
+                        title: "Oops...",
+                        text: ` Algo fue mal... Petición fallida`,
+                })
+              this.$router.push('/')
+              this.submitting =false
+            }).catch(error => {
+                if(error.response.status === 422){
+                    console.log('estoy entrando en el if')
+                    this.errors = error.response.data;
+                    console.log(this.errors)
+                    console.log(error.response)
+                    this.submitting =false
+
+                }else{
+                   console.log(error);
+                     Swal.fire(
+                            "Añadido!",
+                            "Your file has been added.",
+                            "success"
+                        );
+                    this.submitting =false
+                }
+            });
+
+      },
+      //en teoria el metodo que funciona es el de submit habria que mergear ambos
+       async register(email, password) {
+            const user = { email, password };
+            try{
+                let result =  axios.post(ENDPOINT_PATH + "user", user)
+                console.log(response);
+                 if (result.status != 200) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                        });
+                    } else {
+                        Swal.fire(
+                            "Añadido!",
+                            "Your file has been added.",
+                            "success"
+                        );
+                    }
+                    this.close();
+                    return result.data;
+                } catch (e) {
+                    console.log(e);
+                    Swal.fire({
+
+                        icon: "error",
+                        title: "Oops...",
+                        text: `Peticion fallida: ${e}`,
+                    });
+                }
+
+
+
+       },
+        login() {
+        console.log(this.email);
+        console.log(this.password);
+        }
+  },
+
+
+}
+
+</script>
+
 <style lang="scss" scoped>
+
+.error {
+  margin: 1rem 0 0;
+  color: #ff4a96;
+}
 .form-submit {
-  background: #c2a1e2;
+  background: #c2a1e2 !important;
   border: none;
 
   cursor: pointer;
   transition: background 0.2s;
   &:hover {
-    background: #1cdaba;
+    background: #1cdaba !important;
   }
 }
 .form-input {
-
-
   border: 1px solid white;
-
   &:focus {
     outline: 0;
     border-color: #c2a1e2;
@@ -127,4 +250,5 @@
     background: linear-gradient(to right, #512da8, #711e72);
     opacity: 0.9;
 }
+
 </style>

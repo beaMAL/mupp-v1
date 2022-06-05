@@ -10,15 +10,17 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import Registro from './components/Registro.vue'
 import ForgotPasswd from './components/Forgot-password.vue'
-
-
 import Catalogo from './components/Catalogo.vue'
+import NotFound from './components/NotFound.vue'
+import About from './components/About.vue'
 
 //Falta crear
 import Perfil from './components/Perfil.vue'
 import Producto from './components/VistaProducto.vue'
 
 export const routes =[
+
+    //revisar rutas, hacer padres e hijas
 
         {
             name: 'home',
@@ -42,25 +44,41 @@ export const routes =[
             component: Catalogo
         }, {
             name: 'producto',
-            path : '/producto/{id}',
+            path : '/producto/:id',
             component: Producto
         }, {
             name: 'perfil',
             path : '/perfil',
             component: Perfil
-        },{
-            name: 'adminproductos',
-            path : '/admin/adminproductos',
-            component: AdminProductosCat
-        },
-        {
-            name: 'adminsolicitudes',
-            path : '/admin/adminsolicitudes',
-            component: AdminSolicitudes,
+        } ,{
+            name: 'about',
+            path : '/about',
+            component: About
         },{
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+            children: [
+                {
+                    name: 'adminproductos',
+                    path : '/adminproductos',
+                    component: AdminProductosCat
+                },
+                {
+                    name: 'adminsolicitudes',
+                    path : '/adminsolicitudes',
+                    component: AdminSolicitudes,
+                }
+            ],
+        },{
+
+            path: '/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
+            path: '*',
+            redirect: '/404',
         },
     ]
 
