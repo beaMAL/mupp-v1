@@ -276,61 +276,56 @@
                                     align-content="end"
                                 >
                                     <v-col cols="10" sm="9">
-                                        <v-simple-table>
-                                            <template v-slot:default>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-left">
-                                                            Nº REGISTROS
-                                                        </th>
-                                                        <th class="text-left">
-                                                            PROMEDIO
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            {{
-                                                                calificacion.numero
-                                                            }}
-                                                        </td>
-                                                        <td class=" ">
-                                                            <v-row
-                                                                class="flex-wrap justify-space-between"
-                                                            >
-                                                                <v-col cols="6">
-                                                                    <v-rating
-                                                                        :value="
-                                                                            calificacion.promedio
-                                                                        "
-                                                                        color="amber"
-                                                                        class="p-0"
-                                                                        half-increments
-                                                                        readonly
-                                                                        size="18"
-                                                                        >{{
-                                                                            calificacion.promedio
-                                                                        }}</v-rating
-                                                                    >
-                                                                </v-col>
-                                                                <v-col
-                                                                    cols="2"
-                                                                    class="centradito verticalalign"
-                                                                >
-                                                                    <span
-                                                                        align-self
-                                                                        >({{
-                                                                            calificacion.promedio
-                                                                        }})</span
-                                                                    >
-                                                                </v-col>
-                                                            </v-row>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </template>
-                                        </v-simple-table>
+                                        <v-row
+                                            class="detalles   pr-8 pl-2 mx-0"
+                                        >
+                                            <v-col
+                                                cols="4"
+                                                class=" px-1"
+                                            >
+                                                <span class="overline label">
+                                                    Nº REGISTROS</span
+                                                >
+                                            </v-col>
+                                            <v-col cols="8">
+                                                <span class="overline label"
+                                                    >PROMEDIO
+                                                    CALIFICACIONES</span
+                                                >
+                                            </v-col>
+                                        </v-row>
+                                        <v-divider class="mx-0"></v-divider>
+                                        <v-row
+                                            class="detalles   pr-8 pl-8 mx-0"
+                                        >
+                                            <v-col cols="4" >
+                                                <p>{{ calificacion.numero }}</p>
+                                            </v-col>
+                                            <v-col
+                                                cols="4"
+                                                sm="4"
+                                                class=" px-6"
+                                            >
+                                                <v-rating
+                                                    :value="
+                                                        calificacion.promedio
+                                                    "
+                                                    color="amber"
+                                                    class="pb-4"
+                                                    half-increments
+                                                    readonly
+                                                    size="18"
+                                                    >{{
+                                                        calificacion.promedio
+                                                    }}</v-rating
+                                                >
+                                            </v-col>
+                                            <v-col cols="4" sm="4">
+                                                <p>
+                                                   ( {{ calificacion.promedio }} )
+                                                </p>
+                                            </v-col>
+                                        </v-row>
                                     </v-col>
                                 </v-row>
                             </v-card>
