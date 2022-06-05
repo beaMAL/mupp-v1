@@ -276,13 +276,8 @@
                                     align-content="end"
                                 >
                                     <v-col cols="10" sm="9">
-                                        <v-row
-                                            class="detalles   pr-8 pl-2 mx-0"
-                                        >
-                                            <v-col
-                                                cols="4"
-                                                class=" px-1"
-                                            >
+                                        <v-row class="detalles pr- pl-2 mx-0">
+                                            <v-col cols="4" class="px-1">
                                                 <span class="overline label">
                                                     Nº REGISTROS</span
                                                 >
@@ -295,17 +290,11 @@
                                             </v-col>
                                         </v-row>
                                         <v-divider class="mx-0"></v-divider>
-                                        <v-row
-                                            class="detalles   pr-8 pl-8 mx-0"
-                                        >
-                                            <v-col cols="4" >
+                                        <v-row class="detalles pr-2 pl-2 mx-0">
+                                            <v-col cols="4">
                                                 <p>{{ calificacion.numero }}</p>
                                             </v-col>
-                                            <v-col
-                                                cols="4"
-                                                sm="4"
-                                                class=" px-6"
-                                            >
+                                            <v-col cols="4" sm="4" class="px-3">
                                                 <v-rating
                                                     :value="
                                                         calificacion.promedio
@@ -322,7 +311,11 @@
                                             </v-col>
                                             <v-col cols="4" sm="4">
                                                 <p>
-                                                   ( {{ calificacion.promedio }} )
+                                                    (
+                                                    {{
+                                                        calificacion.promedio
+                                                    }}
+                                                    )
                                                 </p>
                                             </v-col>
                                         </v-row>
@@ -441,11 +434,12 @@
                             <div>
                                 <v-row>
                                     <v-col
-                                        v-for="(item, i) in actividades"
-                                        :key="i"
+                                        v-for="item in actividades"
+                                        :key="item.id"
                                         cols="12"
                                     >
-                                        <v-card>
+                                    <v-row justify="center">
+                                        <v-card width="85%"  class="actividad-bg pb-4 mb-6 align-self-center">
                                             <v-list-item>
                                                 <v-list-item-avatar
                                                     color="grey darken-3"
@@ -463,67 +457,78 @@
                                                     >
                                                 </v-list-item-content>
                                             </v-list-item>
+                                            <v-row class=""
+                                                no-gutters
+                                                justify="center">
+                                                <v-card
+                                                    width="75%"
+                                                   class="mb-6s"
+                                                >
+                                                    <v-row
+                                                        class="detalles justify-start pr-8 pl-8 mx-0"
+                                                    >
+                                                        <v-col
+                                                            cols="4"
+                                                            sm="4"
+                                                            class="px-6"
+                                                        >
+                                                            <v-rating
+                                                                :value="
+                                                                    item.calificacion
+                                                                "
+                                                                color="amber"
+                                                                class="pb-4"
+                                                                half-increments
+                                                                readonly
+                                                                size="18"
+                                                                >{{
+                                                                    item.calificacion
+                                                                }}</v-rating
+                                                            >
+                                                        </v-col>
+                                                        <v-col cols="4" sm="4">
+                                                            <p>
+                                                                (
+                                                                {{
+                                                                    item.calificacion
+                                                                }}
+                                                                )
+                                                            </p>
+                                                        </v-col>
+                                                    </v-row>
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12 text-justify p-2 px-7"
+                                                        >
+                                                            <p> {{ item.review }}</p>
+
+                                                        </v-col>
+                                                    </v-row>
+                                                </v-card>
+
+                                            </v-row>
+                                            <v-row>
+                                                <v-col
+                                                    cols="12"
+                                                    justify="center"
+                                                >
+                                                    <v-row width="75%" class="pb-5 justify-center">
+                                                        <v-img
+                                                          :src="item.imagen"
+                                                          max-height="250"
+                                                          max-width="500"
+                                                          aspect-ratio="1.7"
+                                                          contain
+                                                        ></v-img>
+
+                                                    </v-row>
+
+                                                </v-col>
+                                            </v-row>
                                         </v-card>
+                                        </v-row>
                                     </v-col>
                                 </v-row>
-
-                                <v-card
-                                    color="f7b3fd"
-                                    class="mx-auto my-12"
-                                    max-width="374"
-                                >
-                                    <template slot="progress">
-                                        <v-progress-linear
-                                            color="deep-purple"
-                                            height="10"
-                                            indeterminate
-                                        ></v-progress-linear>
-                                    </template>
-
-                                    <v-card-subtitle>
-                                        {{ item.tipo }}
-                                    </v-card-subtitle>
-
-                                    <v-divider></v-divider>
-                                    <v-row align="center" class="mx-0">
-                                        <v-rating
-                                            :value="4.5"
-                                            color="amber"
-                                            dense
-                                            half-increments
-                                            readonly
-                                            size="14"
-                                        ></v-rating>
-
-                                        <div class="grey--text ms-2">
-                                            4.5 (413)
-                                        </div>
-                                    </v-row>
-
-                                    <v-card-actions class="pt-3 pl-3">
-                                        <div class="my-2">
-                                            <router-link
-                                                :to="'/producto/' + item.id"
-                                            >
-                                                <v-btn
-                                                    color="warning"
-                                                    fab
-                                                    @click="
-                                                        inspeccionarProducto(
-                                                            item
-                                                        )
-                                                    "
-                                                    dark
-                                                >
-                                                    <v-icon>mdi-plus</v-icon>
-                                                </v-btn>
-                                            </router-link>
-                                        </div>
-                                        <v-spacer></v-spacer>
-                                    </v-card-actions>
-
-                                    <v-divider class="mx-4"></v-divider>
-                                </v-card>
                             </div>
                         </v-card>
                     </v-sheet>
@@ -553,7 +558,7 @@ export default {
             ],
             tiposRules: [(v) => !!v || "Requerido"],
             item: [],
-            actividades: [],
+            actividades: "",
             calificacion: [],
             logueado: false,
             dialog: false,
@@ -612,7 +617,8 @@ export default {
             const respuesta = await axios
                 .get(ENDPOINT_PATH + "lista-registros-producto/" + id_producto)
                 .then((response) => {
-                    this.actividades = response.data;
+                    this.actividades = response.data.data;
+                    console.log(this.actividades);
                 })
                 .catch((error) => {});
         },
@@ -833,6 +839,9 @@ export default {
 };
 </script>
 <style scoped>
+.actividad-bg{
+    background-color:#683ab71e;
+}
 .actividad-borde {
     border-radius: 5px;
 }
