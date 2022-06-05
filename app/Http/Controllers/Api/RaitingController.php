@@ -16,12 +16,12 @@ class RaitingController extends Controller
              //si los tiene hay que hacer  una media y devolverla
             ///contar el numero de valoraciones
             $num_caliificaciones = Registro::where('producto_id', $producto_id)
-                                                ->whereNotNull('caliificacion')
+                                                ->whereNotNull('calificacion')
                                                 ->count();
             if($num_caliificaciones > 0){
                 //calcular medaRaiting
 
-                $promedio =  App\Models\Registro::where('producto_id', $producto_id)
+                $promedio =  Registro::where('producto_id', $producto_id)
                                                     ->whereNotNull('calificacion')
                                                     ->avg('calificacion');
 
@@ -30,7 +30,7 @@ class RaitingController extends Controller
                     "status"=> 1,
                     "mensaje"=>"¡El producto tiene al menos una calificacion!",
                     "data"=> [
-                        'numero-calificaciones'=>$num_caliificaciones,
+                        'numero'=>$num_caliificaciones,
                         'promedio' => $promedio
                     ]
                 ]);

@@ -8,7 +8,7 @@
                     </v-sheet>
                 </v-col> -->
 
-                <v-col cols="12" sm="8">
+                <v-col cols="18" sm="12">
                     <v-sheet min-height="70vh" rounded="lg">
                         <template>
                             <v-container fluid>
@@ -103,7 +103,7 @@
                                                 >
                                                     <v-img
                                                         height="200px"
-                                                        src="http://127.0.0.1:8887/images/lowpoly-purple1.png"
+                                                        src="http://127.0.0.1:8887/images/lowpoly-purple-degradado.png"
                                                     >
                                                         <v-toolbar-title
                                                             class="ml-3 white--text"
@@ -443,10 +443,28 @@ export default {
             console.log(item);
         },
         async listProductos() {
-            const respuesta = await axios.get(
-                "http://127.0.0.1:8000/api/producto"
-            );
+
+            try {
+                 const respuesta = await axios.get(
+                     "http://127.0.0.1:8000/api/producto"
+                );
             this.items = respuesta.data;
+            } catch (error) {
+                 if(error.response.status !== 200){
+
+                    console.log('estoy entrando en el if')
+                    this.errors = error.response.data;
+                    console.log(this.errors)
+                    console.log(error.response.data.message)
+
+
+                }else{
+                     this.errors = error.response.data;
+                    console.log(this.errors)
+                    console.log(error.response.data.message)
+                }
+            }
+
             // for (let i = 0; i < this.items.length; i++) {
             //     // let newshow = {index: i, show:false};
             //     let newshow = { show: false };
@@ -483,14 +501,9 @@ export default {
         updateItemsPerPage(number = 4) {
             this.itemsPerPage = number;
             for (let i = 0; i < number; i++) {
-                // let newshow = {index: i, show:false};
                 let newshow = { show: false };
 
                 this.shows.push(newshow);
-
-                // this.shows[i] = Object.assign(this.shows[i], newshow);
-                // this.items[i] = Object.assign(this.items[i], load);
-                // console.log(this.items[i]);
                 console.log(this.shows[i]);
             }
         },

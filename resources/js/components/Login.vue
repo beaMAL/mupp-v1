@@ -143,6 +143,12 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
           //Deberia estar envuelto por un sweet alert
           axios.post(ENDPOINT_PATH+"login", this.fields)
             .then(response => {
+                Swal.fire({
+
+                        icon: "error",
+                        title: "Oops...",
+                        text: ` Algo fue mal... Petición fallida`,
+                })
               this.$router.push('/')
               this.submitting =false
             }).catch(error => {
@@ -155,12 +161,11 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
                 }else{
                    console.log(error);
-                    Swal.fire({
-
-                        icon: "error",
-                        title: "Oops...",
-                        text: ` Algo fue mal... Petición fallida`,
-                    });
+                     Swal.fire(
+                            "Añadido!",
+                            "Your file has been added.",
+                            "success"
+                        );
                     this.submitting =false
                 }
             });
@@ -170,7 +175,7 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
        async register(email, password) {
             const user = { email, password };
             try{
-                let resultado =  axios.post(ENDPOINT_PATH + "user", user)
+                let result =  axios.post(ENDPOINT_PATH + "user", user)
                 console.log(response);
                  if (result.status != 200) {
                         Swal.fire({
