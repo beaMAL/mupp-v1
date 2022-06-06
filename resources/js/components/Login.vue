@@ -131,7 +131,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 axios.defaults.withCredentials = true;
 
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
     export default {
   data: () => ({
           fields: {
@@ -147,8 +147,8 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
       submit(){
           this.submitting = true;
 
-          axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(() => {
-              axios.post("http://127.0.0.1:8000/login", this.fields)
+          axios.get('/sanctum/csrf-cookie').then(() => {
+              axios.post("/login", this.fields)
                 .then(response => {
                 console.log(response)
                 this.user= response.data.user;
@@ -184,41 +184,6 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
 
       },
-      //en teoria el metodo que funciona es el de submit habria que mergear ambos
-       async register(email, password) {
-            const user = { email, password };
-            try{
-                let result =  axios.post(ENDPOINT_PATH + "user", user)
-                console.log(response);
-                 if (result.status != 200) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong!",
-                        });
-                    } else {
-                        Swal.fire(
-                            "Añadido!",
-                            "Your file has been added.",
-                            "success"
-                        );
-                    }
-                    this.close();
-                    return result.data;
-                } catch (e) {
-                    console.log(e);
-                    Swal.fire({
-
-                        icon: "error",
-                        title: "Oops...",
-                        text: `Peticion fallida: ${e}`,
-                    });
-                }
-
-
-
-       },
-
         async login() {
             await this.$store.dispatch('login', this.fields);
             return this.$router.replace('/perfil')

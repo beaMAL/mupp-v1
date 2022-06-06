@@ -328,7 +328,7 @@
     padding-top: 220px;
 }
 .bg-home {
-    background: url("C:/xampp/htdocs/mupp-v1/resources/img/lowpoly-purple1.png");
+    background: url("http://127.0.0.1:8887/images/lowpoly-purple1.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

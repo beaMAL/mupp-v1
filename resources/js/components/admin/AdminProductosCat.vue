@@ -303,7 +303,7 @@ export default {
     methods: {
         async listProductos() {
             const respuesta = await axios.get(
-                "http://127.0.0.1:8000/productos"
+                "/api/producto"
             );
             this.productos = respuesta.data;
         },
@@ -337,7 +337,7 @@ export default {
                     preConfirm: async () => {
                         try {
                             let response = await axios.delete(
-                                "http://127.0.0.1:8000/productos/" + item.id
+                                "/api/producto/" + item.id
                             );
                              this.listProductos();
                             if (response.status != 200) {
@@ -393,7 +393,7 @@ export default {
                         preConfirm: async () => {
                             try {
                                 let response = await axios.put(
-                                    "http://127.0.0.1:8000/productos/" +
+                                    "/api/producto/" +
                                         this.id,
                                     this.editedItem
                                 );
@@ -434,7 +434,7 @@ export default {
             } else {
                 try {
                     let result = await axios.post(
-                        "http://127.0.0.1:8000/productos",this.editedItem
+                        "/api/producto",this.editedItem
 
                     );
                     this.listProductos();

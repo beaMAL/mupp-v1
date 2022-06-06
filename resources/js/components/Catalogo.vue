@@ -446,7 +446,7 @@ export default {
 
             try {
                  const respuesta = await axios.get(
-                     "http://127.0.0.1:8000/api/producto"
+                     "/api/producto"
                 );
             this.items = respuesta.data;
             } catch (error) {

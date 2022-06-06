@@ -107,7 +107,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
 export default {
     data() {
         return {
@@ -143,7 +143,7 @@ export default {
         async obteneractividad() {
             let id_producto = this.$route.params.id;
             const respuesta = await axios
-                .get(ENDPOINT_PATH + "lista-registros-producto/" + id_producto)
+                .get( "/api/lista-registros-usuario" )
                 .then((response) => {
                     this.actividades = response.data.data;
                     console.log(this.actividades);
@@ -163,7 +163,7 @@ export default {
             try {
                 let fav = [{ producto_id: this.item.id }, { user_id: 11 }];
                 axios
-                    .post(ENDPOINT_PATH + "add-favorito", fav)
+                    .post( + "/api/add-favorito", fav)
                     .then((response) => {
                         console.log(response);
                         if (response.status != 200) {
@@ -233,7 +233,7 @@ export default {
         async listaCalificaciones() {
 
             const respuesta = await axios
-                .get(ENDPOINT_PATH + "lista-calificaciones-usuario" )
+                .get( "/api/lista-calificaciones-usuario" )
                 .then((response) => {
                     console.log(response.data.data);
                     if (response.data.status == 1) {
@@ -257,7 +257,7 @@ export default {
         async listProducto() {
             let id_producto = this.$route.params.id;
             const respuesta = await axios
-                .get(ENDPOINT_PATH + "producto/" + id_producto)
+                .get( "/api/producto/" + id_producto)
                 .then((response) => {
                     this.item = response.data;
                     //  (this.item).forEach((element) => {

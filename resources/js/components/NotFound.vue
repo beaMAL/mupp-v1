@@ -98,39 +98,8 @@ export default {
         error: false,
     }),
     methods: {
-        async register(email, password) {
-            const user = { email, password };
-            try {
-                let resultado = axios.post(ENDPOINT_PATH + "user", user);
-                console.log(response);
-                if (result.status != 200) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Something went wrong!",
-                    });
-                } else {
-                    Swal.fire(
-                        "Añadido!",
-                        "Your file has been added.",
-                        "success"
-                    );
-                }
-                this.close();
-                return result.data;
-            } catch (e) {
-                console.log(e);
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: `Peticion fallida: ${e}`,
-                });
-            }
-        },
-        login() {
-            console.log(this.email);
-            console.log(this.password);
-        },
+
+
     },
 };
 </script>

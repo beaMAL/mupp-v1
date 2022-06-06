@@ -199,7 +199,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
 export default {
     data: () => ({
 
@@ -219,7 +219,7 @@ export default {
              this.submitting = true;
 
           //Deberia estar envuelto por un sweet alert
-          axios.post(ENDPOINT_PATH+"register", this.fields)
+          axios.post("/api/register", this.fields)
             .then(response => {
               this.$router.push('/')
               this.submitting =false
