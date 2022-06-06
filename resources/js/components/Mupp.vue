@@ -46,14 +46,77 @@
                         {{ link.tabname }}
                     </v-tab>
                 </v-tabs>
+                <template v-if="$store.state.auth">
 
-                <div>
+
+                    <v-row>
+
+                        <v-col cols="12">
+                            <v-menu
+                             offset-y
+                              transition="slide-y-transition"
+                              bottom
+                             >
+                              <template v-slot:activator="{ on, attrs }">
+
+                                <v-btn
+                                  icon
+                                 x-large
+                                  v-bind="attrs"
+                                  v-on="on"
+                                >
+                                 <v-avatar color="indigo">
+                                   <v-icon dark color="white">
+                                     mdi-account-circle
+                                   </v-icon>
+                                 </v-avatar>
+                                </v-btn>
+                              </template>
+                              <v-card>
+                                  <v-list-item-content class="justify-center">
+                                    <div class="mx-auto text-center">
+                                      <v-avatar color="indigo">
+                                          <v-icon dark color="white">
+                                            mdi-account-circle
+                                          </v-icon>
+                                        </v-avatar>
+                                      <h3>{{ $store.state.user.nombre }}</h3>
+                                      <p class="text-caption mt-1">
+                                        {{ $store.state.user.email }}
+                                      </p>
+                                      <v-divider class="my-3"></v-divider>
+                                      <v-btn
+                                        depressed
+                                        rounded
+                                        text
+                                      >
+                                        Perfil
+                                      </v-btn>
+                                      <v-divider class="my-3"></v-divider>
+                                      <v-btn
+                                        @click="logout"
+                                        depressed
+                                        rounded
+                                        text
+                                      >
+                                        Logout
+                                      </v-btn>
+                                    </div>
+                                  </v-list-item-content>
+                                </v-card>
+                            </v-menu>
+
+                        </v-col>
+                    </v-row>
+                    </template>
+
+                <template v-else>
                     <nav class="enlaces-login">
                         <router-link class="mr-3 texto-lavanda" to="/login"  v-ripple="{ class: 'deep-purple--text' }"> LOGIN </router-link> |
                         <router-link class="ml-3 texto-lavanda" to="/registro"  v-ripple="{ class: 'deep-purple--text' }"> REGISTRO </router-link>
                     </nav>
 
-                </div>
+                </template>
                 <!-- <v-avatar
                     class="hidden-sm-and-down"
                     color="grey darken-1 shrink"
@@ -99,6 +162,7 @@
 <script>
 export default {
     data: () => ({
+        user: {},
         logo_src:
             "http://127.0.0.1:8887/images/mupp-psd-estilizado4-sintexto.png",
         links: [
@@ -108,6 +172,12 @@ export default {
         ],
         icons: ["mdi-home", "mdi-email", "mdi-calendar"],
     }),
+    methods: {
+        async logout(){
+           await this.$store.dispatch('logout');
+           return this.$router.replace('/login');
+        }
+    },
 };
 </script>
 <style scoped>

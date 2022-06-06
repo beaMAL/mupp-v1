@@ -62,19 +62,10 @@
                                                     class="alert alert-warning text-center"
 
                                                 >
-                                                    {{ this.user }}
-                                                </div>
-                                                <div
-                                                    role=""
-                                                    class="  text-center"
 
-                                                >
-                                                    <v-btn @click="me"
-                                                    >
-                                                        user
-                                                    </v-btn>
                                                 </div>
-                                                <form action class="form"  @submit.prevent="login">
+
+                                                <form  action class="form"  @submit.prevent="login">
                                                     <div class="form-group">
 
                                                         <label for="#email" class="form-label"
@@ -143,7 +134,6 @@ axios.defaults.withCredentials = true;
 const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
     export default {
   data: () => ({
-            user: {},
           fields: {
                'email': '',
             'password': '',
@@ -228,38 +218,15 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
 
        },
-       me(){
-           axios.get("http://localhost:8000/api/user").then((response) => {
-          this.user = response.data
-          console.log(this.user);
-           })
-       },
-       logout(){
-           axios.post("http://127.0.0.1:8000/logout").then(() => {
-               this.user = {}
-           });
-       },
-        login() {
-            console.log(this.fields.email);
-            console.log(this.fields.password);
-          axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
-              axios.post("http://localhost:8000/login", this.fields).then(result => {
-                  this.user = result.data;
-              })
 
-          })
+        async login() {
+            await this.$store.dispatch('login', this.fields);
+            return this.$router.replace('/perfil')
+
 
         }
   },
-  created() {
-    //   axios.get("http://127.0.0.1:8000/api/user").then((response) => {
-    //       this.user = response.data
-    //       console.log(this.user);
 
-    //   }).catch((e) => {
-    //       console.log(e);
-    //   })
-  }
 
 
 }
