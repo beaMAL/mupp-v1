@@ -42,6 +42,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     //rutas
     Route::get('perfil-usuario', [UserController::class, 'perfilUsuario']);
     Route::get('logout', [UserController::class, 'logout']);
+    //logout por seguridad deberia ser post
 
 
     Route::post('add-favorito', [FavoritosController::class, 'addFavorito']);

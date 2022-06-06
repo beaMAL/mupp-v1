@@ -57,8 +57,24 @@
                                                     v-if="errors && errors.mensaje"
                                                 >
                                                     {{ errors.mensaje }}
+                                                </div><div
+                                                    role="alert"
+                                                    class="alert alert-warning text-center"
+
+                                                >
+                                                    {{ this.user }}
                                                 </div>
-                                                <form action class="form"  @submit.prevent="submit">
+                                                <div
+                                                    role=""
+                                                    class="  text-center"
+
+                                                >
+                                                    <v-btn @click="me"
+                                                    >
+                                                        user
+                                                    </v-btn>
+                                                </div>
+                                                <form action class="form"  @submit.prevent="login">
                                                     <div class="form-group">
 
                                                         <label for="#email" class="form-label"
@@ -122,11 +138,12 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+axios.defaults.withCredentials = true;
 
 const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
     export default {
   data: () => ({
-
+            user: {},
           fields: {
                'email': '',
             'password': '',
@@ -140,9 +157,11 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
       submit(){
           this.submitting = true;
 
-          //Deberia estar envuelto por un sweet alert
-          axios.post(ENDPOINT_PATH+"login", this.fields)
-            .then(response => {
+          axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(() => {
+              axios.post("http://127.0.0.1:8000/login", this.fields)
+                .then(response => {
+                console.log(response)
+                this.user= response.data.user;
                 Swal.fire(
                          "Añadido!",
                             "Your file has been added.",
@@ -150,26 +169,29 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
 
                 )
-             this.$router.push('/')
-              this.submitting =false
-            }).catch(error => {
-                if(error.response.status === 422){
-                    console.log('estoy entrando en el if')
-                    this.errors = error.response.data;
-                    console.log(this.errors)
-                    console.log(error.response)
-                    this.submitting =false
+                 //  this.$router.push('/')
+                 this.submitting =false
+                }).catch(error => {
+                    if(error.response.status === 422){
+                        console.log('estoy entrando en el if')
+                        this.errors = error.response.data;
+                        console.log(this.errors)
+                        console.log(error.response)
+                        this.submitting =false
 
-                }else{
-                   console.log(error);
-                     Swal.fire({
-                            icon: "error",
-                        title: "Oops...",
-                        text: ` Algo fue mal... Petición fallida`,
-                 } );
-                    this.submitting =false
-                }
-            });
+                    }else{
+                       console.log(error);
+                         Swal.fire({
+                                icon: "error",
+                            title: "Oops...",
+                            text: ` Algo fue mal... Petición fallida`,
+                     } );
+                        this.submitting =false
+                    }
+                });
+          }).catch(error => {});
+          //Deberia estar envuelto por un sweet alert
+
 
       },
       //en teoria el metodo que funciona es el de submit habria que mergear ambos
@@ -206,11 +228,38 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
 
 
        },
+       me(){
+           axios.get("http://localhost:8000/api/user").then((response) => {
+          this.user = response.data
+          console.log(this.user);
+           })
+       },
+       logout(){
+           axios.post("http://127.0.0.1:8000/logout").then(() => {
+               this.user = {}
+           });
+       },
         login() {
-        console.log(this.email);
-        console.log(this.password);
+            console.log(this.fields.email);
+            console.log(this.fields.password);
+          axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+              axios.post("http://localhost:8000/login", this.fields).then(result => {
+                  this.user = result.data;
+              })
+
+          })
+
         }
   },
+  created() {
+    //   axios.get("http://127.0.0.1:8000/api/user").then((response) => {
+    //       this.user = response.data
+    //       console.log(this.user);
+
+    //   }).catch((e) => {
+    //       console.log(e);
+    //   })
+  }
 
 
 }
