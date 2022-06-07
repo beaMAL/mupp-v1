@@ -30,6 +30,10 @@ class UserController extends Controller
 
 
     }
+
+    public function admin() {
+        
+    }
      /**
       * Recibimosla informacion del form login:
         -Validamos los datos
@@ -46,7 +50,7 @@ class UserController extends Controller
             if(Hash::check($request->password, $user->password)){
                 //Creamos token
                 $token = $user->createToken("auth_token")->plainTextToken;
-                
+
                 //Create
                 return response()->json([
                     "status"=> 1,

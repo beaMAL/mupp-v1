@@ -14,8 +14,11 @@ class GestionSolicitudesController extends Controller
      */
     public function index()
     {
-       return SolicitudAltaProducto::get();
+        if(Auth::user()->isAdmin()){
+            return SolicitudAltaProducto::get();
 
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
 
     }
 

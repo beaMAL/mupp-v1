@@ -572,6 +572,7 @@ export default {
             files: [],
             calificacion: "",
             defaultItem: {
+                producto_id: this.$route.params.id,
                  files: [],
                 formato: "",
                 categoria: "",
@@ -590,6 +591,7 @@ export default {
                 id_ultima_modificacion: "",
             },
             editedItem: {
+                producto_id: this.$route.params.id,
                  files: [],
                 formato: "",
                 categoria: "",
@@ -791,7 +793,7 @@ export default {
             try {
                 let fav = [{ producto_id: this.item.id }, { user_id: 11 }];
                 axios
-                    .post( "/api/add-favorito", fav)
+                    .post( "/api/add-favorito/"+ this.item.id )
                     .then((response) => {
                         console.log(response);
                         if (response.status != 200) {

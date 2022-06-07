@@ -58,7 +58,7 @@ class User extends Authenticatable
     //     return $this->hasMany(Producto::class, 'id_ultima_modificacion', 'id' );
     // }
 
-    public function tipoUsuario(){
+    public function is_admin():bool{
         return $this->tipo_usuario;
     }
 

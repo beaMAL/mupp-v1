@@ -1,7 +1,11 @@
 const state = {
     user: null
 };
-const getters = {};
+const getters = {
+    user: state => state.user,
+   // token: state => state.token,
+    check: state => state.user !== null
+};
 const actions = {
     async login({ dispatch }, credenciales){
         console.log(this.fields.email);
@@ -22,7 +26,7 @@ const actions = {
     }
 };
 const mutations = {
-    SET_USER(state, user){
+    SET_USER(state, {user}){
         state.user = user;
     }
 };

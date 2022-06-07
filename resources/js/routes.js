@@ -13,10 +13,12 @@ import ForgotPasswd from './components/Forgot-password.vue'
 import Catalogo from './components/Catalogo.vue'
 import NotFound from './components/NotFound.vue'
 import About from './components/About.vue'
-
-//Falta crear
 import Perfil from './components/Perfil.vue'
 import Producto from './components/VistaProducto.vue'
+
+import auth from './middleware/auth'
+import admin from './middleware/admin'
+
 
 export const routes =[
 
@@ -49,7 +51,23 @@ export const routes =[
         }, {
             name: 'perfil',
             path : '/perfil',
-            component: Perfil
+            component: Perfil,
+            meta: { middleware: [auth] },
+            children: [
+                {
+                    path : '',
+                    redirect: { name: 'perfil.registro'}
+                },
+                {
+                    name:'listaregistro',
+                    path:'registro',
+                    component: Producto
+                },{
+                    name:'listaregistros',
+                    path:'registros',
+                    component: Producto
+                },
+            ]
         } ,{
             name: 'about',
             path : '/about',
@@ -58,15 +76,23 @@ export const routes =[
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+            meta: {
+                middleware:[auth, admin],
+            },
             children: [
                 {
-                    name: 'adminproductos',
-                    path : '/adminproductos',
+
+                    path : '',
+                    redirect: { name: 'admin.adminproductos'}
+                },
+                {
+                    name: 'admin.adminproductos',
+                    path : 'adminproductos',
                     component: AdminProductosCat
                 },
                 {
-                    name: 'adminsolicitudes',
-                    path : '/adminsolicitudes',
+                    name: 'admin.adminsolicitudes',
+                    path : 'adminsolicitudes',
                     component: AdminSolicitudes,
                 }
             ],
