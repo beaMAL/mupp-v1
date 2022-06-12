@@ -8,7 +8,7 @@
                     </v-sheet>
                 </v-col> -->
 
-                <v-col cols="18" sm="12">
+                <v-col cols="12" sm="11" xl="8">
                     <v-sheet min-height="70vh" rounded="lg">
                         <template>
                             <v-container fluid>

@@ -20,7 +20,7 @@
                                                             OVERLINE
                                                         </div>
                                                         <v-list-item-title class="text-h5 text-uppercase mb-1">
-                                                           USUARIO PEPITO
+                                                            USUARIO PEPITO
                                                         </v-list-item-title>
                                                         <v-list-item-subtitle>Greyhound divisely
                                                             hello coldly
@@ -39,50 +39,31 @@
                             <v-card class="margen-top-raitings">
                                 <v-row no-gutters justify="center" class="alto align-end" align-content="end">
                                     <v-col cols="10" sm="9">
-                                      <v-row>
-                                          <v-card
-                                              class="mt-4 mx-auto"
-                                              max-width="1400"
-                                            >
-                                              <v-sheet
-                                                class="v-sheet--offset pa-7 mx-auto"
-                                                color="white"
-                                                elevation="12"
-                                                max-width="calc(100% - 32px)"
-                                              >
-                                                <v-sparkline
+                                        <v-row>
+                                            <v-card class="mt-4 mx-auto" max-width="1400">
+                                                <v-sheet class="v-sheet--offset pa-7 mx-auto" color="white"
+                                                    elevation="12" max-width="calc(100% - 32px)">
+                                                    <v-sparkline :gradient="['#00c6ff', '#F0F', '#FF0']" line-width="2"
+                                                        padding="2" smooth="5" auto-draw :labels="labels"
+                                                        :value="value"></v-sparkline>
+                                                </v-sheet>
 
-                                                :gradient="['#00c6ff', '#F0F', '#FF0']"
-                                                line-width="2"
-                                                padding="2"
-                                                smooth="5"
-
-                                                auto-draw
-                                                  :labels="labels"
-                                                  :value="value"
-
-
-                                                ></v-sparkline>
-                                              </v-sheet>
-
-                                              <v-card-text class="pt-0">
-                                                <div class="text-h6 font-weight-light mb-2">
-                                                  User Registrations
-                                                </div>
-                                                <div class="subheading font-weight-light grey--text">
-                                                  Last Campaign Performance
-                                                </div>
-                                                <v-divider class="my-2"></v-divider>
-                                                <v-icon
-                                                  class="mr-2"
-                                                  small
-                                                >
-                                                  mdi-clock
-                                                </v-icon>
-                                                <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
-                                              </v-card-text>
+                                                <v-card-text class="pt-0">
+                                                    <div class="text-h6 font-weight-light mb-2">
+                                                        User Registrations
+                                                    </div>
+                                                    <div class="subheading font-weight-light grey--text">
+                                                        Last Campaign Performance
+                                                    </div>
+                                                    <v-divider class="my-2"></v-divider>
+                                                    <v-icon class="mr-2" small>
+                                                        mdi-clock
+                                                    </v-icon>
+                                                    <span class="text-caption grey--text font-weight-light">last
+                                                        registration 26 minutes ago</span>
+                                                </v-card-text>
                                             </v-card>
-                                      </v-row>
+                                        </v-row>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -94,6 +75,32 @@
                                 <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white bg-account-pages">
                                     ACTIVIDAD</v-card-title>
                             </div>
+                            <v-row>
+                                <v-card>
+                                    <v-tabs  background-color="deep-purple accent-4" centered dark
+                                        icons-and-text>
+                                        <v-tabs-slider></v-tabs-slider>
+
+                                        <v-tab  to="/perfil/lista-registro">
+                                            Registros
+                                            <v-icon>mdi-phone</v-icon>
+                                        </v-tab>
+
+                                        <v-tab  to="/perfil/lista-favorito">
+                                            Favoritos
+                                            <v-icon>mdi-heart</v-icon>
+                                        </v-tab>
+
+
+                                    </v-tabs>
+
+
+                                            <v-card flat>
+                                                <router-view></router-view>
+                                            </v-card>
+
+                                </v-card>
+                            </v-row>
 
 
 
@@ -115,20 +122,20 @@ export default {
             dialog: false,
             dialogDelete: false,
             raitings: [],
-            value: [0, 2, 5, 9, 5, 10, 3, 5, 2, 1,0],
+            value: [0, 2, 5, 9, 5, 10, 3, 5, 2, 1, 0],
             labels: [
-        '0',
-        '0.50',
-        '1.00',
-        '1.50',
-        '2.00',
-        '2.50',
-        '3.00',
-        '3.50',
-        '4.00',
-        '4.50',
-        '5'
-      ],
+                '0',
+                '0.50',
+                '1.00',
+                '1.50',
+                '2.00',
+                '2.50',
+                '3.00',
+                '3.50',
+                '4.00',
+                '4.50',
+                '5'
+            ],
 
         };
     },
@@ -143,7 +150,7 @@ export default {
         async obteneractividad() {
             let id_producto = this.$route.params.id;
             const respuesta = await axios
-                .get( "/api/lista-registros-usuario" )
+                .get("/api/lista-registros-usuario")
                 .then((response) => {
                     this.actividades = response.data.data;
                     console.log(this.actividades);
@@ -163,7 +170,7 @@ export default {
             try {
                 let fav = [{ producto_id: this.item.id }, { user_id: 11 }];
                 axios
-                    .post( + "/api/add-favorito", fav)
+                    .post(+ "/api/add-favorito", fav)
                     .then((response) => {
                         console.log(response);
                         if (response.status != 200) {
@@ -233,7 +240,7 @@ export default {
         async listaCalificaciones() {
 
             const respuesta = await axios
-                .get( "/api/lista-calificaciones-usuario" )
+                .get("/api/lista-calificaciones-usuario")
                 .then((response) => {
                     console.log(response.data.data);
                     if (response.data.status == 1) {
@@ -257,7 +264,7 @@ export default {
         async listProducto() {
             let id_producto = this.$route.params.id;
             const respuesta = await axios
-                .get( "/api/producto/" + id_producto)
+                .get("/api/producto/" + id_producto)
                 .then((response) => {
                     this.item = response.data;
                     //  (this.item).forEach((element) => {
@@ -280,7 +287,8 @@ export default {
 .v-sheet--offset {
     top: -24px;
     position: relative;
-  }
+}
+
 .actividad-bg {
     background-color: #683ab71e;
 }

@@ -15,9 +15,12 @@ import NotFound from './components/NotFound.vue'
 import About from './components/About.vue'
 import Perfil from './components/Perfil.vue'
 import Producto from './components/VistaProducto.vue'
+import ListaRegistros from './components/ListaRegistros.vue'
+import ListaFavoritos from './components/ListaFavoritos.vue'
 
 import auth from './middleware/auth'
 import admin from './middleware/admin'
+import store from './vuexstore'
 
 
 export const routes =[
@@ -56,16 +59,17 @@ export const routes =[
             children: [
                 {
                     path : '',
-                    redirect: { name: 'perfil.registro'}
+                    redirect: { name: 'perfil.listaregistro'}
                 },
                 {
-                    name:'listaregistro',
-                    path:'registro',
-                    component: Producto
-                },{
-                    name:'listaregistros',
-                    path:'registros',
-                    component: Producto
+                    name:'perfil.listaregistro',
+                    path:'lista-registro',
+                    component: ListaRegistros
+                },
+                {
+                    name:'perfil.listafavoritos',
+                    path:'lista-favorito',
+                    component: ListaFavoritos
                 },
             ]
         } ,{
@@ -76,8 +80,9 @@ export const routes =[
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+
             meta: {
-                middleware:[auth, admin],
+                middleware:[auth],
             },
             children: [
                 {
@@ -88,14 +93,27 @@ export const routes =[
                 {
                     name: 'admin.adminproductos',
                     path : 'adminproductos',
+                    meta: {
+                        middleware:[auth],
+                    },
                     component: AdminProductosCat
                 },
                 {
                     name: 'admin.adminsolicitudes',
                     path : 'adminsolicitudes',
                     component: AdminSolicitudes,
-                }
+                },
             ],
+            beforeEnter(to, from, next) {
+               admin
+                 if (store.getters.admin == 'admin' ) {
+                    next()
+                } else {
+                 //  redirect to 404 page here
+                    next({
+                         name: "404" });
+                }
+           }
         },{
 
             path: '/404',

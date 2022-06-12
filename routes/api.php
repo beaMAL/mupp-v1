@@ -30,8 +30,7 @@ Route::resource('producto', App\Http\Controllers\ProductoControl::class)->only('
 //estaria bien que solo se viese esto si estas logueado a ver si se haserlo
 Route::get('lista-registros-producto/{producto_id}', [RegistrosController::class, 'listarRegistrosDeProducto']);
 Route::get('calcular-media/{producto_id}', [RaitingController::class, 'mediaRaiting']);
-
-
+Route::get('is-admin', [UserController::class, 'admin' ]);
 
 // Rutas para auth
 Route::post('register', [UserController::class, 'register']);
@@ -44,10 +43,10 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('logout', [UserController::class, 'logout']);
     //logout por seguridad deberia ser post
 
+    Route::get('listar-favoritos', [FavoritosController::class, 'listFavoritos']);
 
     Route::post('add-favorito/{producto_id}', [FavoritosController::class, 'addFavorito']);
-    Route::get('listar-favoritos', [FavoritosController::class, 'listFavoritos']);
-    Route::delete('eliminar-favoritos/{user_id}/{producto_id}', [FavoritosController::class, 'eliminarFavorito']);
+    Route::delete('eliminar-favoritos/{producto_id}', [FavoritosController::class, 'eliminarFavorito']);
 
     Route::post('registrar-producto', [UsuarioPublicaRegistroController::class, 'registrarProducto']);
     Route::delete('eliminar-registro/{registro_id}', [UsuarioPublicaRegistroController::class, 'eliminarRegistro']);

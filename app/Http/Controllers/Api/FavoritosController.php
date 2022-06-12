@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\Favoritos;
 use App\Models\User;
 
@@ -25,6 +26,8 @@ class FavoritosController extends Controller
             "mensaje"=>"¡El producto ha sido añadido a favoritos!"
         ]);
 
+
+
     }
     public function listFavoritos(Request $request){
         $user_id = auth()->user()->id;
@@ -32,26 +35,26 @@ class FavoritosController extends Controller
             ->join('favoritos', 'productos.id', '=', 'favoritos.producto_id')
             ->where('favoritos.user_id', $user_id)->get();
 
-            return response()->json([
-                "status"=> 1,
-                "mensaje"=>"¡El producto ha sido registrado con éxito!",
-                "data"=> $consulta
-            ]);
+            return $consulta;
+            // return response()->json([
+            //     "status"=> 1,
+            //     "mensaje"=>"¡El producto ha sido registrado con éxito!",
+            //     "data"=> $consulta
+            // ]);
 
     }
 
-    public function eliminarFavorito(Request $request){
+    public function eliminarFavorito(Request $request, $id_producto){
         $user_id = auth()->user()->id;
-        $request->validate([
-            'producto_id' => 'required'
-        ]);
-        $user_logueado = User::find($user->id);
-        $user_logueado->productos()->detach($request->producto_id);
+        // $request->validate([
+        //     'producto_id' => 'required'
+        // ]);
+        $user_logueado = User::find($user_id);
+        $user_logueado->productos()->detach($id_producto);
 
             return response()->json([
                 "status"=> 1,
                 "mensaje"=>"¡El producto ha sido registrado con éxito!",
-                "data"=> $consulta
             ]);
     }
 }

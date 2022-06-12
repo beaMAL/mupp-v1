@@ -32,7 +32,19 @@ class UserController extends Controller
     }
 
     public function admin() {
-        
+        $admin = auth()->user()->is_admin();
+        if($admin == true){
+            return response()->json([
+                "status"=> 1,
+                "admin"=>true
+            ]);
+        }else{
+            return response()->json([
+                "status"=> 0,
+                "admin"=>false
+            ]);
+        }
+
     }
      /**
       * Recibimosla informacion del form login:

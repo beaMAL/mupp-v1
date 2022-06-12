@@ -5,19 +5,19 @@
  */
 
 require('./bootstrap');
-import Vuetify from '../plugins/vuetify';
-import Vue from 'vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import VueSweetalert2 from 'vue-sweetalert2';
-import VueRouter from 'vue-router'
+import Vuetify from '../plugins/vuetify';
 
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
-import AdminappContainer from './components/admin/AdminappContainer.vue'
-import Mupp from './components/Mupp.vue'
+import AdminappContainer from './components/admin/AdminappContainer.vue';
+import Mupp from './components/Mupp.vue';
 
-import store from './vuexstore.js'
+import store from './vuexstore.js';
 
 /**
  * Importamos vue router con las rutas definidas en routes.js
@@ -64,6 +64,7 @@ Vue.component('mupp-container', require('./components/Mupp.vue').default);
 //Vue.component('admin-productos', require('./components/AdminProductos.vue').default);
 
 store.dispatch('getUser');
+store.dispatch('getAdmin');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -80,6 +81,6 @@ const app = new Vue({
         Mupp
     },
     router : router,
-    store,
+    store: store,
     // render: h => h(Mupp)
 });

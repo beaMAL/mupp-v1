@@ -10,6 +10,8 @@ Vue.use(Vuex)
 //     },
 
 // })
+
+
 // Load store modules dynamically.
 const requireContext = require.context('./modules', true, /.*\.js$/)
 

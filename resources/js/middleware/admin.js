@@ -1,6 +1,6 @@
-import store from '~/store'
+import store from '../store/index';
 
-export default function admin({ next, store }) {
+ const admin =function({ next, store }) {
 
     if (store.getters["auth/isAdmin"])next({ name: 'home' })
     else next({ name: "404" });
@@ -16,5 +16,7 @@ export default function admin({ next, store }) {
 //   } else {
 //     next()
 //   }
+
+export default admin;
 
 

@@ -54,15 +54,9 @@
                                                  <div
                                                     role="alert"
                                                     class="alert alert-warning text-center"
-                                                    v-if="errors && errors.mensaje"
+                                                    v-if="errors && errors.email"
                                                 >
-                                                    {{ errors.mensaje }}
-                                                </div><div
-                                                    role="alert"
-                                                    class="alert alert-warning text-center"
-
-                                                >
-
+                                                    {{ errors.email[0] }}
                                                 </div>
 
                                                 <form  action class="form"  @submit.prevent="login">
@@ -129,11 +123,12 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 
     export default {
   data: () => ({
+
           fields: {
                'email': '',
             'password': '',
@@ -162,9 +157,9 @@ axios.defaults.withCredentials = true;
                  //  this.$router.push('/')
                  this.submitting =false
                 }).catch(error => {
-                    if(error.response.status === 422){
+                    if(error.response.status == 422){
                         console.log('estoy entrando en el if')
-                        this.errors = error.response.data;
+                        this.errors = error.response.data.errors
                         console.log(this.errors)
                         console.log(error.response)
                         this.submitting =false
@@ -179,14 +174,46 @@ axios.defaults.withCredentials = true;
                         this.submitting =false
                     }
                 });
-          }).catch(error => {});
+          }).catch(error => {
+             console.log('estoy 2')
+          });
           //Deberia estar envuelto por un sweet alert
 
 
       },
         async login() {
-            await this.$store.dispatch('login', this.fields);
-            return this.$router.replace('/perfil')
+            await this.$store.dispatch('login', this.fields)
+             .then(response => {
+
+                this.user= response.data.user;
+                Swal.fire(
+                         "Añadido!",
+                            "Your file has been added.",
+                            "success",
+
+
+                )
+                 //  this.$router.push('/')
+                 this.submitting =false
+                }).catch(error => {
+                   // if(error.response.status == 422){
+                   //     console.log('estoy entrando en el if')
+                   //     this.errors = error.response.data.errors
+                   //     console.log(this.errors)
+                   //     console.log(error.response)
+                   //     this.submitting =false
+//
+                   // }else{
+                   //    console.log(error);
+                   //      Swal.fire({
+                   //             icon: "error",
+                   //         title: "Oops...",
+                   //         text: ` Algo fue mal... Petición fallida`,
+                   //  } );
+                   //     this.submitting =false
+                   // }
+                });
+            return this.$router.replace('/perfil/')
 
 
         }
