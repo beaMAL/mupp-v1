@@ -1,191 +1,227 @@
-<template>
-    <v-app>
-        <v-data-table :headers="headers" :items="desserts" :page.sync="page" :items-per-page="itemsPerPage"
-            sort-by="calories" hide-default-footer class="elevation-1" @page-count="pageCount = $event">
-            <template v-slot:[`item.actions`]="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
-                    mdi-pencil
-                </v-icon>
-                <v-btn color="red" @click="deleteItem(item)">
-                    <v-icon small color="white">
-                        mdi-window-close
-                    </v-icon>
-                </v-btn>
-            </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">
-                    Reset
-                </v-btn>
-            </template>
-        </v-data-table>
-        <div class="text-center pt-2">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-      ></v-pagination>
-      <v-text-field
-        :value="itemsPerPage"
-        label="Items per page"
-        type="number"
-        min="-1"
-        max="15"
-        @input="itemsPerPage = parseInt($event, 10)"
-      ></v-text-field>
-    </div>
 
-    </v-app>
+<template>
+    <div class="container">
+       <v-card class="mt-14 overflow-visible">
+                            <!-- <div class="mx-3 mt-n10 actividad-borde mb-8">
+                                <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white bg-account-pages">
+                                    ACTIVIDAD</v-card-title>
+                            </div> -->
+
+                            <div>
+                                <v-row v-if="actividades">
+                                    <v-col v-for="item in actividades" :key="item.id" cols="12">
+                                        <v-row justify="center">
+                                            <v-card width="85%" class="actividad-bg pb-4 mb-6 align-self-center">
+                                                <v-list-item>
+                                                    <v-list-item-avatar color="grey darken-3">
+                                                        <v-img class="elevation-6" alt="avatar"
+                                                             src="https://source.boringavatars.com/beam/120/colors=FF5252,FF7752,FF9A52,FFB752,5E405B"></v-img>
+
+                                                    </v-list-item-avatar>
+                                                    <v-list-item-content>
+                                                        <v-list-item-title>Evan
+                                                            You</v-list-item-title>
+                                                    </v-list-item-content>
+                                                </v-list-item>
+                                                <v-row class="" no-gutters justify="center">
+                                                    <v-card width="75%" class="mb-6s">
+                                                        <v-row class="detalles justify-start pr-8 pl-0 mx-0">
+                                                            <v-col cols="4" sm="4" class="px-2">
+                                                                <v-rating :value="
+                                                                    item.calificacion
+                                                                " color="amber" class="pb-4" half-increments readonly
+                                                                    size="18">{{
+                                                                            item.calificacion
+                                                                    }}</v-rating>
+                                                            </v-col>
+                                                            <v-col cols="4" sm="4">
+                                                                <p>
+                                                                    (
+                                                                    {{
+                                                                            item.calificacion
+                                                                    }}
+                                                                    )
+                                                                </p>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col cols="12 text-justify p-2 px-7">
+                                                                <p> {{ item.review }}</p>
+
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-card>
+
+                                                </v-row>
+                                                <v-row>
+                                                    <v-col cols="12" justify="center">
+                                                        <v-row width="75%" class="pb-5 justify-center">
+                                                            <v-img :src="item.imagen" max-height="250" max-width="500"
+                                                                aspect-ratio="1.7" contain></v-img>
+
+                                                        </v-row>
+
+                                                    </v-col>
+                                                </v-row>
+                                            </v-card>
+                                        </v-row>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-else>
+
+                                    </v-row>
+                            </div>
+                        </v-card>
+    </div>
 </template>
 
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
 export default {
-    data: () => ({
-        page: 1,
-        pageCount: 0,
-        itemsPerPage: 8,
-        dialogDelete: false,
-        headers: [
-            {
-                text: 'Dessert (100g serving)',
-                align: 'start',
-                sortable: false,
-                value: 'name',
+    name: "listafavoritos",
+    data() {
+        return {
+            user:{},
+            actividades: "",
+            search: "",
+            update: true,
+            modal: 0,
+            id: 0,
+            result: null,
+            headers: [
+                {
+                    text: "Nombre ",
+                    align: "start",
+                    value: "nombre",
+                },
+                { text: "Marca", value: "marca" },
+                { text: "Categoría", value: "categoria" },
+                { text: "Precio (€)", value: "precio" },
+                { text: "Tono", value: "tono" },
+                { text: "Actions", value: "actions", sortable: false },
+            ],
+            defaultItem: {
+                nombre: "",
+                marca: "",
+                categoria: "",
+                descripcion: "",
+                precio: "0.00",
+                tipo: "",
+                tono: "",
+                web: "",
+                ean: "",
+                id_ultima_modificacion: "",
             },
-            { text: 'Calories', value: 'calories' },
-            { text: 'Fat (g)', value: 'fat' },
-            { text: 'Carbs (g)', value: 'carbs' },
-            { text: 'Protein (g)', value: 'protein' },
-            { text: 'Iron (%)', value: 'iron' },
-            { text: 'Actions', value: 'actions', sortable: false },
-        ],
-        desserts: [
-            {
-                name: 'Frozen Yogurt',
-                calories: 159,
-                fat: 6.0,
-                carbs: 24,
-                protein: 4.0,
-                iron: '1%',
+            editedItem: {
+                nombre: "",
+                marca: "",
+                categoria: "",
+                descripcion: "",
+                precio: "0.00",
+                tipo: "",
+                tono: "",
+                web: "",
+                ean: "",
+                id_ultima_modificacion: "",
+                f: false
             },
-            {
-                name: 'Ice cream sandwich',
-                calories: 237,
-                fat: 9.0,
-                carbs: 37,
-                protein: 4.3,
-                iron: '1%',
-            },
-            {
-                name: 'Eclair',
-                calories: 262,
-                fat: 16.0,
-                carbs: 23,
-                protein: 6.0,
-                iron: '7%',
-            },
-            {
-                name: 'Cupcake',
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-                iron: '8%',
-            },
-            {
-                name: 'Gingerbread',
-                calories: 356,
-                fat: 16.0,
-                carbs: 49,
-                protein: 3.9,
-                iron: '16%',
-            },
-            {
-                name: 'Jelly bean',
-                calories: 375,
-                fat: 0.0,
-                carbs: 94,
-                protein: 0.0,
-                iron: '0%',
-            },
-            {
-                name: 'Lollipop',
-                calories: 392,
-                fat: 0.2,
-                carbs: 98,
-                protein: 0,
-                iron: '2%',
-            },
-            {
-                name: 'Honeycomb',
-                calories: 408,
-                fat: 3.2,
-                carbs: 87,
-                protein: 6.5,
-                iron: '45%',
-            },
-            {
-                name: 'Donut',
-                calories: 452,
-                fat: 25.0,
-                carbs: 51,
-                protein: 4.9,
-                iron: '22%',
-            },
-            {
-                name: 'KitKat',
-                calories: 518,
-                fat: 26.0,
-                carbs: 65,
-                protein: 7,
-                iron: '6%',
-            },
-        ],
-    }),
+            categorias: [
+                { text: "Pegamento" },
+                { text: "Utensilios" },
+                { text: "Ojos" },
+                { text: "Labios" },
+                { text: "Rostro" },
+                { text: "Uñas" },
+                { text: "Cabello" },
+                { text: "Skincare" },
+                { text: "Sangre" },
+                { text: "Productos químicos" },
+                { text: "Mantenimiento" },
+            ],
+            tipos: [
+                { text: "Pegamento" },
+                { text: "Utensilios" },
+                { text: "Ojos" },
+                { text: "Labios" },
+                { text: "Rostro" },
+                { text: "Uñas" },
+                { text: "Cabello" },
+                { text: "Skincare" },
+                { text: "Sangre" },
+                { text: "Productos químicos" },
+                { text: "Mantenimiento" },
+                { text: "Efectos especiales" },
+            ],
+        };
+    },
+    computed: {
+        formTitle() {
+            return this.editedIndex === -1
+                ? "Nuevo Producto"
+                : "Editar Producto";
+        },
+    },
+    watch: {
+        dialog(val) {
+            val || this.close();
+        },
+    },
     methods: {
+        inspeccionarProducto(item) {
+            console.log(item);
+            // this.loading = true;
+        },
+        async obteneractividad() {
+            let id_producto = this.$route.params.id;
+            const respuesta = await axios
+                .get( "/api/user" )
+                .then((response) => {
+                    this.user = response.data;
+                    console.log(this.user);
+                })
+        },
+        async obteneractividad() {
+            let id_producto = this.$route.params.id;
+            const respuesta = await axios
+                .get( "/api/lista-registros-usuario" )
+                .then((response) => {
+                    this.actividades = response.data.data;
+                    console.log(this.actividades);
+                })
+                .catch((e) => {
+                     if (e.response.status != 200) {
+                            if (e.response.status == 0){
+                                this.actividades = [{
+                                    "review": "ESTE PRODUCTO AÚN NO HA SIDO REGISTRADO",
+                                    "calificacion": 0.00,
 
+                                }]
+                            }
+                             console.log(e);
+                     }else{
+                         console.log(e);
+                     }
+                });
+        },
+        close() {
+            this.dialog = false;
+            this.id = 0;
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            });
+        },
 
+    },
+    created() {
+        this.obteneractividad();
     },
 };
 </script>
-
-<style lang="scss" scoped>
-.error {
-    margin: 1rem 0 0;
-    color: #ff4a96;
-}
-
-.form-submit {
-    background: #c2a1e2;
-    border: none;
-
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover {
-        background: #1cdaba;
-    }
-}
-
-.form-input {
-    border: 1px solid white;
-
-    &:focus {
-        outline: 0;
-        border-color: #c2a1e2;
-    }
-}
-
-.form-label {
-    &:first-of-type {
-        margin-top: 0rem;
-    }
-}
-
-.bg-account-pages {
-    background: linear-gradient(to right, #512da8, #711e72);
-    opacity: 0.9;
+<style>
+.bg-admin{
+    background-color: #eeeeee;
 }
 </style>

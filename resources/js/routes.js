@@ -104,16 +104,16 @@ export const routes =[
                     component: AdminSolicitudes,
                 },
             ],
-            beforeEnter(to, from, next) {
-               admin
-                 if (store.getters.admin == 'admin' ) {
-                    next()
-                } else {
-                 //  redirect to 404 page here
-                    next({
-                         name: "404" });
-                }
-           }
+        //     beforeEnter(to, from, next) {
+        //        admin
+        //          if (store.getters.admin == 'admin' ) {
+        //             next()
+        //         } else {
+        //          //  redirect to 404 page here
+        //             next({
+        //                  name: "404" });
+        //         }
+        //    }
         },{
 
             path: '/404',

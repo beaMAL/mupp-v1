@@ -14,28 +14,28 @@
                 <div data-v-8e45d7f4="" class="display-table">
                     <div data-v-8e45d7f4="" class="display-table-cell">
                         <div data-v-8e45d7f4="" class="container">
-                            <div data-v-8e45d7f4="" class="row">
+                            <div  class="row">
                                 <div
-                                    data-v-8e45d7f4=""
+
                                     class="col-lg-8 offset-lg-2 text-white text-center"
                                     style="position: relative"
                                 >
-                                    <h1 data-v-8e45d7f4="" class="">
+                                    <h1  class="">
                                         <span class="home-title">BIENVENIDO A </span><br/>
                                          <p
                                             style="
                                                 font-family: Roboto,
-                                                    Helvetica,
+                                                    ,
                                                     Arial,
                                                     sans-serif;
                                                 font-size: 62px;
                                             "
-                                            class="font-weight-large"
+                                            class=" mt-3"
                                         >
                                             <span
-                                                class="font-weight-thin"
+                                                class="font-weight-light"
                                                 >M</span
-                                            >UPP
+                                            ><span class="font-weight-large">UPP </span>
                                         </p>
                                     </h1>
                                     <p
@@ -85,12 +85,13 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <h1 class="section-title text-center">
-                                Our Services
+                                Quiénes somos
                             </h1>
                             <div class="section-title-border margin-t-20"></div>
                             <p
                                 class="section-subtitle text-muted text-center padding-t-30 font-secondary"
                             >
+
                                 We craft digital, graphic and dimensional
                                 thinking, to create category leading brand
                                 experiences that have meaning and add a value
@@ -101,8 +102,10 @@
                     <div class="row margin-t-30">
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-diamond text-custom"></i>
-                                <h4 class="padding-t-15">Digital Design</h4>
+                                <v-icon class=" text-custom">
+                                    mdi-file-edit-outline
+                                </v-icon>
+                                <h4 class="padding-t-15">Reviews</h4>
                                 <p class="padding-t-15 text-muted">
                                     Some quick example text to build on the card
                                     title and make up the bulk of the card's
@@ -112,8 +115,8 @@
                         </div>
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-display2 text-custom"></i>
-                                <h4 class="padding-t-15">Unlimited Colors</h4>
+                                <v-icon class=" text-custom">mdi-flask-round-bottom-empty-outline</v-icon>
+                                <h4 class="padding-t-15">Productos</h4>
                                 <p class="padding-t-15 text-muted">
                                     Credibly brand standards compliant users
                                     without extensible services. Anibh euismod
@@ -123,8 +126,8 @@
                         </div>
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-piggy text-custom"></i>
-                                <h4 class="padding-t-15">Strategy Solutions</h4>
+                                <v-icon class=" text-custom">mdi-star-half-full</v-icon>
+                                <h4 class="padding-t-15">Calificaciones</h4>
                                 <p class="padding-t-15 text-muted">
                                     Separated they live in Bookmarksgrove right
                                     at the coast of the Semantics, a large
@@ -136,7 +139,7 @@
                     <div class="row margin-t-30">
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-science text-custom"></i>
+                                <v-icon class=" text-custom">mdi-keyboard-outline</v-icon>
                                 <h4 class="padding-t-15">Awesome Support</h4>
                                 <p class="padding-t-15 text-muted">
                                     It is a paradisematic country, in which
@@ -147,7 +150,7 @@
                         </div>
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-news-paper text-custom"></i>
+                                <v-icon class=" text-custom">mdi-bottle-tonic-skull-outline</v-icon>
                                 <h4 class="padding-t-15">Truly Multipurpose</h4>
                                 <p class="padding-t-15 text-muted">
                                     Even the all-powerful Pointing has no
@@ -158,7 +161,7 @@
                         </div>
                         <div class="col-lg-4 margin-t-20">
                             <div class="services-box text-center hover-effect">
-                                <i class="pe-7s-plane text-custom"></i>
+                                <v-icon class=" text-custom">mdi-search-web</v-icon>
                                 <h4 class="padding-t-15">Easy to customize</h4>
                                 <p class="padding-t-15 text-muted">
                                     Question Marks and devious Semikoli, but the

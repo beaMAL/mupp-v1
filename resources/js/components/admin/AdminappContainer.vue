@@ -45,7 +45,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar flat app class="deep-purple lighter-1 text-white">
+        <v-app-bar height="78px" flat app class="deep-purple lighter-1 text-white">
             <v-app-bar-nav-icon
                 color="white"
                 @click="drawer = !drawer"

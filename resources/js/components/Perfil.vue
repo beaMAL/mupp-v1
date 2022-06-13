@@ -13,14 +13,16 @@
                                         <v-card style="bottom: -80px; z-index: 1">
                                             <v-card-text>
                                                 <v-list-item three-line>
-                                                    <v-list-item-avatar tile size="80" color="grey">
+                                                    <v-list-item-avatar tile size="80" >
+                                                         <v-img class="elevation-6" alt="avatar"
+                                                          src="https://source.boringavatars.com/beam/120/Maria%20Mitchell?square?colors=FF5252,FF7752,FF9A52,FFB752,5E405B"></v-img>
                                                     </v-list-item-avatar>
                                                     <v-list-item-content>
                                                         <div class="text-overline mb-4">
-                                                            OVERLINE
+                                                            USUARIO
                                                         </div>
                                                         <v-list-item-title class="text-h5 text-uppercase mb-1">
-                                                            USUARIO PEPITO
+                                                            {{ $store.state.user.name }}
                                                         </v-list-item-title>
                                                         <v-list-item-subtitle>Greyhound divisely
                                                             hello coldly
@@ -70,29 +72,44 @@
                         </div>
 
 
-                        <v-card class="mt-14 overflow-visible">
-                            <div class="mx-3 mt-n10 actividad-borde mb-8">
+                        <v-card class="mt-14 width-95">
+                            <!-- <div class="mx-3 mt-n10 actividad-borde mb-8">
                                 <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white bg-account-pages">
-                                    ACTIVIDAD</v-card-title>
-                            </div>
+                                    LISTAS DE PRODUCTOS</v-card-title>
+                            </div> -->
                             <v-row>
-                                <v-card>
-                                    <v-tabs  background-color="deep-purple accent-4" centered dark
-                                        icons-and-text>
-                                        <v-tabs-slider></v-tabs-slider>
+                                <v-card class="width-100 px-0">
 
-                                        <v-tab  to="/perfil/lista-registro">
+                                        <v-row  class="bg-account-pages">
+                                            <v-col cols="4">
+                                                 <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white">
+                                    LISTAS DE PRODUCTOS</v-card-title>
+                                            </v-col>
+
+                                            <v-col cols="8"  class="align-items-end">
+                                                 <v-tabs  background-color="transparent" class=" w-100" centered dark
+                                        icons-and-text>
+                                                 <v-tabs-slider></v-tabs-slider>
+                                             <v-tab  to="/perfil/lista-registro">
                                             Registros
-                                            <v-icon>mdi-phone</v-icon>
+                                            <v-icon>mdi-magnify</v-icon>
                                         </v-tab>
 
                                         <v-tab  to="/perfil/lista-favorito">
                                             Favoritos
                                             <v-icon>mdi-heart</v-icon>
                                         </v-tab>
+ </v-tabs>
+                                            </v-col>
 
 
-                                    </v-tabs>
+
+
+                                        </v-row>
+
+
+
+
 
 
                                             <v-card flat>

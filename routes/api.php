@@ -57,6 +57,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::post('nueva-solicitud-producto', [SolicitudAltaProductoController::class, 'nuevaSolicitudAction']);
 
     Route::get('lista-calificaciones-usuario', [UsuarioPublicaRegistroController::class, 'listarCalificacionesDeUsuario']);
+    Route::resource('solicitudes', App\Http\Controllers\GestionSolicitudesController::class)->only('index', 'store', 'show', 'update', 'destroy');
 
 
 });
@@ -65,7 +66,7 @@ Route::group(['middleware' => ["admin:sanctum"]], function () {
     Route::get('admin-test', function () {
         return 'Test is successful';
     });
-    Route::resource('solicitudes', App\Http\Controllers\GestionSolicitudesController::class)->only('index', 'store', 'show', 'update', 'destroy');
+    // Route::resource('solicitudes', App\Http\Controllers\GestionSolicitudesController::class)->only('index', 'store', 'show', 'update', 'destroy');
 
 });
 

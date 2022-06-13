@@ -14,10 +14,12 @@
                                             <v-card-text>
                                                 <v-list-item three-line>
                                                     <v-list-item-avatar tile size="80" color="grey">
+                                                         <v-img class="elevation-6" alt="avatar"
+                                                          src="https://source.boringavatars.com/marble/120/colors=FF5252,FF7752,FF9A52,FFB752,5E405B"></v-img>
                                                     </v-list-item-avatar>
                                                     <v-list-item-content>
                                                         <div class="text-overline mb-4">
-                                                            OVERLINE
+                                                            PRODUCTO
                                                         </div>
                                                         <v-list-item-title class="text-h5 text-uppercase mb-1">
                                                             {{ item.nombre }}
@@ -345,7 +347,7 @@
                                                         attrs,
                                                     }">
                                                         <v-btn icon v-bind="attrs" v-on="on" @click="addfavorito">
-                                                            <v-icon>mdi-heart</v-icon>
+                                                            <v-icon color="purple lighten-1">mdi-heart</v-icon>
                                                         </v-btn>
                                                     </template>
                                                     <span>Añadir a
@@ -476,9 +478,9 @@
                                         <v-row justify="center">
                                             <v-card width="85%" class="actividad-bg pb-4 mb-6 align-self-center">
                                                 <v-list-item>
-                                                    <v-list-item-avatar color="grey darken-3">
+                                                    <v-list-item-avatar  >
                                                         <v-img class="elevation-6" alt="avatar"
-                                                            src="https://ui-avatars.com/api/?background=random"></v-img>
+                                                          src="https://source.boringavatars.com/marble/120/beam?colors=FF5252,FF7752,FF9A52,FFB752,5E405B"></v-img>
                                                     </v-list-item-avatar>
                                                     <v-list-item-content>
                                                         <v-list-item-title>Evan
@@ -694,16 +696,16 @@ export default {
                 })
                 .catch((e) => {
                      if (e.response.status != 200) {
-                            if (e.response.status == 0){
+                            // if (e.response.status == 0){
                                 this.actividades = [{
-                                    "review": "ESTE PRODUCTO AÚN NO HA SIDO REGISTRADO",
-                                    "calificacion": 0.00,
+                                    review: "ESTE PRODUCTO AÚN NO HA SIDO REGISTRADO",
+                                    calificacion: 0.00,
 
                                 }]
-                            }
+                            // }
                              console.log(e);
-                     }else{
-                         console.log(e);
+                    //  }else{
+                    //      console.log(e);
                      }
                 });
         },

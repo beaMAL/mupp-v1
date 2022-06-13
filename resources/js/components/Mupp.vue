@@ -2,16 +2,16 @@
 <template v-if="this.$store.state.user.tipo_usuario=='1'">
     <AdminappContainer/>
 </template>
-<template v-else>
-    <v-app >
-        <v-card class="overflow-hidden">
+<template v-else  class="p-0 ">
+    <v-app class="p-0" >
+        <v-card class="overflow-hidden p-0">
 
-            <v-app-bar app absolute color="white" flat height="90">
-                <v-row class="justify-center" height="90" >
+            <v-app-bar app absolute color="white" flat class="p-0 "height="100%">
+                <v-row class="justify-center  p-0 align-self-end" height="100%" >
                     <v-col cols="12" sm="11" md="9" class="justify-center">
-                        <v-row class="justify-center">
-                            <v-col cols="9">
-                                <v-row v-if="$vuetify.breakpoint.smAndDown" class="justify-start">
+                        <v-row class="justify-center m-0 pb-0">
+                            <v-col cols="9" class="pb-0">
+                                <v-row v-if="$vuetify.breakpoint.smAndDown" class="justify-start pb-0">
                                     <v-col cols="1" class="mr-2">
                                         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
                                     </v-col>
@@ -21,9 +21,9 @@
                                         </v-toolbar-title>
                                     </v-col>
                                 </v-row>
-                                <v-row v-else class="justify-between hidden-sm-and-down">
+                                <v-row v-else class="justify-between align-end pb-0 hidden-sm-and-down m-0">
                                     <v-col cols="3">
-                                        <v-row class="justify-between">
+                                        <v-row class="justify-between pb-0">
                                             <v-col cols="5">
                                                 <router-link route to="{ name: 'home' }">
                                                     <v-app-bar-nav-icon style="margin-left:15px">
@@ -40,10 +40,10 @@
                                             </v-col>
                                         </v-row>
                                     </v-col>
-                                    <v-col cols="8" class="p-0 justify-center  ml-3" align-self="bottom">
-                                        <v-row class="p-0 align-end">
-                                            <v-tabs centered class="" color="deep-purple accent-4" slider-size="5"
-                                                 align-with-title>
+                                    <v-col cols="8" class="p-0 mb-2 ml-3" >
+                                        <v-row class="p-0 justify-center mt-n3 align-items-end">
+                                            <v-tabs centered  color="deep-purple mt-n3 accent-4" slider-size="5"
+                                               >
                                                 <v-tab v-for="(link, i) in links" :key="i" :to="{ name: link.name }"
                                                     exact v-ripple="{ class: 'deep-purple--text' }">
                                                     {{ link.tabname }}
@@ -61,7 +61,7 @@
                                                 <template v-slot:activator="{ on, attrs }">
 
                                                     <v-btn icon x-large v-bind="attrs" v-on="on">
-                                                        <v-avatar color="indigo">
+                                                        <v-avatar color="deep-purple">
                                                             <v-icon dark color="white">
                                                                 mdi-account-circle
                                                             </v-icon>
@@ -69,9 +69,9 @@
                                                     </v-btn>
                                                 </template>
                                                 <v-card>
-                                                    <v-list-item-content class="justify-center">
+                                                    <v-list-item-content class="justify-center px-2">
                                                         <div class="mx-auto text-center">
-                                                            <v-avatar color="indigo">
+                                                            <v-avatar color="deep-purple">
                                                                 <v-icon dark color="white">
                                                                     mdi-account-circle
                                                                 </v-icon>
