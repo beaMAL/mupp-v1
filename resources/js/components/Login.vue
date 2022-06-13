@@ -54,11 +54,12 @@
                                                  <div
                                                     role="alert"
                                                     class="alert alert-warning text-center"
-                                                    v-if="errors && errors.mensaje"
+                                                    v-if="errors && errors.email"
                                                 >
-                                                    {{ errors.mensaje }}
+                                                    {{ errors.email[0] }}
                                                 </div>
-                                                <form action class="form"  @submit.prevent="submit">
+
+                                                <form  action class="form"  @submit.prevent="login">
                                                     <div class="form-group">
 
                                                         <label for="#email" class="form-label"
@@ -122,8 +123,9 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+// axios.defaults.withCredentials = true;
 
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
     export default {
   data: () => ({
 
@@ -140,76 +142,83 @@ const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
       submit(){
           this.submitting = true;
 
-          //Deberia estar envuelto por un sweet alert
-          axios.post(ENDPOINT_PATH+"login", this.fields)
-            .then(response => {
-                Swal.fire({
-
-                        icon: "error",
-                        title: "Oops...",
-                        text: ` Algo fue mal... Petición fallida`,
-                })
-              this.$router.push('/')
-              this.submitting =false
-            }).catch(error => {
-                if(error.response.status === 422){
-                    console.log('estoy entrando en el if')
-                    this.errors = error.response.data;
-                    console.log(this.errors)
-                    console.log(error.response)
-                    this.submitting =false
-
-                }else{
-                   console.log(error);
-                     Swal.fire(
-                            "Añadido!",
+          axios.get('/sanctum/csrf-cookie').then(() => {
+              axios.post("/login", this.fields)
+                .then(response => {
+                console.log(response)
+                this.user= response.data.user;
+                Swal.fire(
+                         "Añadido!",
                             "Your file has been added.",
-                            "success"
-                        );
-                    this.submitting =false
-                }
-            });
+                            "success",
+
+
+                )
+                 //  this.$router.push('/')
+                 this.submitting =false
+                }).catch(error => {
+                    if(error.response.status == 422){
+                        console.log('estoy entrando en el if')
+                        this.errors = error.response.data.errors
+                        console.log(this.errors)
+                        console.log(error.response)
+                        this.submitting =false
+
+                    }else{
+                       console.log(error);
+                         Swal.fire({
+                                icon: "error",
+                            title: "Oops...",
+                            text: ` Algo fue mal... Petición fallida`,
+                     } );
+                        this.submitting =false
+                    }
+                });
+          }).catch(error => {
+             console.log('estoy 2')
+          });
+          //Deberia estar envuelto por un sweet alert
+
 
       },
-      //en teoria el metodo que funciona es el de submit habria que mergear ambos
-       async register(email, password) {
-            const user = { email, password };
-            try{
-                let result =  axios.post(ENDPOINT_PATH + "user", user)
-                console.log(response);
-                 if (result.status != 200) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong!",
-                        });
-                    } else {
-                        Swal.fire(
-                            "Añadido!",
+        async login() {
+            await this.$store.dispatch('login', this.fields)
+             .then(response => {
+
+                this.user= response.data.user;
+                Swal.fire(
+                         "Añadido!",
                             "Your file has been added.",
-                            "success"
-                        );
-                    }
-                    this.close();
-                    return result.data;
-                } catch (e) {
-                    console.log(e);
-                    Swal.fire({
-
-                        icon: "error",
-                        title: "Oops...",
-                        text: `Peticion fallida: ${e}`,
-                    });
-                }
+                            "success",
 
 
+                )
+                 //  this.$router.push('/')
+                 this.submitting =false
+                }).catch(error => {
+                   // if(error.response.status == 422){
+                   //     console.log('estoy entrando en el if')
+                   //     this.errors = error.response.data.errors
+                   //     console.log(this.errors)
+                   //     console.log(error.response)
+                   //     this.submitting =false
+//
+                   // }else{
+                   //    console.log(error);
+                   //      Swal.fire({
+                   //             icon: "error",
+                   //         title: "Oops...",
+                   //         text: ` Algo fue mal... Petición fallida`,
+                   //  } );
+                   //     this.submitting =false
+                   // }
+                });
+            return this.$router.replace('/perfil/')
 
-       },
-        login() {
-        console.log(this.email);
-        console.log(this.password);
+
         }
   },
+
 
 
 }

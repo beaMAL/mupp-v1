@@ -89,7 +89,7 @@
                                                             class="form-label"
                                                             >Nombre</label
                                                         ><input
-                                                            v-model="nombre"
+                                                            v-model="fields.name"
                                                             type="text"
                                                             id="nombre"
                                                             required
@@ -103,7 +103,7 @@
                                                             class="form-label"
                                                             >Email</label
                                                         ><input
-                                                            v-model="email"
+                                                            v-model="fields.email"
                                                             required
                                                             type="email"
                                                             id="email"
@@ -117,7 +117,7 @@
                                                             class="form-label"
                                                             >Password</label
                                                         ><input
-                                                            v-model="password"
+                                                            v-model="fields.password"
                                                             type="password"
                                                             id="userpassword"
                                                             placeholder="Enter password"
@@ -131,7 +131,7 @@
                                                             >Repite
                                                             Password</label
                                                         ><input
-                                                            v-model="password_confirmation"
+                                                            v-model="fields.password_confirmation"
                                                             type="password"
                                                             id="password_confirmation"
                                                             placeholder="Repite password"
@@ -199,29 +199,29 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
-export default {
-    data: () => ({
 
+export default {
+     data () {
+        return {
           fields: {
-               'nombre': '',
-               'email': '',
-            'password': '',
-            'password_confirmation': '',
+               name: '',
+               email: '',
+            password: '',
+            password_confirmation: '',
           },
         errors: {},
         submitting: false,
         alert: true,
-
-    }),
+        }
+    },
     methods: {
         register() {
              this.submitting = true;
 
           //Deberia estar envuelto por un sweet alert
-          axios.post(ENDPOINT_PATH+"register", this.fields)
+          axios.post("/api/register", this.fields)
             .then(response => {
-              this.$router.push('/')
+              this.$router.push('/login')
               this.submitting =false
             }).catch(error => {
                 if(error.response.status !== 200){

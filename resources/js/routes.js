@@ -13,10 +13,15 @@ import ForgotPasswd from './components/Forgot-password.vue'
 import Catalogo from './components/Catalogo.vue'
 import NotFound from './components/NotFound.vue'
 import About from './components/About.vue'
-
-//Falta crear
 import Perfil from './components/Perfil.vue'
 import Producto from './components/VistaProducto.vue'
+import ListaRegistros from './components/ListaRegistros.vue'
+import ListaFavoritos from './components/ListaFavoritos.vue'
+
+import auth from './middleware/auth'
+import admin from './middleware/admin'
+import store from './vuexstore'
+
 
 export const routes =[
 
@@ -49,7 +54,24 @@ export const routes =[
         }, {
             name: 'perfil',
             path : '/perfil',
-            component: Perfil
+            component: Perfil,
+            meta: { middleware: [auth] },
+            children: [
+                {
+                    path : '',
+                    redirect: { name: 'perfil.listaregistro'}
+                },
+                {
+                    name:'perfil.listaregistro',
+                    path:'lista-registro',
+                    component: ListaRegistros
+                },
+                {
+                    name:'perfil.listafavoritos',
+                    path:'lista-favorito',
+                    component: ListaFavoritos
+                },
+            ]
         } ,{
             name: 'about',
             path : '/about',
@@ -58,18 +80,40 @@ export const routes =[
             name: 'admin',
             path : '/admin',
             component: AdminappContainer,
+
+            meta: {
+                middleware:[auth],
+            },
             children: [
                 {
-                    name: 'adminproductos',
-                    path : '/adminproductos',
+
+                    path : '',
+                    redirect: { name: 'admin.adminproductos'}
+                },
+                {
+                    name: 'admin.adminproductos',
+                    path : 'adminproductos',
+                    meta: {
+                        middleware:[auth],
+                    },
                     component: AdminProductosCat
                 },
                 {
-                    name: 'adminsolicitudes',
-                    path : '/adminsolicitudes',
+                    name: 'admin.adminsolicitudes',
+                    path : 'adminsolicitudes',
                     component: AdminSolicitudes,
-                }
+                },
             ],
+        //     beforeEnter(to, from, next) {
+        //        admin
+        //          if (store.getters.admin == 'admin' ) {
+        //             next()
+        //         } else {
+        //          //  redirect to 404 page here
+        //             next({
+        //                  name: "404" });
+        //         }
+        //    }
         },{
 
             path: '/404',

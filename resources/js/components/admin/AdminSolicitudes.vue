@@ -275,7 +275,7 @@ export default {
     },
     methods: {
         async listSolicitudes() {
-            const respuesta = await axios.get("http://127.0.0.1:8000/solicitudes");
+            const respuesta = await axios.get("/api/solicitudes");
             this.solicitudes = respuesta.data;
         },
          editItem(item) {
@@ -321,7 +321,7 @@ export default {
                         try {
                              console.log('voy a enviar delete');
                             let response = await axios.delete(
-                                "http://127.0.0.1:8000/solicitudes/" + id
+                                "/api/solicitudes/" + id
                             );
 
                              this.listSolicitudes();
@@ -406,7 +406,7 @@ export default {
                         preConfirm: async () => {
                             try {
                                 let response = await axios.post(
-                                    "http://127.0.0.1:8000/productos",
+                                    "/api/producto",
                                     this.editedItem
                                 );
 
@@ -452,7 +452,7 @@ export default {
                     let id = this.id.toString();
                      console.log(id);
                     let result = await axios.delete(
-                        "http://127.0.0.1:8000/solicitudes/"+ id
+                        "/api/solicitudes/"+ id
                      )
                      this.listSolicitudes();
                     if (result.status != 200) {

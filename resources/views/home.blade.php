@@ -53,8 +53,8 @@
 
 </head>
 
-<body class="antialiased">
-    <div id="app">
+<body class="antialiased p-0">
+    <div id="app" class="p-0">
         <mupp-container></mupp-container>
     </div>
 

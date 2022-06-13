@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SolicitudAltaProducto;
+use App\Models\User;
 
 class GestionSolicitudesController extends Controller
 {
@@ -14,8 +15,11 @@ class GestionSolicitudesController extends Controller
      */
     public function index()
     {
-       return SolicitudAltaProducto::get();
+        if(auth()->user()->is_admin()){
+            return SolicitudAltaProducto::get();
 
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
 
     }
 

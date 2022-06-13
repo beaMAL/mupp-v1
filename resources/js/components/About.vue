@@ -90,7 +90,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
 export default {
     data: () => ({
         email: "",

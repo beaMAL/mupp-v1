@@ -45,7 +45,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar flat app class="deep-purple lighter-1 text-white">
+        <v-app-bar height="78px" flat app class="deep-purple lighter-1 text-white">
             <v-app-bar-nav-icon
                 color="white"
                 @click="drawer = !drawer"
@@ -84,13 +84,13 @@ export default {
                 text: "Admin Catálogo",
                 icon: "mdi-tools",
                 cerrar: false,
-                route: "/adminproductos",
+                route: "/admin/adminproductos",
             },
             {
                 text: "Admin Solicitudes",
                 icon: "mdi-inbox-arrow-down-outline",
                 cerrar: false,
-                route: "/adminsolicitudes",
+                route: "/admin/adminsolicitudes",
             },
             { text: "Cerrar Sesion", icon: "mdi-power", cerrar: true },
         ],

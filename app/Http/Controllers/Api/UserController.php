@@ -30,6 +30,22 @@ class UserController extends Controller
 
 
     }
+
+    public function admin() {
+        $admin = auth()->user()->is_admin();
+        if($admin == true){
+            return response()->json([
+                "status"=> 1,
+                "admin"=>true
+            ]);
+        }else{
+            return response()->json([
+                "status"=> 0,
+                "admin"=>false
+            ]);
+        }
+
+    }
      /**
       * Recibimosla informacion del form login:
         -Validamos los datos
@@ -51,6 +67,7 @@ class UserController extends Controller
                 return response()->json([
                     "status"=> 1,
                     "mensaje"=>"¡El usuario ha sido logueado con éxito!",
+                    "user" => $user,
                     "acces_token"=>$token,
                     'token_type'=>'Bearer',
                 ]);

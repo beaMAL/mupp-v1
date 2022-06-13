@@ -5,289 +5,33 @@
             <v-row style="justify-content: center">
                 <v-col cols="12" sm="10">
                     <v-sheet min-height="100vh" rounded="lg">
-                        <v-card
-                            position="absolute"
-                            class="overflow-visible"
-                            min-height="30vh"
-                            height="35vh"
-                            img="http://127.0.0.1:8887/images/lowpoly-purple-degradado.png"
-                        >
+                        <v-card position="absolute" class="overflow-visible" min-height="30vh" height="35vh"
+                            img="http://127.0.0.1:8887/images/lowpoly-purple-degradado.png">
                             <v-container class="alto" fluid>
-                                <v-row
-                                    no-gutters
-                                    justify="center"
-                                    class="alto align-end"
-                                    align-content="end"
-                                >
+                                <v-row no-gutters justify="center" class="alto align-end" align-content="end">
                                     <v-col cols="10" sm="10">
-                                        <v-card
-                                            style="bottom: -80px; z-index: 1"
-                                        >
+                                        <v-card style="bottom: -80px; z-index: 1">
                                             <v-card-text>
                                                 <v-list-item three-line>
-                                                    <v-list-item-avatar
-                                                        tile
-                                                        size="80"
-                                                        color="grey"
-                                                    ></v-list-item-avatar>
+                                                    <v-list-item-avatar tile size="80" >
+                                                         <v-img class="elevation-6" alt="avatar"
+                                                          src="https://source.boringavatars.com/beam/120/Maria%20Mitchell?square?colors=FF5252,FF7752,FF9A52,FFB752,5E405B"></v-img>
+                                                    </v-list-item-avatar>
                                                     <v-list-item-content>
-                                                        <div
-                                                            class="text-overline mb-4"
-                                                        >
-                                                            OVERLINE
+                                                        <div class="text-overline mb-4">
+                                                            USUARIO
                                                         </div>
-                                                        <v-list-item-title
-                                                            class="text-h5 text-uppercase mb-1"
-                                                        >
-                                                            {{ item.nombre }}
+                                                        <v-list-item-title class="text-h5 text-uppercase mb-1">
+                                                            {{ $store.state.user.name }}
                                                         </v-list-item-title>
-                                                        <v-list-item-subtitle
-                                                            >Greyhound divisely
+                                                        <v-list-item-subtitle>Greyhound divisely
                                                             hello coldly
-                                                            fonwderfully</v-list-item-subtitle
-                                                        >
+                                                            fonwderfully</v-list-item-subtitle>
                                                     </v-list-item-content>
                                                 </v-list-item>
                                             </v-card-text>
                                             <v-spacer></v-spacer>
-                                            <v-card-actions class="justify-end">
-                                                <v-btn
-                                                    text
-                                                    color="deep-purple accent-4"
-                                                    @click="addfavorito"
-                                                >
-                                                    REGISTRAR
-                                                </v-btn>
-                                                <!-- inicio de registro -->
-                                                <v-dialog
-                                                    persistent
-                                                    v-model="dialog"
-                                                    max-width="500px"
-                                                >
-                                                    <template
-                                                        v-slot:activator="{
-                                                            on,
-                                                            attrs,
-                                                        }"
-                                                    >
-                                                        <v-btn
-                                                            @click="
-                                                                update = false
-                                                            "
-                                                            color="purple"
-                                                            dark
-                                                            class="mb-2"
-                                                            v-bind="attrs"
-                                                            v-on="on"
-                                                        >
-                                                            Añadir producto
-                                                        </v-btn>
-                                                    </template>
-                                                    <v-card>
-                                                        <v-card-title>
-                                                            <span
-                                                                class="text-h5"
-                                                                >{{
-                                                                    formTitle
-                                                                }}</span
-                                                            >
-                                                        </v-card-title>
 
-                                                        <!-- FORMULARIO PRODUCTO -->
-                                                        <v-card-text>
-                                                            <v-container>
-                                                                <v-row>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                editedItem.nombre
-                                                                            "
-                                                                            label="Nombre producto"
-                                                                            :rules="
-                                                                                nombreRules
-                                                                            "
-                                                                            required
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            :rules="
-                                                                                marcaRules
-                                                                            "
-                                                                            v-model="
-                                                                                editedItem.marca
-                                                                            "
-                                                                            label="Marca"
-                                                                            required
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-select
-                                                                            :rules="
-                                                                                catRules
-                                                                            "
-                                                                            :items="
-                                                                                categorias
-                                                                            "
-                                                                            dense
-                                                                            outlined
-                                                                            v-model="
-                                                                                editedItem.categoria
-                                                                            "
-                                                                            label="Categoría"
-                                                                            required
-                                                                        ></v-select>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-select
-                                                                            :rules="
-                                                                                tiposRules
-                                                                            "
-                                                                            :items="
-                                                                                tipos
-                                                                            "
-                                                                            dense
-                                                                            outlined
-                                                                            v-model="
-                                                                                editedItem.tipo
-                                                                            "
-                                                                            label="Tipo"
-                                                                            required
-                                                                        ></v-select>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                    >
-                                                                        <v-textarea
-                                                                            :rules="
-                                                                                descripcionRules
-                                                                            "
-                                                                            outlined
-                                                                            v-model="
-                                                                                editedItem.descripcion
-                                                                            "
-                                                                            label="Descripción"
-                                                                            required
-                                                                        ></v-textarea>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            :rules="
-                                                                                precioRules
-                                                                            "
-                                                                            type="number"
-                                                                            min="0"
-                                                                            max="4000"
-                                                                            prefix="€"
-                                                                            v-model="
-                                                                                editedItem.precio
-                                                                            "
-                                                                            label="Precio"
-                                                                            required
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                editedItem.ean
-                                                                            "
-                                                                            label="EAN"
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                editedItem.web
-                                                                            "
-                                                                            label="Web"
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                        sm="8"
-                                                                    >
-                                                                        <v-color-picker
-                                                                            hide-canvas
-                                                                            hide-inputs
-                                                                            hide-mode-switch
-                                                                            hide-sliders
-                                                                            show-swatches
-                                                                            mode="hexa"
-                                                                            swatches-max-height="110"
-                                                                            v-model="
-                                                                                editedItem.tono
-                                                                            "
-                                                                            label="Tono"
-                                                                        ></v-color-picker>
-                                                                    </v-col>
-                                                                </v-row>
-                                                            </v-container>
-                                                        </v-card-text>
-
-                                                        <v-card-actions>
-                                                            <v-spacer></v-spacer>
-                                                            <v-btn
-                                                                color="red darken-1"
-                                                                text
-                                                                @click="close"
-                                                            >
-                                                                Cerrar
-                                                            </v-btn>
-                                                            <v-btn
-                                                                color="green"
-                                                                text
-                                                                @click="save"
-                                                            >
-                                                                Guardar
-                                                            </v-btn>
-                                                        </v-card-actions>
-                                                    </v-card>
-                                                </v-dialog>
-                                                <!-- fin de registro -->
-                                                <v-tooltip bottom>
-                                                    <template
-                                                        v-slot:activator="{
-                                                            on,
-                                                            attrs,
-                                                        }"
-                                                    >
-                                                        <v-btn
-                                                            icon
-                                                            v-bind="attrs"
-                                                            v-on="on"
-                                                            @click="addfavorito"
-                                                        >
-                                                            <v-icon
-                                                                >mdi-heart</v-icon
-                                                            >
-                                                        </v-btn>
-                                                    </template>
-                                                    <span
-                                                        >Añadir a
-                                                        favoritos</span
-                                                    >
-                                                </v-tooltip>
-                                            </v-card-actions>
                                         </v-card>
                                     </v-col>
                                 </v-row>
@@ -295,114 +39,88 @@
                         </v-card>
                         <div class="al-fondo overflow-visible">
                             <v-card class="margen-top-raitings">
-                                <v-row
-                                    no-gutters
-                                    justify="center"
-                                    class="alto align-end"
-                                    align-content="end"
-                                >
+                                <v-row no-gutters justify="center" class="alto align-end" align-content="end">
                                     <v-col cols="10" sm="9">
-                                        <v-simple-table>
-                                            <template v-slot:default>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-left">
-                                                            Nº REGISTROS
-                                                        </th>
-                                                        <th class="text-left">
-                                                            PROMEDIO
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>255</td>
-                                                        <td class=" ">
-                                                            <v-row
-                                                                class="flex-wrap justify-space-between"
-                                                            >
-                                                                <v-col cols="6">
-                                                                    <v-rating
-                                                                        :value="
-                                                                            4.5
-                                                                        "
-                                                                        color="amber"
-                                                                        class="p-0"
-                                                                        half-increments
-                                                                        readonly
-                                                                        size="18"
-                                                                        >4.5</v-rating
-                                                                    >
-                                                                </v-col>
-                                                                <v-col
-                                                                    cols="2"
-                                                                    class="centradito verticalalign"
-                                                                >
-                                                                    <span
-                                                                        align-self
-                                                                        >2</span
-                                                                    >
-                                                                </v-col>
-                                                            </v-row>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </template>
-                                        </v-simple-table>
+                                        <v-row>
+                                            <v-card class="mt-4 mx-auto" max-width="1400">
+                                                <v-sheet class="v-sheet--offset pa-7 mx-auto" color="white"
+                                                    elevation="12" max-width="calc(100% - 32px)">
+                                                    <v-sparkline :gradient="['#00c6ff', '#F0F', '#FF0']" line-width="2"
+                                                        padding="2" smooth="5" auto-draw :labels="labels"
+                                                        :value="value"></v-sparkline>
+                                                </v-sheet>
+
+                                                <v-card-text class="pt-0">
+                                                    <div class="text-h6 font-weight-light mb-2">
+                                                        User Registrations
+                                                    </div>
+                                                    <div class="subheading font-weight-light grey--text">
+                                                        Last Campaign Performance
+                                                    </div>
+                                                    <v-divider class="my-2"></v-divider>
+                                                    <v-icon class="mr-2" small>
+                                                        mdi-clock
+                                                    </v-icon>
+                                                    <span class="text-caption grey--text font-weight-light">last
+                                                        registration 26 minutes ago</span>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-row>
                                     </v-col>
                                 </v-row>
                             </v-card>
                         </div>
-                        <v-card class="mt-6">
-                            <v-card-title>INFO</v-card-title>
-                            <v-card-text>
-                                <p class="text-justify">
-                                    {{ item.descripcion }}
-                                </p>
-                            </v-card-text>
-                            <v-divider class="mx-4"></v-divider>
-                            <v-card-text>
-                                <v-row
-                                    class="detalles justify-center text-center pr-8 pl-8 mx-0"
-                                >
-                                    <v-col col="6" sm="3">
-                                        <span class="overline label"
-                                            >MARCA</span
-                                        >
-                                        <p>{{ item.marca }}</p>
-                                    </v-col>
-                                    <v-col col="6" sm="3">
-                                        <span class="overline label">
-                                            TIPO</span
-                                        >
-                                        <p>{{ item.tipo }}</p>
-                                    </v-col>
-                                    <v-col col="6" sm="3">
-                                        <span class="overline label"
-                                            >CATEGORIA</span
-                                        >
-                                        <p>{{ item.categoria }}</p>
-                                    </v-col>
-                                    <v-col col="6" sm="3">
-                                        <v-tooltip bottom>
-                                            <template
-                                                v-slot:activator="{ on, attrs }"
-                                            >
-                                                <span class="overline label">
-                                                    PRECIO
-                                                    <span
-                                                        v-bind="attrs"
-                                                        v-on="on"
-                                                    >
-                                                        (?)
-                                                    </span>
-                                                </span>
-                                                <p>{{ item.precio }}</p>
-                                            </template>
-                                        </v-tooltip>
-                                    </v-col>
-                                </v-row>
-                            </v-card-text>
+
+
+                        <v-card class="mt-14 width-95">
+                            <!-- <div class="mx-3 mt-n10 actividad-borde mb-8">
+                                <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white bg-account-pages">
+                                    LISTAS DE PRODUCTOS</v-card-title>
+                            </div> -->
+                            <v-row>
+                                <v-card class="width-100 px-0">
+
+                                        <v-row  class="bg-account-pages">
+                                            <v-col cols="4">
+                                                 <v-card-title class="mx-3 pt-3 pb-3 actividad-borde text-white">
+                                    LISTAS DE PRODUCTOS</v-card-title>
+                                            </v-col>
+
+                                            <v-col cols="8"  class="align-items-end">
+                                                 <v-tabs  background-color="transparent" class=" w-100" centered dark
+                                        icons-and-text>
+                                                 <v-tabs-slider></v-tabs-slider>
+                                             <v-tab  to="/perfil/lista-registro">
+                                            Registros
+                                            <v-icon>mdi-magnify</v-icon>
+                                        </v-tab>
+
+                                        <v-tab  to="/perfil/lista-favorito">
+                                            Favoritos
+                                            <v-icon>mdi-heart</v-icon>
+                                        </v-tab>
+ </v-tabs>
+                                            </v-col>
+
+
+
+
+                                        </v-row>
+
+
+
+
+
+
+                                            <v-card flat>
+                                                <router-view></router-view>
+                                            </v-card>
+
+                                </v-card>
+                            </v-row>
+
+
+
                         </v-card>
                     </v-sheet>
                 </v-col>
@@ -413,22 +131,63 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-const ENDPOINT_PATH = "http://127.0.0.1:8000/api/";
+
 export default {
     data() {
         return {
-            item: [],
             logueado: false,
+            dialog: false,
+            dialogDelete: false,
+            raitings: [],
+            value: [0, 2, 5, 9, 5, 10, 3, 5, 2, 1, 0],
+            labels: [
+                '0',
+                '0.50',
+                '1.00',
+                '1.50',
+                '2.00',
+                '2.50',
+                '3.00',
+                '3.50',
+                '4.00',
+                '4.50',
+                '5'
+            ],
+
         };
     },
-    watch: {},
+    watch: {
+        dialog(val) {
+            val || this.close();
+        },
+    },
     computed: {},
     methods: {
+
+        async obteneractividad() {
+            let id_producto = this.$route.params.id;
+            const respuesta = await axios
+                .get("/api/lista-registros-usuario")
+                .then((response) => {
+                    this.actividades = response.data.data;
+                    console.log(this.actividades);
+                })
+                .catch((error) => { });
+        },
+
+        close() {
+            this.dialog = false;
+            this.id = 0;
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            });
+        },
         addfavorito() {
             try {
                 let fav = [{ producto_id: this.item.id }, { user_id: 11 }];
                 axios
-                    .post(ENDPOINT_PATH + "add-favorito", fav)
+                    .post(+ "/api/add-favorito", fav)
                     .then((response) => {
                         console.log(response);
                         if (response.status != 200) {
@@ -491,10 +250,38 @@ export default {
                 });
             }
         },
+        round(num) {
+            var m = Number((Math.abs(num) * 100).toPrecision(15));
+            return (Math.round(m) / 100) * Math.sign(num);
+        },
+        async listaCalificaciones() {
+
+            const respuesta = await axios
+                .get("/api/lista-calificaciones-usuario")
+                .then((response) => {
+                    console.log(response.data.data);
+                    if (response.data.status == 1) {
+                        this.raitings = response.data.data;
+                        //let redondeo = this.round(this.calificacion.promedio);
+                        console.log(this.raitings);
+                        //this.calificacion.promedio = redondeo;
+
+                        //console.log(this.calificacion);
+                    } else if (response.data.status == 0) {
+                        this.calificacion = response.data.data;
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                        });
+                    }
+                });
+        },
         async listProducto() {
             let id_producto = this.$route.params.id;
             const respuesta = await axios
-                .get(ENDPOINT_PATH + "producto/" + id_producto)
+                .get("/api/producto/" + id_producto)
                 .then((response) => {
                     this.item = response.data;
                     //  (this.item).forEach((element) => {
@@ -506,34 +293,53 @@ export default {
         },
     },
     created() {
-        this.listProducto();
+        this.listaCalificaciones();
+
+
         //comprobar si l usuario ha inicado sesion
     },
 };
 </script>
 <style scoped>
+.v-sheet--offset {
+    top: -24px;
+    position: relative;
+}
+
+.actividad-bg {
+    background-color: #683ab71e;
+}
+
+.actividad-borde {
+    border-radius: 5px;
+}
+
 .verticalalign {
     vertical-align: baseline;
 }
+
 .detalles {
     align-items: center;
     display: flex;
     width: 100%;
-    margin-bottom: 16px;
-    border-top: 1px solid #e9e9e9;
-    border-bottom: 1px solid #e9e9e9;
+
+    /* border-top: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9; */
 }
+
 .alto {
     height: 100%;
 }
+
 .al-fondo {
     z-index: 0;
 }
+
 .margen-top-raitings {
     padding-top: 80px;
 }
+
 .centradito {
     vertical-align: inherit;
 }
 </style>
-
